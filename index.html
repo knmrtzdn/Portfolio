@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORMA Studio — Mimari Görselleştirme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #f5f0e8;
+  --bg2:     #ede7d9;
+  --surface: #ede7d9;
+  --border:  #d8cfc0;
+  --border2: #c9bfae;
+  --accent:  #8b6f47;
+  --accent2: #5c4a30;
+  --text:    #2a2018;
+  --muted:   #8a7a68;
+  --light:   #f9f6f0;
+  --dark:    #1a150e;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  height: 100vh; width: 100vw;
+  overflow: hidden;
+}
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ════ NAV ════ */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 20px 52px;
+  background: rgba(245,240,232,0.93);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem; font-weight:500;
+  letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--accent2); cursor:pointer;
+}
+.logo span { font-weight:300; color:var(--muted); }
+.nav-links { display:flex; gap:4px; list-style:none; }
+.nav-links a {
+  font-size:0.67rem; font-weight:400;
+  letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--muted); text-decoration:none;
+  padding:7px 16px; border-radius:2px;
+  border:1px solid transparent;
+  transition:all 0.22s; cursor:pointer; display:block;
+}
+.nav-links a:hover { color:var(--text); border-color:var(--border); }
+.nav-links a.active { color:var(--accent2); border-color:var(--accent); background:rgba(139,111,71,0.07); }
+.mp-toggle {
+  display:flex; align-items:center; gap:9px;
+  background:transparent; border:1px solid var(--border2);
+  color:var(--muted); font-family:'Jost',sans-serif;
+  font-size:0.65rem; font-weight:400; letter-spacing:0.18em; text-transform:uppercase;
+  padding:8px 20px; border-radius:2px; cursor:pointer; transition:all 0.22s;
+}
+.mp-toggle:hover { border-color:var(--accent); color:var(--accent); }
+.mp-toggle.active { background:var(--accent2); color:var(--light); border-color:var(--accent2); }
+.mp-dot { width:6px; height:6px; border-radius:50%; background:currentColor; animation:blink 2.5s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 55%{opacity:0.15} }
+
+/* ════ PAGES ════ */
+.page {
+  position:absolute; inset:0; padding-top:68px;
+  opacity:0; pointer-events:none;
+  transition:opacity 0.38s ease;
+  overflow-y:auto; overflow-x:hidden;
+}
+.page.active { opacity:1; pointer-events:all; }
+
+/* ══════════════════════════
+   HOME
+══════════════════════════ */
+#page-home { padding-top:68px; }
+.hero-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  height:calc(100vh - 68px);
+}
+.hero-left {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:52px 52px 52px 72px;
+  border-right:1px solid var(--border);
+  overflow-y:auto;
+}
+.eyebrow {
+  font-size:0.6rem; letter-spacing:0.28em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:24px;
+  display:flex; align-items:center; gap:12px;
+}
+.eyebrow::after { content:''; flex:1; height:1px; background:var(--border2); }
+.hero-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.6rem,4.2vw,4.8rem);
+  font-weight:300; line-height:1.1;
+  letter-spacing:-0.01em; margin-bottom:24px;
+}
+.hero-title em { font-style:italic; color:var(--accent); }
+.hero-desc { color:var(--muted); font-size:0.83rem; line-height:1.95; max-width:400px; margin-bottom:44px; }
+
+.howto-block {
+  background:rgba(139,111,71,0.05); border:1px solid var(--border);
+  padding:22px 26px; margin-bottom:32px;
+}
+.howto-head {
+  font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:16px; display:flex; align-items:center; gap:8px;
+}
+.howto-steps { display:flex; flex-direction:column; gap:9px; }
+.howto-step { display:flex; align-items:flex-start; gap:11px; font-size:0.77rem; color:var(--muted); line-height:1.6; }
+.sn {
+  width:20px; height:20px; flex-shrink:0; border:1px solid var(--accent);
+  border-radius:50%; color:var(--accent); font-size:0.6rem; font-weight:500;
+  display:flex; align-items:center; justify-content:center; margin-top:2px;
+}
+.howto-step strong { color:var(--text); font-weight:400; }
+.gchips { display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
+.gchip {
+  border:1px solid var(--border); background:var(--light);
+  font-size:0.66rem; padding:5px 12px; color:var(--muted);
+  display:flex; align-items:center; gap:6px;
+}
+.cta-row { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-filled {
+  background:var(--accent2); color:var(--light); border:1px solid var(--accent2);
+  font-family:'Jost',sans-serif; font-size:0.65rem; font-weight:400;
+  letter-spacing:0.2em; text-transform:uppercase;
+  padding:13px 30px; cursor:pointer; transition:all 0.22s;
+}
+.btn-filled:hover { background:var(--accent); border-color:var(--accent); }
+.btn-outline {
+  background:transparent; color:var(--text); border:1px solid var(--border2);
+  font-family:'Jost',sans-serif; font-size:0.65rem; font-weight:400;
+  letter-spacing:0.2em; text-transform:uppercase;
+  padding:13px 30px; cursor:pointer; transition:all 0.22s;
+}
+.btn-outline:hover { border-color:var(--accent); color:var(--accent); }
+
+.hero-right { position:relative; overflow:hidden; }
+.hero-right img {
+  width:100%; height:100%; object-fit:cover;
+  filter:brightness(0.88) saturate(0.82);
+  transition:transform 9s ease;
+}
+.hero-right:hover img { transform:scale(1.04); }
+.hero-caption {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:44px 36px 28px;
+  background:linear-gradient(to top,rgba(26,21,14,0.72),transparent);
+}
+.hero-caption-tag { font-size:0.58rem; letter-spacing:0.25em; text-transform:uppercase; color:rgba(245,240,232,0.55); margin-bottom:5px; }
+.hero-caption-title { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:300; color:#f5f0e8; }
+
+/* ══════════════════════════
+   PROJECTS — FILM STRIP
+══════════════════════════ */
+#page-projects { padding-top:68px; display:flex; flex-direction:column; height:100vh; }
+.proj-top {
+  display:flex; align-items:flex-end; justify-content:space-between;
+  padding:32px 72px 24px; border-bottom:1px solid var(--border); flex-shrink:0;
+}
+.sec-label { font-size:0.58rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:7px; }
+.sec-title { font-family:'Cormorant Garamond',serif; font-size:clamp(1.5rem,2.8vw,2.4rem); font-weight:300; }
+.slide-counter { font-family:'Cormorant Garamond',serif; font-size:2.4rem; font-weight:300; color:var(--border2); line-height:1; }
+.slide-counter span { color:var(--accent); }
+
+.film-outer {
+  flex:1; overflow:hidden; position:relative;
+  cursor:grab; user-select:none;
+}
+.film-outer:active { cursor:grabbing; }
+
+.filmstrip {
+  display:flex; height:100%;
+  transition:margin-left 0.6s cubic-bezier(0.23,1,0.32,1);
+}
+.filmstrip.snap { transition:none !important; }
+
+.fslide {
+  flex-shrink:0;
+  display:flex; flex-direction:column;
+  overflow:hidden;
+  border-right:1px solid var(--border);
+  width:16vw;
+  transition:width 0.6s cubic-bezier(0.23,1,0.32,1);
+  cursor:pointer;
+}
+.fslide.on { width:54vw; cursor:default; }
+
+.fslide-img { flex:1; overflow:hidden; }
+.fslide-img img {
+  width:100%; height:100%; object-fit:cover;
+  filter:brightness(0.8) saturate(0.7);
+  transition:filter 0.45s, transform 0.7s ease;
+}
+.fslide.on .fslide-img img { filter:brightness(0.9) saturate(0.92); }
+.fslide:not(.on):hover .fslide-img img { filter:brightness(0.87) saturate(0.82); transform:scale(1.03); }
+
+.fslide-info {
+  flex-shrink:0; padding:18px 22px 16px;
+  background:var(--bg); border-top:1px solid var(--border);
+  height:96px; overflow:hidden;
+  transition:height 0.6s cubic-bezier(0.23,1,0.32,1);
+}
+.fslide.on .fslide-info { height:116px; }
+
+.ftag { font-size:0.56rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); margin-bottom:4px; }
+.ftitle {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem; font-weight:400; color:var(--text);
+  margin-bottom:5px; line-height:1.25;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.fslide.on .ftitle { font-size:1.3rem; white-space:normal; }
+.fdesc { font-size:0.7rem; color:var(--muted); line-height:1.6; display:none; }
+.fslide.on .fdesc { display:block; }
+
+.film-nav {
+  display:flex; align-items:center; justify-content:center;
+  gap:18px; padding:14px; border-top:1px solid var(--border);
+  background:var(--bg); flex-shrink:0;
+}
+.farr {
+  width:32px; height:32px; border:1px solid var(--border2);
+  background:transparent; color:var(--muted);
+  border-radius:50%; cursor:pointer; font-size:0.85rem;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s;
+}
+.farr:hover { border-color:var(--accent); color:var(--accent); }
+.fdots { display:flex; gap:7px; }
+.fdot {
+  width:5px; height:5px; border-radius:50%;
+  background:var(--border2); cursor:pointer; transition:all 0.3s;
+}
+.fdot.on { background:var(--accent); width:22px; border-radius:3px; }
+
+/* ══════════════════════════
+   SERVICES
+══════════════════════════ */
+#page-services { padding-top:68px; overflow-y:auto; }
+.srv-wrap { padding:48px 72px 60px; }
+.srv-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:1px; background:var(--border);
+  border:1px solid var(--border); margin-top:36px;
+}
+.srv-card { background:var(--bg); padding:38px 42px; transition:background 0.22s; }
+.srv-card:hover { background:var(--light); }
+.srv-num { font-family:'Cormorant Garamond',serif; font-size:3.2rem; font-weight:300; color:var(--border2); line-height:1; margin-bottom:18px; }
+.srv-title { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:400; margin-bottom:11px; }
+.srv-desc { font-size:0.79rem; color:var(--muted); line-height:1.88; }
+.srv-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:18px; }
+.srv-tag { font-size:0.58rem; letter-spacing:0.14em; text-transform:uppercase; border:1px solid var(--border); color:var(--muted); padding:4px 10px; }
+
+/* ══════════════════════════
+   ABOUT
+══════════════════════════ */
+#page-about { padding-top:68px; }
+.about-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  height:calc(100vh - 68px);
+}
+.about-left {
+  overflow-y:auto; padding:52px 56px 52px 72px;
+  border-right:1px solid var(--border);
+}
+.about-right { position:relative; overflow:hidden; }
+.about-right img { width:100%; height:100%; object-fit:cover; filter:brightness(0.82) saturate(0.78); }
+
+.studio-name { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,3.2vw,3rem); font-weight:300; line-height:1.2; margin-bottom:5px; }
+.studio-sub { font-size:0.64rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent); margin-bottom:32px; }
+.about-bio { color:var(--muted); font-size:0.83rem; line-height:1.95; margin-bottom:32px; }
+.about-bio strong { color:var(--text); font-weight:400; }
+.divider { width:44px; height:1px; background:var(--accent); margin:28px 0; opacity:0.45; }
+.svc-mini-title { font-size:0.58rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.svc-line {
+  display:flex; align-items:center; gap:11px;
+  padding:10px 0; border-bottom:1px solid var(--border);
+  font-size:0.79rem; color:var(--muted);
+}
+.svc-line::before { content:'—'; color:var(--border2); font-size:0.68rem; }
+.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:32px; }
+.stat-box { border:1px solid var(--border); padding:18px 14px; text-align:center; background:rgba(139,111,71,0.04); }
+.stat-n { font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:300; color:var(--accent2); line-height:1; }
+.stat-l { font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-top:5px; }
+
+/* ══════════════════════════
+   CONTACT
+══════════════════════════ */
+#page-contact { padding-top:68px; display:grid; grid-template-columns:1fr 1fr; height:100vh; }
+.contact-left { padding:52px 56px 52px 72px; border-right:1px solid var(--border); overflow-y:auto; }
+.contact-right { position:relative; overflow:hidden; }
+.contact-right img { width:100%; height:100%; object-fit:cover; filter:brightness(0.76) saturate(0.68); }
+.contact-title { font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3vw,3rem); font-weight:300; line-height:1.2; margin-bottom:6px; }
+.contact-sub { font-size:0.78rem; color:var(--muted); line-height:1.9; margin-bottom:40px; }
+.c-items { display:flex; flex-direction:column; gap:0; }
+.c-item {
+  display:flex; align-items:center; gap:16px;
+  padding:18px 0; border-bottom:1px solid var(--border);
+  text-decoration:none; color:inherit; transition:all 0.2s;
+}
+.c-item:hover .c-name { color:var(--accent); }
+.c-item:hover .c-arr { transform:translateX(5px); color:var(--accent); }
+.c-icon { width:38px; height:38px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:0.95rem; flex-shrink:0; transition:border-color 0.2s; }
+.c-item:hover .c-icon { border-color:var(--accent); }
+.c-name { font-size:0.8rem; font-weight:400; letter-spacing:0.04em; transition:color 0.2s; }
+.c-val { font-size:0.69rem; color:var(--muted); margin-top:2px; }
+.c-arr { margin-left:auto; color:var(--border2); font-size:0.88rem; transition:all 0.2s; }
+
+/* ══════════════════════════
+   MEDIAPIPE OVERLAY
+══════════════════════════ */
+#mp-overlay {
+  position:fixed; inset:0; z-index:300;
+  display:none; align-items:center; justify-content:center; flex-direction:column;
+  background:rgba(26,21,14,0.95); backdrop-filter:blur(22px);
+}
+#mp-overlay.show { display:flex; }
+.mp-panel {
+  background:var(--bg); border:1px solid var(--border2);
+  padding:32px 36px; width:520px; max-width:94vw; position:relative;
+}
+.mp-panel-title { font-family:'Cormorant Garamond',serif; font-size:1.45rem; font-weight:400; color:var(--accent2); margin-bottom:3px; }
+.mp-panel-sub { font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:22px; }
+.vframe { position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:var(--dark); border:1px solid var(--border); }
+#mp-video { width:100%; height:100%; object-fit:cover; transform:scaleX(-1); display:block; }
+#mp-canvas { position:absolute; inset:0; width:100%; height:100%; transform:scaleX(-1); pointer-events:none; }
+.mp-status-row { display:flex; align-items:center; gap:10px; margin-top:14px; }
+#mp-status { font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
+#mp-gesture { margin-left:auto; font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--accent); }
+.mp-tips { display:flex; flex-wrap:wrap; gap:7px; margin-top:16px; }
+.mp-tip { border:1px solid var(--border); font-size:0.66rem; color:var(--muted); padding:6px 13px; display:flex; align-items:center; gap:7px; }
+.mp-x {
+  position:absolute; top:14px; right:14px;
+  width:28px; height:28px; border:1px solid var(--border2);
+  background:transparent; color:var(--muted); font-size:0.82rem;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s;
+}
+.mp-x:hover { border-color:#c0392b; color:#c0392b; }
+
+/* ════ HAND CURSOR ════ */
+#hand-cursor {
+  position:fixed; z-index:999; pointer-events:none;
+  transform:translate(-50%,-50%); display:none;
+  filter:drop-shadow(0 0 10px rgba(139,111,71,0.85));
+  font-size:2.2rem;
+}
+#hand-cursor.show { display:block; }
+
+/* ════ GESTURE FLASH ════ */
+#g-flash {
+  position:fixed; top:78px; left:50%; transform:translateX(-50%);
+  background:var(--accent2); color:var(--light);
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem; font-weight:400; letter-spacing:0.08em;
+  padding:10px 28px; z-index:500; pointer-events:none;
+  opacity:0; transition:opacity 0.15s;
+}
+#g-flash.show { opacity:1; }
+
+/* ════ RESPONSIVE ════ */
+@media(max-width:860px) {
+  nav { padding:16px 20px; }
+  .logo { font-size:1.05rem; }
+  .nav-links a { font-size:0.6rem; padding:6px 10px; }
+  .mp-toggle { padding:7px 12px; font-size:0.6rem; }
+  .hero-grid,.about-grid,#page-contact { grid-template-columns:1fr; }
+  .hero-right,.about-right,.contact-right { display:none; }
+  .hero-left,.about-left,.contact-left { padding:32px 24px; }
+  .proj-top,.srv-wrap { padding:24px; }
+  .srv-grid { grid-template-columns:1fr; }
+  .fslide { width:72vw; }
+  .fslide.on { width:90vw; }
+}
+</style>
+</head>
+<body>
+
+<div id="hand-cursor">✋</div>
+<div id="g-flash"></div>
+
+<!-- ════ NAV ════ -->
+<nav>
+  <div class="logo" onclick="showPage('home')">FORMA <span>Studio</span></div>
+  <ul class="nav-links">
+    <li><a id="nav-home"     onclick="showPage('home')"     class="active">Giriş</a></li>
+    <li><a id="nav-projects" onclick="showPage('projects')">Projeler</a></li>
+    <li><a id="nav-services" onclick="showPage('services')">Servisler</a></li>
+    <li><a id="nav-about"    onclick="showPage('about')">Studio</a></li>
+    <li><a id="nav-contact"  onclick="showPage('contact')">İletişim</a></li>
+  </ul>
+  <button class="mp-toggle" id="mp-btn" onclick="toggleMP()">
+    <div class="mp-dot"></div>
+    <span id="mp-label">El Kontrolü</span>
+  </button>
+</nav>
+
+<!-- ══════════════
+     HOME
+══════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="eyebrow">Mimari Görselleştirme Stüdyosu</div>
+      <h1 class="hero-title">Mekânı<br><em>Görünür</em><br>Kılıyoruz</h1>
+      <p class="hero-desc">Tasarımın gücünü fotogerçekçi renderlar, animasyonlar ve immersive 3D sunumlarla müşterilerinize aktarıyoruz. Yapı henüz var olmadan önce hissettiriyoruz.</p>
+
+      <div class="howto-block">
+        <div class="howto-head">✦ El Kontrolü Nasıl Çalışır</div>
+        <div class="howto-steps">
+          <div class="howto-step"><div class="sn">1</div><div><strong>El Kontrolü</strong> butonuna tıkla, kamera iznini ver.</div></div>
+          <div class="howto-step"><div class="sn">2</div><div><strong>Projeler</strong> sayfasına geç, elini kameraya göster.</div></div>
+          <div class="howto-step"><div class="sn">3</div><div>Elini <strong>sola/sağa</strong> süpürerek projeler arasında gezin.</div></div>
+        </div>
+        <div class="gchips">
+          <div class="gchip">👈 Sola → Sonraki</div>
+          <div class="gchip">👉 Sağa → Önceki</div>
+          <div class="gchip">✦ Chrome önerilir</div>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn-filled" onclick="toggleMP(); showPage('projects')">🖐 El Kontrolünü Aç</button>
+        <button class="btn-outline" onclick="showPage('projects')">Projeleri Gör</button>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85&auto=format&fit=crop" alt="Featured render">
+      <div class="hero-caption">
+        <div class="hero-caption-tag">Öne Çıkan Proje</div>
+        <div class="hero-caption-title">Bosphorus Residence — İstanbul, 2024</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════
+     PROJECTS
+══════════════ -->
+<div class="page" id="page-projects">
+  <div class="proj-top">
+    <div>
+      <div class="sec-label">// Seçilmiş Çalışmalar</div>
+      <div class="sec-title">Projeler</div>
+    </div>
+    <div class="slide-counter"><span id="cur-n">01</span> / 06</div>
+  </div>
+
+  <div class="film-outer" id="film-outer"
+    onmousedown="fd_start(event)" onmousemove="fd_move(event)"
+    onmouseup="fd_end(event)"     onmouseleave="fd_end(event)"
+    ontouchstart="ft_start(event)" ontouchmove="ft_move(event)" ontouchend="ft_end(event)">
+
+    <div class="filmstrip" id="filmstrip">
+
+      <div class="fslide on" onclick="focusSlide(0)">
+        <div class="fslide-img">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=82&auto=format&fit=crop" alt="Bosphorus Residence">
+        </div>
+        <div class="fslide-info">
+          <div class="ftag">Konut · İstanbul · 2024</div>
+          <div class="ftitle">Bosphorus Residence</div>
+          <div class="fdesc">Boğaz manzaralı villa. Fotogerçekçi iç–dış render, doğal ışık simülasyonu, malzeme detayları.</div>
+        </div>
+      </div>
+
+      <div class="fslide" onclick="focusSlide(1)">
+        <div class="fslide-img">
+          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=82&auto=format&fit=crop" alt="Skyline Tower">
+        </div>
+        <div class="fslide-info">
+          <div class="ftag">Ticari · Ankara · 2024</div>
+          <div class="ftitle">Skyline Office Tower</div>
+          <div class="fdesc">40 katlı karma kullanım. Gündüz–gece senaryoları, çevre modeli ve animasyon paketi.</div>
+        </div>
+      </div>
+
+      <div class="fslide" onclick="focusSlide(2)">
+        <div class="fslide-img">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=900&q=82&auto=format&fit=crop" alt="Aegean Loft">
+        </div>
+        <div class="fslide-info">
+          <div class="ftag">İç Mekân · İzmir · 2023</div>
+          <div class="ftitle">Aegean Loft</div>
+          <div class="fdesc">Açık plan yaşam konsepti. Malzeme ve mobilya seçimlerinin görselleştirme sürecinde sunumu.</div>
+        </div>
+      </div>
+
+      <div class="fslide" onclick="focusSlide(3)">
+        <div class="fslide-img">
+          <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=900&q=82&auto=format&fit=crop" alt="Terrace Villa">
+        </div>
+        <div class="fslide-info">
+          <div class="ftag">Konut · Bodrum · 2023</div>
+          <div class="ftitle">Terrace Villa</div>
+          <div class="fdesc">Ege mimarisini modern yorumla buluşturan villa. Peyzaj entegrasyonu, altın saat ışığı.</div>
+        </div>
+      </div>
+
+      <div class="fslide" onclick="focusSlide(4)">
+        <div class="fslide-img">
+          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=82&auto=format&fit=crop" alt="Cultural Arts Center">
+        </div>
+        <div class="fslide-info">
+          <div class="ftag">Kültür · İstanbul · 2023</div>
+          <div class="ftitle">Cultural Arts Center</div>
+          <div class="fdesc">Gece aydınlatma senaryoları ve çevre bağlamıyla 360° panoramik render.</div>
+        </div>
+      </div>
+
+      <div class="fslide" onclick="focusSlide(5)">
+        <div class="fslide-img">
+          <img src="https://images.unsplash.com/photo-1567496898669-ee935f5f647a?w=900&q=82&auto=format&fit=crop" alt="Minimal Suite">
+        </div>
+        <div class="fslide-info">
+          <div class="ftag">İç Mekân · Ankara · 2022</div>
+          <div class="ftitle">Minimal Suite</div>
+          <div class="fdesc">Yüksek son otel süiti. Malzeme kütüphanesi ve 10 farklı ışık senaryosu ile birlikte teslim.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="film-nav">
+    <button class="farr" onclick="fPrev()">←</button>
+    <div class="fdots" id="fdots">
+      <div class="fdot on" onclick="focusSlide(0)"></div>
+      <div class="fdot"    onclick="focusSlide(1)"></div>
+      <div class="fdot"    onclick="focusSlide(2)"></div>
+      <div class="fdot"    onclick="focusSlide(3)"></div>
+      <div class="fdot"    onclick="focusSlide(4)"></div>
+      <div class="fdot"    onclick="focusSlide(5)"></div>
+    </div>
+    <button class="farr" onclick="fNext()">→</button>
+  </div>
+</div>
+
+<!-- ══════════════
+     SERVICES
+══════════════ -->
+<div class="page" id="page-services">
+  <div class="srv-wrap">
+    <div class="sec-label">// Ne Yapıyoruz</div>
+    <div class="sec-title">Servislerimiz</div>
+    <div class="srv-grid">
+      <div class="srv-card">
+        <div class="srv-num">01</div>
+        <div class="srv-title">Fotogerçekçi Rendering</div>
+        <div class="srv-desc">Mimari projenizi inşaat öncesinde tam gerçekçilikte görün. İç ve dış mekân renderları, malzeme simülasyonu ve farklı ışık koşulları ile sunuyoruz.</div>
+        <div class="srv-tags"><span class="srv-tag">3ds Max</span><span class="srv-tag">V-Ray</span><span class="srv-tag">Corona</span><span class="srv-tag">Photoshop</span></div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">02</div>
+        <div class="srv-title">Mimari Animasyon</div>
+        <div class="srv-desc">Sinematik fly-through ve walk-through animasyonları. Drone perspektifi, gün–gece geçişleri ve malzeme dönüşümü senaryoları dahil.</div>
+        <div class="srv-tags"><span class="srv-tag">Cinema 4D</span><span class="srv-tag">Unreal Engine</span><span class="srv-tag">After Effects</span></div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">03</div>
+        <div class="srv-title">360° Sanal Tur</div>
+        <div class="srv-desc">Müşterilerinizin projeyi dijital ortamda gezebileceği interaktif sanal turlar. VR gözlük uyumlu teslim seçeneği mevcuttur.</div>
+        <div class="srv-tags"><span class="srv-tag">Unreal Engine 5</span><span class="srv-tag">WebGL</span><span class="srv-tag">VR Ready</span></div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">04</div>
+        <div class="srv-title">Konsept & Sunum</div>
+        <div class="srv-desc">Tasarım sürecinin erken aşamasından itibaren fikri görünür kılan konsept görseller ve müşteri sunumuna hazır portfolyo dosyaları.</div>
+        <div class="srv-tags"><span class="srv-tag">Rhino</span><span class="srv-tag">SketchUp</span><span class="srv-tag">Lumion</span><span class="srv-tag">Enscape</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════
+     ABOUT
+══════════════ -->
+<div class="page" id="page-about">
+  <div class="about-grid">
+    <div class="about-left">
+      <div class="studio-name">FORMA<br>Studio</div>
+      <div class="studio-sub">Mimari Görselleştirme Stüdyosu</div>
+      <p class="about-bio">
+        <strong>FORMA Studio</strong>, mimar ve tasarımcılara yönelik fotogerçekçi görselleştirme çözümleri sunan bir görsel iletişim stüdyosudur.<br><br>
+        Tasarımın anlatım gücüne inanıyoruz. Her proje, henüz inşa edilmemiş bir yapının en güçlü anını yakalama çabasıdır. <strong>Işık, malzeme ve mekân</strong> arasındaki ilişkiyi ustaca kurarak müşterilerinize gerçeği önceden yaşatıyoruz.<br><br>
+        2018'den bu yana konut, ticari, kültürel ve peyzaj projelerinde <strong>100'ü aşkın projeye</strong> imza attık.
+      </p>
+      <div class="divider"></div>
+      <div class="svc-mini-title">Uzmanlık Alanları</div>
+      <div class="svc-line">Fotogerçekçi İç &amp; Dış Mekân Renderı</div>
+      <div class="svc-line">Mimari Animasyon &amp; Fly-Through</div>
+      <div class="svc-line">360° Sanal Tur &amp; VR Deneyimi</div>
+      <div class="svc-line">Peyzaj &amp; Kentsel Ölçek Görselleştirme</div>
+      <div class="svc-line">Konsept Tasarım Görselleri</div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-n">100+</div><div class="stat-l">Proje</div></div>
+        <div class="stat-box"><div class="stat-n">6</div><div class="stat-l">Yıl</div></div>
+        <div class="stat-box"><div class="stat-n">24</div><div class="stat-l">Ülke</div></div>
+      </div>
+    </div>
+    <div class="about-right">
+      <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1000&q=85&auto=format&fit=crop" alt="Studio">
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════
+     CONTACT
+══════════════ -->
+<div class="page" id="page-contact">
+  <div class="contact-left">
+    <div class="sec-label">// İletişim</div>
+    <div class="contact-title">Projenizi<br>Konuşalım</div>
+    <p class="contact-sub">Yeni bir projeniz mi var? Teklif almak veya stüdyomuzu tanımak için aşağıdaki kanallardan bize ulaşabilirsiniz.</p>
+    <div class="c-items">
+      <a class="c-item" href="/cdn-cgi/l/email-protection#f59c9b939ab5939a879894868180919c9adb969a98">
+        <div class="c-icon">✉</div>
+        <div><div class="c-name">E-posta</div><div class="c-val"><span class="__cf_email__" data-cfemail="cba2a5ada48bada4b9a6aab8bfbeafa2a4e5a8a4a6">[email&#160;protected]</span></div></div>
+        <div class="c-arr">→</div>
+      </a>
+      <a class="c-item" href="tel:+902121234567">
+        <div class="c-icon">☎</div>
+        <div><div class="c-name">Telefon</div><div class="c-val">+90 212 123 45 67</div></div>
+        <div class="c-arr">→</div>
+      </a>
+      <a class="c-item" href="https://instagram.com" target="_blank">
+        <div class="c-icon">◈</div>
+        <div><div class="c-name">Instagram</div><div class="c-val">@formastudio</div></div>
+        <div class="c-arr">→</div>
+      </a>
+      <a class="c-item" href="https://behance.net" target="_blank">
+        <div class="c-icon" style="font-size:0.75rem;font-weight:500;">Be</div>
+        <div><div class="c-name">Behance</div><div class="c-val">behance.net/formastudio</div></div>
+        <div class="c-arr">→</div>
+      </a>
+      <a class="c-item" href="https://linkedin.com" target="_blank">
+        <div class="c-icon" style="font-size:0.75rem;font-weight:500;">in</div>
+        <div><div class="c-name">LinkedIn</div><div class="c-val">FORMA Studio</div></div>
+        <div class="c-arr">→</div>
+      </a>
+    </div>
+  </div>
+  <div class="contact-right">
+    <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=1000&q=85&auto=format&fit=crop" alt="Architecture">
+  </div>
+</div>
+
+<!-- ══════════════
+     MP OVERLAY
+══════════════ -->
+<div id="mp-overlay">
+  <div class="mp-panel">
+    <button class="mp-x" onclick="toggleMP()">✕</button>
+    <div class="mp-panel-title">El Kontrolü</div>
+    <div class="mp-panel-sub">Kameranızı kullanarak projeler arasında geçiş yapın</div>
+    <div class="vframe">
+      <video id="mp-video" autoplay playsinline muted></video>
+      <canvas id="mp-canvas"></canvas>
+    </div>
+    <div class="mp-status-row">
+      <div id="mp-status">Başlatılıyor...</div>
+      <div id="mp-gesture">—</div>
+    </div>
+    <div class="mp-tips">
+      <div class="mp-tip">👈 Sola süpür → Sonraki</div>
+      <div class="mp-tip">👉 Sağa süpür → Önceki</div>
+      <div class="mp-tip">✦ Projeler sayfasında aktif</div>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── PAGE NAV ── */
+let curPage = 'home';
+function showPage(n) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-'+n).classList.add('active');
+  document.getElementById('nav-'+n).classList.add('active');
+  curPage = n;
+}
+
+/* ── FILM STRIP ── */
+const TOTAL = 6;
+let focused = 0;
+
+function focusSlide(i) {
+  focused = i;
+  document.querySelectorAll('.fslide').forEach((s,j) => s.classList.toggle('on', j===i));
+  document.querySelectorAll('.fdot').forEach((d,j) => d.classList.toggle('on', j===i));
+  document.getElementById('cur-n').textContent = String(i+1).padStart(2,'0');
+  // scroll strip so focused slide is centered
+  requestAnimationFrame(() => {
+    const outer = document.getElementById('film-outer');
+    const strip = document.getElementById('filmstrip');
+    const slide = strip.children[i];
+    if (!slide) return;
+    const oW = outer.offsetWidth;
+    const sL = slide.offsetLeft;
+    const sW = slide.offsetWidth;
+    const target = sL - (oW - sW) / 2;
+    strip.style.marginLeft = -Math.max(0, Math.min(target, strip.scrollWidth - oW)) + 'px';
+  });
+}
+
+function fNext() { focusSlide((focused+1)%TOTAL); }
+function fPrev() { focusSlide((focused-1+TOTAL)%TOTAL); }
+
+let fdDrag=false, fdX0=0, fdXN=0;
+function fd_start(e) { fdDrag=true; fdX0=e.clientX; fdXN=fdX0; }
+function fd_move(e)  { if(fdDrag) fdXN=e.clientX; }
+function fd_end(e)   { if(!fdDrag) return; fdDrag=false; const d=fdXN-fdX0; if(d<-55) fNext(); else if(d>55) fPrev(); }
+let ftX=0;
+function ft_start(e) { ftX=e.touches[0].clientX; }
+function ft_move(e)  {}
+function ft_end(e)   { const d=e.changedTouches[0].clientX-ftX; if(d<-55) fNext(); else if(d>55) fPrev(); }
+
+/* ── FLASH ── */
+let fT;
+function flash(msg) {
+  const el=document.getElementById('g-flash');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(fT); fT=setTimeout(()=>el.classList.remove('show'),1400);
+}
+
+/* ── MEDIAPIPE ── */
+let mpOn=false, camStream=null, mpCam=null, lastX=null, gestAt=0;
+const CD=900;
+
+async function toggleMP() { mpOn ? stopMP() : await startMP(); }
+
+async function startMP() {
+  mpOn=true;
+  document.getElementById('mp-overlay').classList.add('show');
+  document.getElementById('mp-btn').classList.add('active');
+  document.getElementById('mp-label').textContent='Aktif';
+  document.getElementById('mp-status').textContent='Kamera açılıyor...';
+
+  try {
+    camStream = await navigator.mediaDevices.getUserMedia({
+      video:{ width:{ideal:640}, height:{ideal:480}, facingMode:'user' }
+    });
+    const vid = document.getElementById('mp-video');
+    vid.srcObject = camStream;
+    await vid.play();
+    document.getElementById('mp-status').textContent='✓ Kamera açık';
+
+    if (!window._mpReady) {
+      await loadJS('https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/hands.js');
+      await loadJS('https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.js');
+      await loadJS('https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3.1675466862/drawing_utils.js');
+      window._mpReady=true;
+    }
+
+    const canvas=document.getElementById('mp-canvas');
+    const ctx=canvas.getContext('2d');
+    canvas.width=480; canvas.height=360;
+
+    const hands=new Hands({ locateFile: f=>`https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/${f}` });
+    hands.setOptions({ maxNumHands:1, modelComplexity:1, minDetectionConfidence:0.72, minTrackingConfidence:0.5 });
+
+    hands.onResults(res => {
+      ctx.clearRect(0,0,480,360);
+      const cur=document.getElementById('hand-cursor');
+      if (res.multiHandLandmarks && res.multiHandLandmarks.length > 0) {
+        const lms=res.multiHandLandmarks[0];
+        drawConnectors(ctx, lms, HAND_CONNECTIONS, {color:'rgba(139,111,71,0.5)',lineWidth:2});
+        drawLandmarks(ctx, lms, {color:'#8b6f47',lineWidth:1,radius:4});
+        const w=lms[0];
+        cur.style.left=((1-w.x)*window.innerWidth)+'px';
+        cur.style.top=(w.y*window.innerHeight)+'px';
+        cur.classList.add('show');
+        const ix=lms[8].x, now=Date.now();
+        if (lastX!==null) {
+          const delta=ix-lastX;
+          if (Math.abs(delta)>0.044 && (now-gestAt)>CD) {
+            gestAt=now;
+            if (delta>0) {
+              document.getElementById('mp-gesture').textContent='← Önceki';
+              if(curPage==='projects') fPrev();
+              flash('← Önceki Proje');
+            } else {
+              document.getElementById('mp-gesture').textContent='→ Sonraki';
+              if(curPage==='projects') fNext();
+              flash('→ Sonraki Proje');
+            }
+          }
+        }
+        lastX=ix;
+        document.getElementById('mp-status').textContent='✓ El algılandı';
+      } else {
+        lastX=null; cur.classList.remove('show');
+        document.getElementById('mp-gesture').textContent='—';
+        document.getElementById('mp-status').textContent='◌ El bekleniyor...';
+      }
+    });
+
+    mpCam=new Camera(vid,{ onFrame:async()=>{ await hands.send({image:vid}); }, width:480, height:360 });
+    mpCam.start();
+  } catch(err) {
+    console.warn('Camera error:', err.name, err.message);
+    const st = document.getElementById('mp-status');
+    if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+      const isFile = location.protocol === 'file:';
+      if (isFile) {
+        st.innerHTML = '⚠️ Dosya file:// olarak açık — kamera çalışmaz.<br>Netlify / GitHub Pages\'e yükle veya bilgisayarda Python server çalıştır.';
+      } else {
+        st.textContent = '✕ Kamera izni reddedildi — tarayıcı ayarlarından izin ver.';
+      }
+    } else if (err.name === 'NotFoundError') {
+      st.textContent = '✕ Kamera bulunamadı.';
+    } else {
+      st.textContent = '✕ Hata: ' + err.message;
+    }
+    mpOn = false;
+    document.getElementById('mp-btn').classList.remove('active');
+    document.getElementById('mp-label').textContent = 'El Kontrolü';
+  }
+}
+
+function stopMP() {
+  mpOn=false;
+  document.getElementById('mp-overlay').classList.remove('show');
+  document.getElementById('mp-btn').classList.remove('active');
+  document.getElementById('mp-label').textContent='El Kontrolü';
+  document.getElementById('hand-cursor').classList.remove('show');
+  if(camStream){ camStream.getTracks().forEach(t=>t.stop()); camStream=null; }
+  if(mpCam){ try{mpCam.stop();}catch(e){} mpCam=null; }
+  lastX=null;
+}
+
+function loadJS(src) {
+  return new Promise((res,rej)=>{
+    if(documen
