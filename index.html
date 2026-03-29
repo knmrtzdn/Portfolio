@@ -65,66 +65,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .hbnum{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;line-height:1;color:var(--dark);}
 .hblbl{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-top:2px;}
 
-/* ══ PROJECTS — TAM EKRAN ══ */
+/* ══ PROJECTS — TAM EKRAN DRAG GALERİ ══ */
 #p-projects{background:var(--dark);overflow:hidden;}
-.gallery{position:absolute;inset:0;top:60px;}
+.gallery{position:absolute;inset:0;top:60px;overflow:hidden;}
 
-/* Slides */
-.slides{position:relative;width:100%;height:100%;}
-.slide{
-  position:absolute;inset:0;
-  opacity:0;transition:opacity .6s ease;
-  cursor:default;
+.gtrack-wrap{width:100%;height:100%;overflow:hidden;position:relative;}
+.gtrack{
+  display:flex;height:100%;
+  /* JS tarafından transform ile kontrol edilir */
+  will-change:transform;
+  /* transition sadece bırakınca snap için — JS açar/kapar */
 }
-.slide.active{opacity:1;z-index:1;}
-.slide img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(75%);}
+.gtrack.snapping{transition:transform .45s cubic-bezier(.25,.1,.25,1);}
 
-/* Slide overlay */
-.slide-info{
+.gslide{flex-shrink:0;width:100%;height:100%;position:relative;}
+.gslide img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(72%);}
+.ginfo{
   position:absolute;bottom:0;left:0;right:0;
-  background:linear-gradient(to top, rgba(20,13,8,.95) 0%, rgba(20,13,8,.4) 60%, transparent 100%);
-  padding:60px 72px 48px;
+  background:linear-gradient(to top,rgba(18,11,6,.96) 0%,rgba(18,11,6,.35) 65%,transparent 100%);
+  padding:56px 72px 44px;
   display:flex;align-items:flex-end;justify-content:space-between;
+  pointer-events:none;
 }
-.slide-text{}
-.slide-tag{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
-.slide-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.8rem);font-weight:300;line-height:1.05;color:#fff;margin-bottom:10px;}
-.slide-tags{display:flex;gap:7px;flex-wrap:wrap;}
-.slide-badge{background:rgba(200,169,110,.15);border:1px solid rgba(200,169,110,.3);color:var(--gold);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;}
+.gtag{font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.gtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.8rem);font-weight:300;line-height:1.05;color:#fff;margin-bottom:10px;}
+.gbadges{display:flex;gap:7px;flex-wrap:wrap;}
+.gbadge{background:rgba(200,169,110,.15);border:1px solid rgba(200,169,110,.3);color:var(--gold);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;}
+.gcounter{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(255,255,255,.12);line-height:1;text-align:right;flex-shrink:0;}
+.gcounter small{font-size:1rem;color:rgba(255,255,255,.25);}
 
-/* Slide counter */
-.slide-counter{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(255,255,255,.15);line-height:1;text-align:right;}
-.slide-counter span{font-size:1rem;color:rgba(255,255,255,.3);}
+.garr{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.3);backdrop-filter:blur(8px);color:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;}
+.garr:hover{border-color:var(--gold);color:var(--gold);}
+.garr.l{left:28px;}
+.garr.r{right:28px;}
 
-/* Nav arrows */
-.g-arr{
-  position:absolute;top:50%;transform:translateY(-50%);z-index:10;
-  width:52px;height:52px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.3);
-  backdrop-filter:blur(8px);color:#fff;font-size:1.1rem;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:all .25s;
-}
-.g-arr:hover{border-color:var(--gold);color:var(--gold);background:rgba(0,0,0,.5);}
-.g-arr.left{left:32px;}
-.g-arr.right{right:32px;}
-
-/* Dots */
-.g-dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;}
-.g-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25);transition:all .3s;cursor:pointer;}
-.g-dot.on{background:var(--gold);width:20px;border-radius:3px;}
-
-/* Gesture hint */
-.g-hint{
-  position:absolute;top:80px;left:50%;transform:translateX(-50%);
-  background:rgba(0,0,0,.5);backdrop-filter:blur(8px);
-  border:1px solid rgba(200,169,110,.2);
-  border-radius:20px;padding:7px 20px;
-  font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);
-  display:flex;align-items:center;gap:8px;z-index:10;
-  transition:opacity .5s;
-}
-.g-hint-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;}
+.gdots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:10;}
+.gdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.22);transition:all .3s;cursor:pointer;}
+.gdot.on{background:var(--gold);width:20px;border-radius:3px;}
 
 /* ══ SERVICES ══ */
 #p-services{background:#fdfaf5;}
@@ -190,35 +167,48 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 #mpover.on{display:flex;}
 .mp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
 .mphd{font-family:'Cormorant Garamond',serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
-.mpx{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.65rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0;}
+.mpx{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-size:.65rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0;}
 .mpx:hover{border-color:var(--gold);color:var(--gold);}
 .camframe{position:relative;width:100%;height:140px;border:1px solid rgba(200,169,110,.18);border-radius:4px;overflow:hidden;background:#000;}
 #mpvid{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:block;}
 #mpcvs{position:absolute;inset:0;width:100%;height:100%;transform:scaleX(-1);pointer-events:none;}
-
-/* fist indicator */
-.fist-row{display:flex;align-items:center;gap:8px;margin-top:7px;}
-.fist-icon{font-size:1.1rem;transition:transform .15s;}
-.fist-icon.active{transform:scale(1.3);}
-.fist-bar-wrap{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
-.fist-bar{height:100%;width:0%;background:var(--gold);border-radius:2px;transition:width .1s;}
-.mpst{margin-top:5px;font-size:.57rem;letter-spacing:.09em;text-transform:uppercase;color:var(--stone);text-align:center;line-height:1.5;}
+.mpst{margin-top:6px;font-size:.57rem;letter-spacing:.09em;text-transform:uppercase;color:var(--stone);text-align:center;line-height:1.5;}
 .mpge{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--gold);min-height:1.2em;text-align:center;margin-top:2px;}
+
+/* El imleci */
+#hcursor{
+  position:fixed;z-index:99999;pointer-events:none;
+  width:36px;height:36px;border-radius:50%;
+  transform:translate(-50%,-50%);
+  display:none;
+  transition:width .1s, height .1s, background .1s;
+}
+#hcursor.show{display:block;}
+#hcursor.open{
+  background:rgba(200,169,110,.25);
+  border:2px solid rgba(200,169,110,.8);
+  box-shadow:0 0 16px rgba(200,169,110,.4);
+}
+#hcursor.closed{
+  width:24px;height:24px;
+  background:rgba(200,169,110,.7);
+  border:2px solid var(--gold);
+  box-shadow:0 0 20px rgba(200,169,110,.7);
+}
 
 /* flash */
 #gflash{position:fixed;top:72px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark);font-family:'Cormorant Garamond',serif;font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 24px;border-radius:2px;z-index:99998;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap;}
 #gflash.on{opacity:1;}
 
-/* responsive */
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;}
   .hright{height:240px;}
   .mimg:first-child{grid-row:1;}
   .hleft{padding:32px 22px;}
   .howsteps{grid-template-columns:1fr;}
-  .slide-info{padding:40px 28px 56px;}
-  .slide-title{font-size:1.8rem;}
-  .g-arr{width:40px;height:40px;}
+  .ginfo{padding:32px 24px 52px;}
+  .gtitle{font-size:1.8rem;}
+  .garr{width:40px;height:40px;}
   .svcs{grid-template-columns:1fr;}
   .abgrid,.ctgrid{grid-template-columns:1fr;gap:32px;}
   .secwrap,.abwrap,.ctwrap{padding:44px 20px;}
@@ -231,6 +221,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 </head>
 <body>
 
+<div id="hcursor"></div>
 <div id="gflash"></div>
 
 <nav>
@@ -254,19 +245,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
     <div class="hleft">
       <div class="eyebrow">Mimari Görselleştirme Stüdyosu</div>
       <h1 class="htitle">Mekânı<br><i>Hissettiren</i><br>Görüntüler</h1>
-      <p class="hsub">Mimari projeleri fotogerçekçi render ve atmosferik görselleştirmelerle hayata taşıyorum. Kamerandan yumruk hareketi ile projeler arasında geçiş yapılabilir.</p>
+      <p class="hsub">Mimari projeleri fotogerçekçi render ve atmosferik görselleştirmelerle hayata taşıyorum. Kamerandan el hareketleri ile projeler arasında geçiş yapılabilir.</p>
       <div class="howcard">
         <div class="howtitle">El Kontrolü — Nasıl Kullanılır?</div>
         <div class="howsteps">
-          <div class="hstep"><div class="hnum">1</div><div class="htxt"><strong>El Kontrolü'ne bas</strong><br>Sağ altta kamera açılır.</div></div>
-          <div class="hstep"><div class="hnum">2</div><div class="htxt"><strong>Projeler'e geç</strong><br>Tam ekran galeri açılır.</div></div>
-          <div class="hstep"><div class="hnum">3</div><div class="htxt"><strong>Yumruk yap</strong><br>Elini yum, kamera algılar.</div></div>
-          <div class="hstep"><div class="hnum">4</div><div class="htxt"><strong>Sağa veya sola sürükle</strong><br>Yumruklu elle kaydır.</div></div>
+          <div class="hstep"><div class="hnum">1</div><div class="htxt"><strong>El Kontrolü'ne bas</strong><br>Sağ altta kamera widget'ı açılır.</div></div>
+          <div class="hstep"><div class="hnum">2</div><div class="htxt"><strong>Projeler sayfasına geç</strong><br>Tam ekran galeri açılır.</div></div>
+          <div class="hstep"><div class="hnum">3</div><div class="htxt"><strong>Açık el = serbest</strong><br>İmleç altın halka olarak görünür.</div></div>
+          <div class="hstep"><div class="hnum">4</div><div class="htxt"><strong>Yumruk = tıklı basılı</strong><br>Sürükle → resim kayar, bırak → snap.</div></div>
         </div>
         <div class="chips">
-          <div class="chip">✊ Yumruk yap</div>
-          <div class="chip">→ Sağa sürükle = Sonraki</div>
-          <div class="chip">← Sola sürükle = Önceki</div>
+          <div class="chip">🖐 Açık el = serbest</div>
+          <div class="chip">✊ Yumruk = basılı tut</div>
+          <div class="chip">↔ Sürükle = resmi kaydır</div>
         </div>
       </div>
       <div class="hcta">
@@ -285,113 +276,60 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
   </div>
 </div>
 
-<!-- PROJECTS — TAM EKRAN -->
+<!-- PROJECTS -->
 <div class="page" id="p-projects" style="background:var(--dark);overflow:hidden;">
   <div class="gallery">
-    <div class="slides" id="slides">
+    <div class="gtrack-wrap" id="gtrack-wrap">
+      <div class="gtrack" id="gtrack">
 
-      <div class="slide active">
-        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=90" alt="">
-        <div class="slide-info">
-          <div class="slide-text">
-            <div class="slide-tag">Proje 01 — Konut · 2024</div>
-            <div class="slide-title">Bosphorus Villa<br>İç Mekan Render</div>
-            <div class="slide-tags"><span class="slide-badge">3ds Max</span><span class="slide-badge">Corona</span><span class="slide-badge">İç Mekan</span></div>
-          </div>
-          <div class="slide-counter">01<br><span>/ 07</span></div>
+        <div class="gslide">
+          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=90" alt="">
+          <div class="ginfo"><div><div class="gtag">Proje 01 — Konut · 2024</div><div class="gtitle">Bosphorus Villa<br>İç Mekan Render</div><div class="gbadges"><span class="gbadge">3ds Max</span><span class="gbadge">Corona</span><span class="gbadge">İç Mekan</span></div></div><div class="gcounter">01<br><small>/ 07</small></div></div>
         </div>
-      </div>
 
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=90" alt="">
-        <div class="slide-info">
-          <div class="slide-text">
-            <div class="slide-tag">Proje 02 — Konut · 2024</div>
-            <div class="slide-title">Ankara Rezidans<br>Dış Cephe</div>
-            <div class="slide-tags"><span class="slide-badge">V-Ray</span><span class="slide-badge">Dış Mekan</span></div>
-          </div>
-          <div class="slide-counter">02<br><span>/ 07</span></div>
+        <div class="gslide">
+          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=90" alt="">
+          <div class="ginfo"><div><div class="gtag">Proje 02 — Konut · 2024</div><div class="gtitle">Ankara Rezidans<br>Dış Cephe</div><div class="gbadges"><span class="gbadge">V-Ray</span><span class="gbadge">Dış Mekan</span></div></div><div class="gcounter">02<br><small>/ 07</small></div></div>
         </div>
-      </div>
 
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1600&q=90" alt="">
-        <div class="slide-info">
-          <div class="slide-text">
-            <div class="slide-tag">Proje 03 — Yazlık · 2024</div>
-            <div class="slide-title">Çeşme Yazlık<br>Havuz Cephesi</div>
-            <div class="slide-tags"><span class="slide-badge">Lumion</span><span class="slide-badge">Peyzaj</span></div>
-          </div>
-          <div class="slide-counter">03<br><span>/ 07</span></div>
+        <div class="gslide">
+          <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1600&q=90" alt="">
+          <div class="ginfo"><div><div class="gtag">Proje 03 — Yazlık · 2024</div><div class="gtitle">Çeşme Yazlık<br>Havuz Cephesi</div><div class="gbadges"><span class="gbadge">Lumion</span><span class="gbadge">Peyzaj</span></div></div><div class="gcounter">03<br><small>/ 07</small></div></div>
         </div>
-      </div>
 
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1600&q=90" alt="">
-        <div class="slide-info">
-          <div class="slide-text">
-            <div class="slide-tag">Proje 04 — Lüks · 2023</div>
-            <div class="slide-title">Nişantaşı Penthouse<br>Oturma Odası</div>
-            <div class="slide-tags"><span class="slide-badge">Corona</span><span class="slide-badge">İç Mekan</span></div>
-          </div>
-          <div class="slide-counter">04<br><span>/ 07</span></div>
+        <div class="gslide">
+          <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1600&q=90" alt="">
+          <div class="ginfo"><div><div class="gtag">Proje 04 — Lüks · 2023</div><div class="gtitle">Nişantaşı Penthouse<br>Oturma Odası</div><div class="gbadges"><span class="gbadge">Corona</span><span class="gbadge">İç Mekan</span></div></div><div class="gcounter">04<br><small>/ 07</small></div></div>
         </div>
-      </div>
 
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=90" alt="">
-        <div class="slide-info">
-          <div class="slide-text">
-            <div class="slide-tag">Proje 05 — Ticari · 2023</div>
-            <div class="slide-title">Sky Tower<br>Kule Görselleştirme</div>
-            <div class="slide-tags"><span class="slide-badge">Chaos</span><span class="slide-badge">Kule</span></div>
-          </div>
-          <div class="slide-counter">05<br><span>/ 07</span></div>
+        <div class="gslide">
+          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=90" alt="">
+          <div class="ginfo"><div><div class="gtag">Proje 05 — Ticari · 2023</div><div class="gtitle">Sky Tower<br>Kule Görselleştirme</div><div class="gbadges"><span class="gbadge">Chaos</span><span class="gbadge">Kule</span></div></div><div class="gcounter">05<br><small>/ 07</small></div></div>
         </div>
-      </div>
 
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=90" alt="">
-        <div class="slide-info">
-          <div class="slide-text">
-            <div class="slide-tag">Proje 06 — Otel · 2023</div>
-            <div class="slide-title">Zen Master Suite<br>Yatak Odası</div>
-            <div class="slide-tags"><span class="slide-badge">Blender</span><span class="slide-badge">İç Mekan</span></div>
-          </div>
-          <div class="slide-counter">06<br><span>/ 07</span></div>
+        <div class="gslide">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=90" alt="">
+          <div class="ginfo"><div><div class="gtag">Proje 06 — Otel · 2023</div><div class="gtitle">Zen Master Suite<br>Yatak Odası</div><div class="gbadges"><span class="gbadge">Blender</span><span class="gbadge">İç Mekan</span></div></div><div class="gcounter">06<br><small>/ 07</small></div></div>
         </div>
-      </div>
 
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1600&q=90" alt="">
-        <div class="slide-info">
-          <div class="slide-text">
-            <div class="slide-tag">Proje 07 — Ticari · 2022</div>
-            <div class="slide-title">Merkez AVM<br>Giriş Cephesi</div>
-            <div class="slide-tags"><span class="slide-badge">V-Ray</span><span class="slide-badge">Dış Mekan</span></div>
-          </div>
-          <div class="slide-counter">07<br><span>/ 07</span></div>
+        <div class="gslide">
+          <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1600&q=90" alt="">
+          <div class="ginfo"><div><div class="gtag">Proje 07 — Ticari · 2022</div><div class="gtitle">Merkez AVM<br>Giriş Cephesi</div><div class="gbadges"><span class="gbadge">V-Ray</span><span class="gbadge">Dış Mekan</span></div></div><div class="gcounter">07<br><small>/ 07</small></div></div>
         </div>
+
       </div>
-
-    </div><!-- /slides -->
-
-    <button class="g-arr left"  onclick="gPrev()">←</button>
-    <button class="g-arr right" onclick="gNext()">→</button>
-
-    <div class="g-dots" id="gdots">
-      <div class="g-dot on"  onclick="gTo(0)"></div>
-      <div class="g-dot"     onclick="gTo(1)"></div>
-      <div class="g-dot"     onclick="gTo(2)"></div>
-      <div class="g-dot"     onclick="gTo(3)"></div>
-      <div class="g-dot"     onclick="gTo(4)"></div>
-      <div class="g-dot"     onclick="gTo(5)"></div>
-      <div class="g-dot"     onclick="gTo(6)"></div>
     </div>
 
-    <div class="g-hint" id="ghint">
-      <span class="g-hint-dot"></span>
-      Yumruk yapıp sürükle · veya ok tuşları
+    <button class="garr l" onclick="gSnap(gIdx-1)">←</button>
+    <button class="garr r" onclick="gSnap(gIdx+1)">→</button>
+    <div class="gdots" id="gdots">
+      <div class="gdot on" onclick="gSnap(0)"></div>
+      <div class="gdot"    onclick="gSnap(1)"></div>
+      <div class="gdot"    onclick="gSnap(2)"></div>
+      <div class="gdot"    onclick="gSnap(3)"></div>
+      <div class="gdot"    onclick="gSnap(4)"></div>
+      <div class="gdot"    onclick="gSnap(5)"></div>
+      <div class="gdot"    onclick="gSnap(6)"></div>
     </div>
   </div>
 </div>
@@ -443,7 +381,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 <!-- CONTACT -->
 <div class="page" id="p-contact" style="background:var(--dark);">
   <div class="ctwrap">
-    <div class="seclabel" style="color:rgba(200,169,110,.6)">// İletişim</div>
+    <div class="seclabel" style="color:rgba(200,169,110,.5)">// İletişim</div>
     <div class="ctgrid">
       <div>
         <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;line-height:1.1;color:var(--cream);margin-bottom:16px;">Projen mi var?<br><i style="font-style:italic;color:var(--gold)">Konuşalım.</i></h2>
@@ -473,12 +411,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
     <video id="mpvid" autoplay playsinline muted></video>
     <canvas id="mpcvs"></canvas>
   </div>
-  <div class="fist-row">
-    <span class="fist-icon" id="fist-icon">✊</span>
-    <div class="fist-bar-wrap"><div class="fist-bar" id="fist-bar"></div></div>
-  </div>
   <div class="mpst" id="mpst">Kamera açılıyor...</div>
-  <div class="mpge" id="mpge">Yumruk yap → sürükle</div>
+  <div class="mpge" id="mpge">🖐 Açık el = serbest</div>
 </div>
 
 <script>
@@ -492,65 +426,125 @@ function go(name) {
   curP = name;
 }
 
-/* ══ GALLERY ══ */
-var gi = 0, GTOTAL = 7;
-function gRender() {
-  document.querySelectorAll('.slide').forEach(function(s,i){ s.classList.toggle('active',i===gi); });
-  document.querySelectorAll('.g-dot').forEach(function(d,i){ d.classList.toggle('on',i===gi); });
-}
-function gNext(){ gi=(gi+1)%GTOTAL; gRender(); }
-function gPrev(){ gi=(gi-1+GTOTAL)%GTOTAL; gRender(); }
-function gTo(i){ gi=i; gRender(); }
+/* ══ GALLERY — gerçek drag ══ */
+var gIdx = 0;
+var GTOTAL = 7;
+var gW = 0; /* slide genişliği = window.innerWidth */
 
-/* keyboard */
-document.addEventListener('keydown', function(e){
-  if (curP !== 'projects') return;
-  if (e.key === 'ArrowRight') gNext();
-  if (e.key === 'ArrowLeft')  gPrev();
+/* Drag state — hem mouse hem el için ortak */
+var gDragging = false;
+var gDragStartX = 0;   /* drag başlangıç noktası (px, ekran koordinatı) */
+var gOffset = 0;       /* anlık offset (px) */
+var gBase = 0;         /* drag başlarken mevcut offset */
+
+function getSlideW(){ return window.innerWidth; }
+
+/* Mevcut snap pozisyonu */
+function snapOffset(idx){ return -idx * getSlideW(); }
+
+/* Galeriyi verilen offset'e taşı (animasyonsuz) */
+function gSetOffset(offset){
+  var track = document.getElementById('gtrack');
+  track.classList.remove('snapping');
+  track.style.transform = 'translateX('+offset+'px)';
+}
+
+/* Belirli bir slide'a yumuşakça snap et */
+function gSnap(idx){
+  idx = Math.max(0, Math.min(GTOTAL-1, idx));
+  gIdx = idx;
+  var track = document.getElementById('gtrack');
+  track.classList.add('snapping');
+  track.style.transform = 'translateX('+snapOffset(gIdx)+'px)';
+  gOffset = snapOffset(gIdx);
+  document.querySelectorAll('.gdot').forEach(function(d,i){ d.classList.toggle('on',i===gIdx); });
+}
+
+/* Drag bırakınca en yakın slide'a snap et */
+function gRelease(){
+  var slideW = getSlideW();
+  var moved = gOffset - snapOffset(gIdx);
+  if (moved < -slideW*0.2) gIdx = Math.min(gIdx+1, GTOTAL-1);
+  else if (moved > slideW*0.2) gIdx = Math.max(gIdx-1, 0);
+  gSnap(gIdx);
+}
+
+/* Mouse drag — galeri üzerinde */
+var projPage = document.getElementById('p-projects');
+projPage.addEventListener('mousedown', function(e){
+  if (e.target.closest('.garr') || e.target.closest('.gdots')) return;
+  gDragging = true;
+  gDragStartX = e.clientX;
+  gBase = snapOffset(gIdx);
+  document.getElementById('gtrack').classList.remove('snapping');
+});
+window.addEventListener('mousemove', function(e){
+  if (!gDragging) return;
+  gOffset = gBase + (e.clientX - gDragStartX);
+  gSetOffset(gOffset);
+});
+window.addEventListener('mouseup', function(){
+  if (!gDragging) return;
+  gDragging = false;
+  gRelease();
 });
 
-/* mouse swipe on gallery */
-var gDrag=false, gDX0=0;
-document.getElementById('p-projects').addEventListener('mousedown', function(e){ gDrag=true; gDX0=e.clientX; });
-document.getElementById('p-projects').addEventListener('mouseup',   function(e){ if(!gDrag)return; gDrag=false; var d=e.clientX-gDX0; if(d<-60)gNext(); else if(d>60)gPrev(); });
-document.getElementById('p-projects').addEventListener('touchstart',function(e){ gDX0=e.touches[0].clientX; });
-document.getElementById('p-projects').addEventListener('touchend',  function(e){ var d=e.changedTouches[0].clientX-gDX0; if(d<-60)gNext(); else if(d>60)gPrev(); });
+/* Touch drag */
+projPage.addEventListener('touchstart', function(e){
+  if (e.target.closest('.garr') || e.target.closest('.gdots')) return;
+  gDragStartX = e.touches[0].clientX;
+  gBase = snapOffset(gIdx);
+  document.getElementById('gtrack').classList.remove('snapping');
+},{passive:true});
+projPage.addEventListener('touchmove', function(e){
+  gOffset = gBase + (e.touches[0].clientX - gDragStartX);
+  gSetOffset(gOffset);
+},{passive:true});
+projPage.addEventListener('touchend', function(e){
+  gRelease();
+});
+
+/* Klavye */
+document.addEventListener('keydown', function(e){
+  if (curP !== 'projects') return;
+  if (e.key==='ArrowRight') gSnap(gIdx+1);
+  if (e.key==='ArrowLeft')  gSnap(gIdx-1);
+});
 
 /* ══ FLASH ══ */
 var flT;
 function flash(msg){
   var el=document.getElementById('gflash');
   el.textContent=msg; el.classList.add('on');
-  clearTimeout(flT); flT=setTimeout(function(){ el.classList.remove('on'); },1400);
+  clearTimeout(flT); flT=setTimeout(function(){ el.classList.remove('on'); },1200);
 }
 function setStatus(m){ document.getElementById('mpst').textContent=m; }
 function setGesture(m){ document.getElementById('mpge').textContent=m; }
 
-/* ══ CAMERA — FIST DETECTION ══
-   Yumruk tespiti yöntemi:
-   1) Her frame'de griyscale alınır
-   2) Belirli bir bölgedeki piksel varyansı ölçülür
-      (yumruk = kompakt kütle = düşük varyans + koyu blob)
-   3) Fist algılandığında drag modu açılır
-   4) Drag modunda yatay konum takip edilir
-   5) Yeterli kayma → next/prev
-   6) Titremeyi önlemek için konum EMA smoothing ile izlenir
-      ve sadece anlamlı değişimde tepki verilir
+/* ══ KAMERA — EL KONTROLÜ ══
+   Yöntem:
+   - Her frame griyscale alınır
+   - Elin X pozisyonu: hareketten ağırlıklı centroid (EMA ile smooth)
+   - Yumruk tespiti: hareket blob'unun genişliği — yumruk dar, açık el geniş
+   - Yumruk = "mouse down" → gDragging başlatılır
+   - El pozisyonu değişince gOffset güncellenir (gerçek drag gibi)
+   - Yumruk açılınca = "mouse up" → gRelease()
 */
 var mpOn=false, camS=null, rafId=null;
 var prevGray=null;
 
-/* Fist state */
-var fistActive=false;
-var fistStartX=0;
-var fistCurX=0;
-var fistConfidence=0;   /* 0-1 arası yumruk güveni */
-var dragTriggered=false;
-var COOL=800, lastTrigger=0;
+/* Smoothed hand position (0-1, ekran X) */
+var hx=0.5;
+var EMA=0.18; /* düşük = daha az titreme */
 
-/* Smoothing */
-var smoothX=0.5;        /* El X pozisyonu (0-1), EMA */
-var EMA=0.2;            /* EMA faktörü — küçük=daha az titreme */
+/* Fist state */
+var fistOn=false;
+var fistConfidence=0;
+var handVisible=false;
+
+/* El drag için — kamera koordinatını ekran genişliğine çevir */
+var camW=320;
+function handScreenX(nx){ return nx * window.innerWidth; }
 
 function toggleMP(){ mpOn ? stopMP() : startMP(); }
 
@@ -562,7 +556,7 @@ function startMP(){
   setStatus('Kamera açılıyor...');
 
   navigator.mediaDevices.getUserMedia({
-    video:{ facingMode:'user', width:{ideal:320}, height:{ideal:240} }
+    video:{ facingMode:'user', width:{ideal:camW}, height:{ideal:240} }
   }).then(function(stream){
     camS=stream;
     var vid=document.getElementById('mpvid');
@@ -570,8 +564,9 @@ function startMP(){
     return new Promise(function(r){ vid.onloadedmetadata=r; });
   }).then(function(){
     document.getElementById('mpvid').play();
-    setStatus('✓ Yumruk yap ve sürükle');
-    prevGray=null; fistActive=false; fistConfidence=0; smoothX=0.5;
+    setStatus('✓ Hazır');
+    setGesture('🖐 Açık el = serbest');
+    prevGray=null; hx=0.5; fistOn=false; fistConfidence=0;
     loop();
   }).catch(function(err){
     console.error(err);
@@ -591,121 +586,125 @@ function loop(){
 
   var cv=document.getElementById('mpcvs');
   var ctx=cv.getContext('2d');
-  var W=vid.videoWidth||320, H=vid.videoHeight||240;
-  cv.width=W; cv.height=H;
+  var W=vid.videoWidth||camW, H=vid.videoHeight||240;
+  if(cv.width!==W) cv.width=W;
+  if(cv.height!==H) cv.height=H;
 
-  /* mirror */
+  /* Mirror çiz */
   ctx.save();
   ctx.translate(W,0); ctx.scale(-1,1);
   ctx.drawImage(vid,0,0,W,H);
   ctx.restore();
 
   var frame=ctx.getImageData(0,0,W,H);
-  var gray=toGray(frame,W,H);
+  ctx.clearRect(0,0,W,H);
 
-  /* ── Yumruk tespiti ──
-     Elin olduğu bölgeyi bulmak için:
-     - Önceki frame ile fark al (hareket maskesi)
-     - Hareket olan piksellerin bounding box'ını hesapla
-     - Box'ın aspect ratio ve yoğunluğuna göre yumruk skoru ver
-  */
   if(prevGray){
-    var motionMap=new Float32Array(W*H);
-    var motionCount=0, sumX=0, sumY=0;
+    var gray=toGray(frame,W,H);
+    var prevG=prevGray;
 
-    for(var i=0;i<gray.length;i++){
-      var diff=Math.abs(gray[i]-prevGray[i]);
-      if(diff>20){
-        motionMap[i]=diff;
+    /* Hareket tespiti */
+    var motionCount=0, sumX=0;
+    var minX=W, maxX=0;
+    var pixels=W*H;
+
+    for(var i=0;i<pixels;i++){
+      var diff=Math.abs(gray[i]-prevG[i]);
+      if(diff>18){
+        var px=i%W;
         motionCount++;
-        sumX+=(i%W);
-        sumY+=Math.floor(i/W);
+        sumX+=px;
+        if(px<minX) minX=px;
+        if(px>maxX) maxX=px;
       }
     }
 
-    if(motionCount>300){
-      /* Hareketin ağırlıklı merkezi */
-      var cx=(sumX/motionCount)/W;  /* 0-1 */
-      /* Smooth — titreme önleme */
-      smoothX=smoothX*(1-EMA)+cx*EMA;
+    prevGray=gray;
+    handVisible=(motionCount>400);
 
-      /* Hareket blob kompaktlığı — yumruk skoru */
-      var blobW=getBlobWidth(motionMap,W,H,smoothX);
-      /* Yumruk: kompakt blob (geniş değil, uzun değil) */
-      var compactness=Math.min(1, blobW<0.25 ? 1 : 0.25/blobW);
-      fistConfidence=fistConfidence*0.7+compactness*0.3;
+    if(handVisible){
+      /* Normalized centroid X (0=sol,1=sağ) */
+      var rawX=(sumX/motionCount)/W;
+      /* EMA smooth */
+      hx=hx*(1-EMA)+rawX*EMA;
 
-      /* Fist bar güncelle */
-      document.getElementById('fist-bar').style.width=(fistConfidence*100)+'%';
-      document.getElementById('fist-icon').classList.toggle('active',fistConfidence>0.5);
+      /* Blob genişliği → yumruk tespiti */
+      var blobW=(maxX-minX)/W;
+      /* Yumruk: dar blob (<0.18), açık el: geniş (>0.30) */
+      var fistScore=(blobW < 0.22) ? 1 : (blobW > 0.38 ? 0 : (0.38-blobW)/0.16);
+      fistConfidence=fistConfidence*0.65+fistScore*0.35;
 
-      /* Fist aktif mi? */
-      var wasFist=fistActive;
-      fistActive=(fistConfidence>0.45 && motionCount>500);
+      var isFist=(fistConfidence > 0.55);
+      var hcur=document.getElementById('hcursor');
+      var sx=handScreenX(hx);
+      var sy=window.innerHeight*0.45;
 
-      if(fistActive && !wasFist){
-        /* Yumruk yeni başladı */
-        fistStartX=smoothX;
-        dragTriggered=false;
-        setGesture('✊ Sürükle...');
-        setStatus('✓ Yumruk algılandı');
-      } else if(fistActive){
-        /* Sürükleme devam ediyor */
-        var drag=smoothX-fistStartX;
-        var pct=Math.round(Math.abs(drag)*200);
-        setGesture(drag>0 ? '→ '+pct+'%' : '← '+pct+'%');
+      /* İmleci güncelle */
+      hcur.style.left=sx+'px';
+      hcur.style.top=sy+'px';
+      hcur.classList.add('show');
+      hcur.className='show '+(isFist?'closed':'open');
 
-        /* Tetikle */
-        var now=Date.now();
-        if(!dragTriggered && Math.abs(drag)>0.12 && now-lastTrigger>COOL){
-          lastTrigger=now;
-          dragTriggered=true;
-          if(drag>0){
-            setGesture('→ Sonraki ✓');
-            if(curP==='projects') gNext();
-            flash('→ Sonraki Proje');
-          } else {
-            setGesture('← Önceki ✓');
-            if(curP==='projects') gPrev();
-            flash('← Önceki Proje');
-          }
-          fistStartX=smoothX; /* sıfırla */
+      /* Yumruk geçişleri — drag simüle et */
+      if(isFist && !fistOn){
+        /* Yumruk kapandı = mouse down */
+        fistOn=true;
+        if(curP==='projects'){
+          gDragging=true;
+          gDragStartX=sx;
+          gBase=snapOffset(gIdx);
+          document.getElementById('gtrack').classList.remove('snapping');
         }
-      } else if(!fistActive && wasFist){
-        setGesture('Yumruk yap → sürükle');
-        dragTriggered=false;
+        setGesture('✊ Basılı — sürükle');
+      } else if(!isFist && fistOn){
+        /* Yumruk açıldı = mouse up */
+        fistOn=false;
+        if(gDragging){
+          gDragging=false;
+          gRelease();
+        }
+        setGesture('🖐 Açık el = serbest');
+      } else if(isFist && gDragging && curP==='projects'){
+        /* Sürükleme devam ediyor */
+        gOffset=gBase+(sx-gDragStartX);
+        gSetOffset(gOffset);
+        var moved=Math.round(sx-gDragStartX);
+        setGesture('✊ '+(moved>0?'→':moved<0?'←':'·')+' '+Math.abs(moved)+'px');
       }
 
-      /* Canvas'a nokta çiz (titremesiz) */
-      ctx.clearRect(0,0,W,H);
-      if(fistActive){
-        var px=smoothX*W, py=H/2;
-        ctx.beginPath();
-        ctx.arc(px,py,14,0,Math.PI*2);
-        ctx.fillStyle='rgba(200,169,110,0.7)';
+      /* Canvas'a imleç çiz */
+      ctx.beginPath();
+      if(isFist){
+        ctx.arc(hx*W,H*0.45,10,0,Math.PI*2);
+        ctx.fillStyle='rgba(200,169,110,0.8)';
         ctx.fill();
-        ctx.strokeStyle='rgba(200,169,110,1)';
+      } else {
+        ctx.arc(hx*W,H*0.45,14,0,Math.PI*2);
+        ctx.strokeStyle='rgba(200,169,110,0.7)';
         ctx.lineWidth=2;
         ctx.stroke();
       }
 
+      setStatus('✓ El algılandı');
     } else {
-      /* Hareket yok */
-      fistActive=false;
-      fistConfidence=Math.max(0,fistConfidence-0.05);
-      document.getElementById('fist-bar').style.width=(fistConfidence*100)+'%';
-      document.getElementById('fist-icon').classList.remove('active');
-      setStatus('◌ Yumruk yap ve sürükle');
-      setGesture('Yumruk yap → sürükle');
-      ctx.clearRect(0,0,W,H);
+      /* El yok */
+      if(fistOn){
+        fistOn=false;
+        if(gDragging){ gDragging=false; gRelease(); }
+      }
+      fistConfidence=Math.max(0,fistConfidence-0.04);
+      document.getElementById('hcursor').classList.remove('show');
+      setStatus('◌ Elini kameraya göster');
+      setGesture('🖐 Açık el = serbest');
     }
+  } else {
+    prevGray=toGray(frame,W,H);
   }
 
-  prevGray=gray;
   rafId=requestAnimationFrame(loop);
 }
 
-/* Griyscale dönüşüm */
+/* Griyscale */
 function toGray(imageData,W,H){
   var g=new Uint8Array(W*H);
   var d=imageData.data;
@@ -716,31 +715,21 @@ function toGray(imageData,W,H){
   return g;
 }
 
-/* Hareket blobunun genişliğini hesapla */
-function getBlobWidth(motionMap,W,H,cx){
-  var minX=W, maxX=0;
-  for(var i=0;i<motionMap.length;i++){
-    if(motionMap[i]>20){
-      var x=i%W;
-      if(x<minX) minX=x;
-      if(x>maxX) maxX=x;
-    }
-  }
-  return (maxX-minX)/W;
-}
-
 function stopMP(){
   mpOn=false;
   if(rafId){ cancelAnimationFrame(rafId); rafId=null; }
+  if(fistOn && gDragging){ gDragging=false; gRelease(); }
+  fistOn=false;
   document.getElementById('mpover').classList.remove('on');
   document.getElementById('mpbtn').classList.remove('on');
   document.getElementById('mplbl').textContent='El Kontrolü';
+  document.getElementById('hcursor').classList.remove('show');
   if(camS){ camS.getTracks().forEach(function(t){ t.stop(); }); camS=null; }
-  prevGray=null; fistActive=false; fistConfidence=0;
+  prevGray=null; fistConfidence=0;
 }
 
 /* init */
-gRender();
+gSnap(0);
 </script>
 </body>
 </html>
