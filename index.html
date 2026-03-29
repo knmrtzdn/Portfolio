@@ -519,34 +519,41 @@ async function startMP(){
       var rawX=1-lm[0].x,rawY=lm[0].y;
       hx=hx*(1-EMA)+rawX*EMA;hy=hy*(1-EMA)+rawY*EMA;
       var sx=hx*window.innerWidth,sy=hy*window.innerHeight;
-      /* Yumruk: parmak uçları (8,12,16,20) ile avuç (9) arası mesafe */
+      /* Yumruk tespiti: 4 parmak ucunun avuç merkezine (9) ortalama mesafesi */
       var palm=lm[9];
-      var tips=[lm[8],lm[12],lm[16],lm[20]];
+      var tipIdxs=[8,12,16,20];
       var totalDist=0;
-      for(var t=0;t<tips.length;t++){
-        var dx=tips[t].x-palm.x,dy=tips[t].y-palm.y,dz=tips[t].z-palm.z;
-        totalDist+=Math.sqrt(dx*dx+dy*dy+dz*dz);
+      for(var ti=0;ti<tipIdxs.length;ti++){
+        var tip=lm[tipIdxs[ti]];
+        var ddx=tip.x-palm.x, ddy=tip.y-palm.y, ddz=(tip.z||0)-(palm.z||0);
+        totalDist+=Math.sqrt(ddx*ddx+ddy*ddy+ddz*ddz);
       }
       var avgDist=totalDist/4;
-      var fistScore=(avgDist<0.10)?1:(avgDist>0.22?0:(0.22-avgDist)/0.12);
-      fistSmooth=fistSmooth*0.6+fistScore*0.4;
-      var isFist=(fistSmooth>0.55);
+      /* Açık el: ~0.20-0.35 | Yumruk: ~0.04-0.10 */
+      var fistScore=(avgDist<0.09)?1:(avgDist>0.20?0:(0.20-avgDist)/0.11);
+      fistSmooth=fistSmooth*0.55+fistScore*0.45;
+      var isFist=(fistSmooth>0.50);
       var hcur=document.getElementById('hcursor');
       hcur.style.left=sx+'px';hcur.style.top=sy+'px';
       hcur.classList.add('show');
       hcur.className='show '+(isFist?'closed':'open');
+      /* Debug: mesafeyi göster */
+      setSt('dist:'+avgDist.toFixed(3)+' sc:'+fistSmooth.toFixed(2));
       if(isFist&&!fistOn){
         fistOn=true;
         if(curP==='projects'){handDragActive=true;handDragStartX=sx;handDragBase=snapOff(gIdx);document.getElementById('gtrack').classList.remove('snap');}
-        setGe('✊ Basılı — sürükle');setSt('✓ Yumruk');
+        setGe('✊ Yumruk — sürükle');
       }else if(!isFist&&fistOn){
         fistOn=false;
         if(handDragActive){handDragActive=false;gRelease();}
-        setGe('🖐 Açık el = serbest');setSt('✓ El algılandı');
+        setGe('🖐 Açık el');
       }else if(isFist&&handDragActive&&curP==='projects'){
         var newOff=handDragBase+(sx-handDragStartX);
         gOffset=newOff;gSetRaw(newOff);
-        setGe('✊ '+(sx-handDragStartX>0?'→':'←')+' '+Math.abs(Math.round(sx-handDragStartX))+'px');
+        var moved=Math.round(sx-handDragStartX);
+        setGe('✊ '+(moved>=0?'→ ':'← ')+Math.abs(moved)+'px');
+      }else{
+        setGe(isFist?'✊ Yumruk':'🖐 Açık el');
       }
     });
     mpCam=new Camera(vid,{onFrame:async function(){await hands.send({image:vid});},width:640,height:480});
