@@ -6,182 +6,195 @@
 <title>ARCHVIZ — Mimari Görselleştirme</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 :root {
-  --cream: #f5f0e8; --warm1: #ede5d8; --warm2: #d9ccb8;
-  --stone: #8c7b6b; --dark: #2a2118; --ink: #3d3028;
-  --gold: #c8a96e; --goldd: #9e7f48;
+  --cream:#f5f0e8; --warm1:#ede5d8; --warm2:#d9ccb8;
+  --stone:#8c7b6b; --dark:#2a2118; --ink:#3d3028;
+  --gold:#c8a96e; --goldd:#9e7f48;
 }
-html, body { height: 100%; overflow: hidden; background: var(--cream); color: var(--ink); font-family: 'Jost', sans-serif; }
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; background: rgba(245,240,232,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--warm2); }
-.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
-.logo b { color: var(--gold); }
-.navlinks { display: flex; gap: 4px; list-style: none; }
-.navlinks a { display: block; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); text-decoration: none; padding: 7px 14px; border-radius: 2px; border: 1px solid transparent; cursor: pointer; transition: all .2s; }
-.navlinks a:hover { color: var(--ink); background: var(--warm1); }
-.navlinks a.on { color: var(--ink); border-color: var(--warm2); background: var(--warm1); }
-.mpbtn { display: flex; align-items: center; gap: 8px; font-family: 'Jost', sans-serif; font-size: .68rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--goldd); background: transparent; border: 1px solid var(--gold); padding: 7px 18px; border-radius: 2px; cursor: pointer; transition: all .2s; }
-.mpbtn:hover { background: rgba(200,169,110,.1); }
-.mpbtn.on { background: var(--gold); color: var(--dark); }
-.mpdot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: blink 2s infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
-.page { position: fixed; inset: 0; padding-top: 60px; opacity: 0; pointer-events: none; transition: opacity .35s; overflow-y: auto; }
-.page.on { opacity: 1; pointer-events: all; }
+html,body{ height:100%; overflow:hidden; background:var(--cream); color:var(--ink); font-family:'Jost',sans-serif; }
+
+/* NAV */
+nav{ position:fixed; top:0; left:0; right:0; z-index:999; height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 40px; background:rgba(245,240,232,.95); backdrop-filter:blur(12px); border-bottom:1px solid var(--warm2); }
+.logo{ font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); cursor:pointer; }
+.logo b{ color:var(--gold); }
+.navlinks{ display:flex; gap:4px; list-style:none; }
+.navlinks a{ display:block; font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--stone); text-decoration:none; padding:7px 14px; border-radius:2px; border:1px solid transparent; cursor:pointer; transition:all .2s; }
+.navlinks a:hover{ color:var(--ink); background:var(--warm1); }
+.navlinks a.on{ color:var(--ink); border-color:var(--warm2); background:var(--warm1); }
+.mpbtn{ display:flex; align-items:center; gap:8px; font-family:'Jost',sans-serif; font-size:.68rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--goldd); background:transparent; border:1px solid var(--gold); padding:7px 18px; border-radius:2px; cursor:pointer; transition:all .2s; }
+.mpbtn:hover{ background:rgba(200,169,110,.1); }
+.mpbtn.on{ background:var(--gold); color:var(--dark); }
+.mpdot{ width:7px; height:7px; border-radius:50%; background:currentColor; animation:blink 2s infinite; }
+@keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.2} }
+
+/* PAGES */
+.page{ position:fixed; inset:0; padding-top:60px; opacity:0; pointer-events:none; transition:opacity .35s; overflow-y:auto; }
+.page.on{ opacity:1; pointer-events:all; }
 
 /* WELCOME */
-#p-welcome { display: flex; align-items: center; justify-content: center; background: var(--cream); }
-.hero { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 60px); width: 100%; }
-.hleft { display: flex; flex-direction: column; justify-content: center; padding: 60px 48px 60px 64px; }
-.eyebrow { font-size: .66rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
-.eyebrow::after { content: ''; width: 32px; height: 1px; background: var(--gold); }
-.htitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem,4vw,4.8rem); font-weight: 300; line-height: 1.07; color: var(--dark); margin-bottom: 20px; }
-.htitle i { font-style: italic; color: var(--gold); }
-.hsub { font-size: .84rem; font-weight: 300; line-height: 1.9; color: var(--stone); max-width: 380px; margin-bottom: 40px; }
-.howcard { background: var(--warm1); border: 1px solid var(--warm2); border-radius: 3px; padding: 24px 28px; margin-bottom: 32px; }
-.howtitle { font-family: 'Cormorant Garamond', serif; font-size: .92rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); margin-bottom: 16px; }
-.howsteps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin-bottom: 16px; }
-.hstep { display: flex; gap: 10px; }
-.hnum { min-width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); font-size: .62rem; display: flex; align-items: center; justify-content: center; margin-top: 2px; flex-shrink: 0; }
-.htxt { font-size: .73rem; line-height: 1.65; color: var(--stone); }
-.htxt strong { color: var(--ink); }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { background: rgba(200,169,110,.1); border: 1px solid rgba(200,169,110,.28); border-radius: 2px; padding: 5px 12px; font-size: .66rem; color: var(--stone); }
-.hcta { display: flex; gap: 10px; }
-.btng { background: var(--gold); color: var(--dark); border: none; font-family: 'Jost', sans-serif; font-size: .7rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; padding: 12px 28px; border-radius: 2px; cursor: pointer; transition: all .2s; }
-.btng:hover { background: var(--goldd); }
-.btno { background: transparent; color: var(--ink); border: 1px solid var(--warm2); font-family: 'Jost', sans-serif; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; padding: 12px 28px; border-radius: 2px; cursor: pointer; transition: all .2s; }
-.btno:hover { border-color: var(--stone); }
-.hright { position: relative; overflow: hidden; background: var(--warm2); }
-.mosaic { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; height: 100%; gap: 3px; }
-.mimg { overflow: hidden; }
-.mimg:first-child { grid-row: 1 / 3; }
-.mimg img { width: 100%; height: 100%; object-fit: cover; filter: sepia(6%) saturate(85%) brightness(95%); transition: transform .6s; }
-.mimg:hover img { transform: scale(1.04); }
-.hbadge { position: absolute; bottom: 20px; right: 20px; background: rgba(245,240,232,.93); backdrop-filter: blur(10px); border: 1px solid var(--warm2); border-radius: 2px; padding: 14px 18px; text-align: center; }
-.hbnum { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 300; line-height: 1; color: var(--dark); }
-.hblbl { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--stone); margin-top: 2px; }
+#p-welcome{ display:flex; align-items:center; justify-content:center; background:var(--cream); }
+.hero{ display:grid; grid-template-columns:1fr 1fr; min-height:calc(100vh - 60px); width:100%; }
+.hleft{ display:flex; flex-direction:column; justify-content:center; padding:60px 48px 60px 64px; }
+.eyebrow{ font-size:.66rem; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:24px; display:flex; align-items:center; gap:12px; }
+.eyebrow::after{ content:''; width:32px; height:1px; background:var(--gold); }
+.htitle{ font-family:'Cormorant Garamond',serif; font-size:clamp(2.4rem,4vw,4.8rem); font-weight:300; line-height:1.07; color:var(--dark); margin-bottom:20px; }
+.htitle i{ font-style:italic; color:var(--gold); }
+.hsub{ font-size:.84rem; font-weight:300; line-height:1.9; color:var(--stone); max-width:380px; margin-bottom:40px; }
+.howcard{ background:var(--warm1); border:1px solid var(--warm2); border-radius:3px; padding:24px 28px; margin-bottom:32px; }
+.howtitle{ font-family:'Cormorant Garamond',serif; font-size:.92rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); margin-bottom:16px; }
+.howsteps{ display:grid; grid-template-columns:1fr 1fr; gap:12px 20px; margin-bottom:16px; }
+.hstep{ display:flex; gap:10px; }
+.hnum{ min-width:20px; height:20px; border-radius:50%; border:1px solid var(--gold); color:var(--gold); font-size:.62rem; display:flex; align-items:center; justify-content:center; margin-top:2px; flex-shrink:0; }
+.htxt{ font-size:.73rem; line-height:1.65; color:var(--stone); }
+.htxt strong{ color:var(--ink); }
+.chips{ display:flex; flex-wrap:wrap; gap:6px; }
+.chip{ background:rgba(200,169,110,.1); border:1px solid rgba(200,169,110,.28); border-radius:2px; padding:5px 12px; font-size:.66rem; color:var(--stone); }
+.hcta{ display:flex; gap:10px; }
+.btng{ background:var(--gold); color:var(--dark); border:none; font-family:'Jost',sans-serif; font-size:.7rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; padding:12px 28px; border-radius:2px; cursor:pointer; transition:all .2s; }
+.btng:hover{ background:var(--goldd); transform:translateY(-1px); }
+.btno{ background:transparent; color:var(--ink); border:1px solid var(--warm2); font-family:'Jost',sans-serif; font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; padding:12px 28px; border-radius:2px; cursor:pointer; transition:all .2s; }
+.btno:hover{ border-color:var(--stone); }
+.hright{ position:relative; overflow:hidden; background:var(--warm2); }
+.mosaic{ display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; height:100%; gap:3px; }
+.mimg{ overflow:hidden; }
+.mimg:first-child{ grid-row:1/3; }
+.mimg img{ width:100%; height:100%; object-fit:cover; filter:sepia(6%) saturate(85%) brightness(95%); transition:transform .6s; }
+.mimg:hover img{ transform:scale(1.04); }
+.hbadge{ position:absolute; bottom:20px; right:20px; background:rgba(245,240,232,.93); backdrop-filter:blur(10px); border:1px solid var(--warm2); border-radius:2px; padding:14px 18px; text-align:center; }
+.hbnum{ font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; line-height:1; color:var(--dark); }
+.hblbl{ font-size:.6rem; letter-spacing:.18em; text-transform:uppercase; color:var(--stone); margin-top:2px; }
 
 /* PROJECTS */
-#p-projects { background: var(--dark); color: var(--cream); display: flex; flex-direction: column; }
-.phead { display: flex; align-items: flex-end; justify-content: space-between; padding: 32px 56px 24px; flex-shrink: 0; }
-.ptitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,3vw,2.8rem); font-weight: 300; line-height: 1.1; }
-.ptitle i { font-style: italic; color: var(--gold); }
-.pcounter { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--stone); }
-.pcounter span { color: var(--gold); }
-.fstrip-wrap { flex: 1; overflow: hidden; padding: 0 56px 28px; display: flex; flex-direction: column; justify-content: center; }
-.fstrip { display: flex; gap: 18px; transition: transform .5s cubic-bezier(.25,.1,.25,1); cursor: grab; user-select: none; padding: 8px 0; }
-.fstrip.notrans { transition: none !important; }
-.fstrip:active { cursor: grabbing; }
-.fcard { flex-shrink: 0; width: 400px; height: 280px; border-radius: 3px; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,.06); transition: transform .3s, box-shadow .3s; }
-.fcard.cur { transform: scale(1.04); box-shadow: 0 18px 50px rgba(0,0,0,.55), 0 0 0 1px var(--gold); }
-.fcard img { width: 100%; height: 100%; object-fit: cover; filter: brightness(82%) saturate(85%); transition: filter .3s; }
-.fcard.cur img { filter: brightness(100%) saturate(100%); }
-.fover { position: absolute; inset: 0; background: linear-gradient(to top, rgba(42,33,24,.92) 0%, transparent 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; opacity: 0; transition: opacity .3s; }
-.fcard.cur .fover { opacity: 1; }
-.fnum { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
-.fname { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; line-height: 1.2; color: var(--cream); margin-bottom: 6px; }
-.ftags { display: flex; gap: 5px; flex-wrap: wrap; }
-.ftag { background: rgba(200,169,110,.18); border: 1px solid rgba(200,169,110,.28); color: var(--gold); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; border-radius: 1px; }
-.ffoot { display: flex; align-items: center; gap: 16px; padding: 0 56px 28px; flex-shrink: 0; }
-.fdots { display: flex; gap: 6px; }
-.fdot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.18); transition: all .3s; cursor: pointer; }
-.fdot.on { background: var(--gold); width: 18px; border-radius: 3px; }
-.farr { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,.14); background: transparent; color: var(--cream); font-size: .9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s; }
-.farr:hover { border-color: var(--gold); color: var(--gold); }
-.fhint { margin-left: auto; font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--stone); display: flex; align-items: center; gap: 7px; }
-.fhintdot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: blink 2s infinite; }
+#p-projects{ background:var(--dark); color:var(--cream); display:flex; flex-direction:column; }
+.phead{ display:flex; align-items:flex-end; justify-content:space-between; padding:32px 56px 24px; flex-shrink:0; }
+.ptitle{ font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3vw,2.8rem); font-weight:300; line-height:1.1; }
+.ptitle i{ font-style:italic; color:var(--gold); }
+.pcounter{ font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--stone); }
+.pcounter span{ color:var(--gold); }
+.fstrip-wrap{ flex:1; overflow:hidden; padding:0 56px 28px; display:flex; flex-direction:column; justify-content:center; }
+.fstrip{ display:flex; gap:18px; transition:transform .5s cubic-bezier(.25,.1,.25,1); cursor:grab; user-select:none; padding:8px 0; }
+.fstrip.notrans{ transition:none!important; }
+.fstrip:active{ cursor:grabbing; }
+.fcard{ flex-shrink:0; width:400px; height:280px; border-radius:3px; overflow:hidden; position:relative; border:1px solid rgba(255,255,255,.06); transition:transform .3s,box-shadow .3s; }
+.fcard.cur{ transform:scale(1.04); box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 1px var(--gold); }
+.fcard img{ width:100%; height:100%; object-fit:cover; filter:brightness(82%) saturate(85%); transition:filter .3s; }
+.fcard.cur img{ filter:brightness(100%) saturate(100%); }
+.fover{ position:absolute; inset:0; background:linear-gradient(to top,rgba(42,33,24,.92) 0%,transparent 55%); display:flex; flex-direction:column; justify-content:flex-end; padding:20px; opacity:0; transition:opacity .3s; }
+.fcard.cur .fover{ opacity:1; }
+.fnum{ font-size:.6rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:4px; }
+.fname{ font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300; line-height:1.2; color:var(--cream); margin-bottom:6px; }
+.ftags{ display:flex; gap:5px; flex-wrap:wrap; }
+.ftag{ background:rgba(200,169,110,.18); border:1px solid rgba(200,169,110,.28); color:var(--gold); font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; padding:3px 8px; border-radius:1px; }
+.ffoot{ display:flex; align-items:center; gap:16px; padding:0 56px 28px; flex-shrink:0; }
+.fdots{ display:flex; gap:6px; }
+.fdot{ width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.18); transition:all .3s; cursor:pointer; }
+.fdot.on{ background:var(--gold); width:18px; border-radius:3px; }
+.farr{ width:36px; height:36px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--cream); font-size:.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+.farr:hover{ border-color:var(--gold); color:var(--gold); }
+.fhint{ margin-left:auto; font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:var(--stone); display:flex; align-items:center; gap:7px; }
+.fhintdot{ width:5px; height:5px; border-radius:50%; background:var(--gold); animation:blink 2s infinite; }
 
 /* SERVICES */
-#p-services { background: #fdfaf5; }
-.secwrap { max-width: 1080px; margin: 0 auto; padding: 64px 40px; }
-.seclabel { font-size: .63rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-.sectitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,2.8vw,2.7rem); font-weight: 300; line-height: 1.1; color: var(--dark); margin-bottom: 48px; max-width: 460px; }
-.sectitle i { font-style: italic; }
-.svcs { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
-.svc { background: var(--warm1); padding: 32px 28px; border: 1px solid var(--warm2); position: relative; overflow: hidden; transition: background .25s; }
-.svc:hover { background: var(--warm2); }
-.svc::before { content: attr(data-n); position: absolute; top: 14px; right: 18px; font-family: 'Cormorant Garamond', serif; font-size: 3.6rem; font-weight: 300; color: var(--warm2); line-height: 1; pointer-events: none; transition: color .25s; }
-.svc:hover::before { color: #c9bfae; }
-.svci { font-size: 1.4rem; margin-bottom: 16px; }
-.svcn { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--dark); margin-bottom: 8px; }
-.svcd { font-size: .77rem; line-height: 1.85; color: var(--stone); font-weight: 300; }
+#p-services{ background:#fdfaf5; }
+.secwrap{ max-width:1080px; margin:0 auto; padding:64px 40px; }
+.seclabel{ font-size:.63rem; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+.sectitle{ font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,2.8vw,2.7rem); font-weight:300; line-height:1.1; color:var(--dark); margin-bottom:48px; max-width:460px; }
+.sectitle i{ font-style:italic; }
+.svcs{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+.svc{ background:var(--warm1); padding:32px 28px; border:1px solid var(--warm2); position:relative; overflow:hidden; transition:background .25s; }
+.svc:hover{ background:var(--warm2); }
+.svc::before{ content:attr(data-n); position:absolute; top:14px; right:18px; font-family:'Cormorant Garamond',serif; font-size:3.6rem; font-weight:300; color:var(--warm2); line-height:1; pointer-events:none; transition:color .25s; }
+.svc:hover::before{ color:#c9bfae; }
+.svci{ font-size:1.4rem; margin-bottom:16px; }
+.svcn{ font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--dark); margin-bottom:8px; }
+.svcd{ font-size:.77rem; line-height:1.85; color:var(--stone); font-weight:300; }
 
 /* ABOUT */
-#p-about { background: var(--cream); }
-.abwrap { max-width: 1080px; margin: 0 auto; padding: 64px 40px; }
-.abgrid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; margin-top: 8px; }
-.abimgw { position: relative; }
-.abimg { width: 100%; aspect-ratio: 3/4; object-fit: cover; filter: sepia(6%) saturate(82%) brightness(94%); border-radius: 2px; }
-.abbadge { position: absolute; bottom: -16px; right: -16px; background: var(--dark); color: var(--cream); padding: 20px 24px; text-align: center; border: 3px solid var(--cream); }
-.abbn { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 300; line-height: 1; }
-.abbl { font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: #b8a898; margin-top: 3px; }
-.abtxt { display: flex; flex-direction: column; justify-content: center; }
-.abbio { font-size: .85rem; line-height: 1.95; color: var(--stone); margin-bottom: 28px; font-weight: 300; }
-.abbio strong { color: var(--ink); font-weight: 500; }
-.absoft { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 32px; }
-.soft { background: var(--warm1); border: 1px solid var(--warm2); padding: 6px 12px; border-radius: 2px; font-size: .67rem; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); transition: all .2s; }
-.soft:hover { border-color: var(--gold); color: var(--goldd); }
-.abstats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--warm2); border: 1px solid var(--warm2); }
-.ast { background: var(--cream); padding: 16px; text-align: center; }
-.asn { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 300; color: var(--dark); line-height: 1; }
-.asl { font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: var(--stone); margin-top: 3px; }
+#p-about{ background:var(--cream); }
+.abwrap{ max-width:1080px; margin:0 auto; padding:64px 40px; }
+.abgrid{ display:grid; grid-template-columns:1fr 1.1fr; gap:64px; margin-top:8px; }
+.abimgw{ position:relative; }
+.abimg{ width:100%; aspect-ratio:3/4; object-fit:cover; filter:sepia(6%) saturate(82%) brightness(94%); border-radius:2px; }
+.abbadge{ position:absolute; bottom:-16px; right:-16px; background:var(--dark); color:var(--cream); padding:20px 24px; text-align:center; border:3px solid var(--cream); }
+.abbn{ font-family:'Cormorant Garamond',serif; font-size:2.6rem; font-weight:300; line-height:1; }
+.abbl{ font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:#b8a898; margin-top:3px; }
+.abtxt{ display:flex; flex-direction:column; justify-content:center; }
+.abbio{ font-size:.85rem; line-height:1.95; color:var(--stone); margin-bottom:28px; font-weight:300; }
+.abbio strong{ color:var(--ink); font-weight:500; }
+.absoft{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:32px; }
+.soft{ background:var(--warm1); border:1px solid var(--warm2); padding:6px 12px; border-radius:2px; font-size:.67rem; letter-spacing:.1em; text-transform:uppercase; color:var(--stone); transition:all .2s; }
+.soft:hover{ border-color:var(--gold); color:var(--goldd); }
+.abstats{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--warm2); border:1px solid var(--warm2); }
+.ast{ background:var(--cream); padding:16px; text-align:center; }
+.asn{ font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; color:var(--dark); line-height:1; }
+.asl{ font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:var(--stone); margin-top:3px; }
 
 /* CONTACT */
-#p-contact { background: var(--dark); color: var(--cream); }
-.ctwrap { max-width: 880px; margin: 0 auto; padding: 64px 40px; }
-.ctgrid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; }
-.ctsub { font-size: .83rem; line-height: 1.9; color: var(--stone); margin-bottom: 36px; font-weight: 300; }
-.ctlist { display: flex; flex-direction: column; gap: 2px; }
-.ctrow { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); text-decoration: none; color: var(--cream); transition: all .2s; }
-.ctrow:hover { background: rgba(200,169,110,.08); border-color: rgba(200,169,110,.28); }
-.ctlbl { font-size: .63rem; letter-spacing: .16em; text-transform: uppercase; color: var(--stone); }
-.ctval { font-size: .78rem; margin-top: 2px; }
-.ctarr { margin-left: auto; color: var(--stone); transition: all .2s; }
-.ctrow:hover .ctarr { color: var(--gold); transform: translateX(4px); }
-.ctright { display: flex; flex-direction: column; justify-content: center; }
-.ctbig { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem,2.6vw,2.5rem); font-weight: 300; line-height: 1.25; color: var(--cream); margin-bottom: 24px; }
-.ctbig i { font-style: italic; color: var(--gold); }
-.avail { display: inline-flex; align-items: center; gap: 9px; background: rgba(200,169,110,.1); border: 1px solid rgba(200,169,110,.22); padding: 10px 18px; border-radius: 2px; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
-.availd { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: blink 2s infinite; }
+#p-contact{ background:var(--dark); color:var(--cream); }
+.ctwrap{ max-width:880px; margin:0 auto; padding:64px 40px; }
+.ctgrid{ display:grid; grid-template-columns:1.2fr 1fr; gap:64px; }
+.ctsub{ font-size:.83rem; line-height:1.9; color:var(--stone); margin-bottom:36px; font-weight:300; }
+.ctlist{ display:flex; flex-direction:column; gap:2px; }
+.ctrow{ display:flex; align-items:center; gap:14px; padding:16px 20px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); text-decoration:none; color:var(--cream); transition:all .2s; }
+.ctrow:hover{ background:rgba(200,169,110,.08); border-color:rgba(200,169,110,.28); }
+.ctlbl{ font-size:.63rem; letter-spacing:.16em; text-transform:uppercase; color:var(--stone); }
+.ctval{ font-size:.78rem; margin-top:2px; }
+.ctarr{ margin-left:auto; color:var(--stone); transition:all .2s; }
+.ctrow:hover .ctarr{ color:var(--gold); transform:translateX(4px); }
+.ctright{ display:flex; flex-direction:column; justify-content:center; }
+.ctbig{ font-family:'Cormorant Garamond',serif; font-size:clamp(1.6rem,2.6vw,2.5rem); font-weight:300; line-height:1.25; color:var(--cream); margin-bottom:24px; }
+.ctbig i{ font-style:italic; color:var(--gold); }
+.avail{ display:inline-flex; align-items:center; gap:9px; background:rgba(200,169,110,.1); border:1px solid rgba(200,169,110,.22); padding:10px 18px; border-radius:2px; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); }
+.availd{ width:6px; height:6px; border-radius:50%; background:var(--gold); animation:blink 2s infinite; }
 
 /* MEDIAPIPE OVERLAY */
-#mpover { position: fixed; inset: 0; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; background: rgba(42,33,24,.97); backdrop-filter: blur(18px); padding: 20px; }
-#mpover.on { display: flex; }
-.mpx { position: absolute; top: 72px; right: 36px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: var(--cream); font-size: 1rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; }
-.mpx:hover { border-color: var(--gold); color: var(--gold); }
-.mphd { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; text-align: center; }
-.camframe { position: relative; width: min(460px, 90vw); aspect-ratio: 4/3; border: 1px solid rgba(200,169,110,.28); border-radius: 3px; overflow: hidden; background: #111; }
-#mpvid { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); display: block; }
-#mpcvs { position: absolute; inset: 0; width: 100%; height: 100%; transform: scaleX(-1); pointer-events: none; }
-.mpst { margin-top: 14px; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); text-align: center; max-width: min(460px,90vw); line-height: 1.8; min-height: 3em; }
-.mpge { margin-top: 6px; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--gold); min-height: 1.6em; text-align: center; }
-.mptips { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; justify-content: center; }
-.mptip { background: rgba(200,169,110,.08); border: 1px solid rgba(200,169,110,.18); padding: 8px 14px; border-radius: 2px; font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); }
+#mpover{ position:fixed; inset:0; z-index:9999; display:none; flex-direction:column; align-items:center; justify-content:center; background:rgba(42,33,24,.97); backdrop-filter:blur(18px); }
+#mpover.on{ display:flex; }
+.mpx{ position:absolute; top:72px; right:36px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); color:var(--cream); font-size:1rem; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .2s; }
+.mpx:hover{ border-color:var(--gold); color:var(--gold); }
+.mphd{ font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
+.camframe{ position:relative; width:460px; height:300px; border:1px solid rgba(200,169,110,.28); border-radius:3px; overflow:hidden; background:#000; }
+@media(max-width:500px){ .camframe{ width:92vw; height:62vw; } }
+#mpvid{ width:100%; height:100%; object-fit:cover; transform:scaleX(-1); display:block; }
+#mpcvs{ position:absolute; inset:0; width:100%; height:100%; transform:scaleX(-1); pointer-events:none; }
 
-#hcur { position: fixed; z-index: 99999; pointer-events: none; font-size: 2rem; transform: translate(-50%,-50%); display: none; filter: drop-shadow(0 0 10px rgba(200,169,110,.9)); }
-#hcur.on { display: block; }
-#gflash { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--dark); font-family: 'Cormorant Garamond', serif; font-size: 1rem; letter-spacing: .12em; text-transform: uppercase; padding: 9px 26px; border-radius: 2px; z-index: 99998; pointer-events: none; opacity: 0; transition: opacity .15s; white-space: nowrap; }
-#gflash.on { opacity: 1; }
+/* motion bar */
+.motion-bar-wrap{ width:460px; margin-top:14px; height:6px; background:rgba(255,255,255,.08); border-radius:3px; overflow:hidden; }
+@media(max-width:500px){ .motion-bar-wrap{ width:92vw; } }
+.motion-bar{ height:100%; width:50%; background:var(--gold); border-radius:3px; transition:width .1s; }
 
-@media (max-width: 860px) {
-  .hero { grid-template-columns: 1fr; }
-  .hright { height: 260px; }
-  .mimg:first-child { grid-row: 1; }
-  .hleft { padding: 36px 24px; }
-  .howsteps { grid-template-columns: 1fr; }
-  .phead, .fstrip-wrap, .ffoot { padding-left: 20px; padding-right: 20px; }
-  .fcard { width: 260px; height: 200px; }
-  .svcs { grid-template-columns: 1fr; }
-  .abgrid, .ctgrid { grid-template-columns: 1fr; gap: 36px; }
-  .secwrap, .abwrap, .ctwrap { padding: 48px 20px; }
-  nav { padding: 0 12px; }
-  .navlinks a { padding: 6px 8px; font-size: .6rem; }
-  .mpbtn { padding: 6px 10px; font-size: .6rem; }
+.mpst{ margin-top:10px; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--stone); text-align:center; max-width:460px; line-height:1.7; padding:0 12px; }
+.mpge{ margin-top:4px; font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--gold); min-height:1.4em; text-align:center; }
+.mptips{ display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; justify-content:center; }
+.mptip{ background:rgba(200,169,110,.08); border:1px solid rgba(200,169,110,.18); padding:8px 12px; border-radius:2px; font-size:.63rem; letter-spacing:.08em; text-transform:uppercase; color:var(--stone); }
+
+/* hand trail */
+#hcur{ position:fixed; z-index:99999; pointer-events:none; width:28px; height:28px; border-radius:50%; background:rgba(200,169,110,.7); border:2px solid var(--gold); transform:translate(-50%,-50%); display:none; box-shadow:0 0 16px rgba(200,169,110,.6); }
+#hcur.on{ display:block; }
+#gflash{ position:fixed; top:70px; left:50%; transform:translateX(-50%); background:var(--gold); color:var(--dark); font-family:'Cormorant Garamond',serif; font-size:1rem; letter-spacing:.12em; text-transform:uppercase; padding:9px 26px; border-radius:2px; z-index:99998; pointer-events:none; opacity:0; transition:opacity .15s; white-space:nowrap; }
+#gflash.on{ opacity:1; }
+
+@media(max-width:860px){
+  .hero{ grid-template-columns:1fr; }
+  .hright{ height:260px; }
+  .mimg:first-child{ grid-row:1; }
+  .hleft{ padding:36px 24px; }
+  .howsteps{ grid-template-columns:1fr; }
+  .phead,.fstrip-wrap,.ffoot{ padding-left:20px; padding-right:20px; }
+  .fcard{ width:280px; height:210px; }
+  .svcs{ grid-template-columns:1fr; }
+  .abgrid,.ctgrid{ grid-template-columns:1fr; gap:36px; }
+  .secwrap,.abwrap,.ctwrap{ padding:48px 20px; }
+  nav{ padding:0 16px; }
+  .navlinks a{ padding:6px 8px; font-size:.62rem; }
+  .mpbtn{ padding:6px 12px; font-size:.62rem; }
 }
 </style>
 </head>
 <body>
-<div id="hcur">🤚</div>
+
+<div id="hcur"></div>
 <div id="gflash"></div>
 
 <nav>
@@ -194,10 +207,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 60px; di
     <li><a id="n-contact"  onclick="go('contact')">İletişim</a></li>
   </ul>
   <button class="mpbtn" id="mpbtn" onclick="toggleMP()">
-    <span class="mpdot"></span><span id="mplbl">El Kontrolü</span>
+    <span class="mpdot"></span>
+    <span id="mplbl">El Kontrolü</span>
   </button>
 </nav>
 
+<!-- WELCOME -->
 <div class="page on" id="p-welcome">
   <div class="hero">
     <div class="hleft">
@@ -207,14 +222,16 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 60px; di
       <div class="howcard">
         <div class="howtitle">El Kontrolü — Nasıl Kullanılır?</div>
         <div class="howsteps">
-          <div class="hstep"><div class="hnum">1</div><div class="htxt"><strong>El Kontrolü'ne bas</strong><br>Sağ üstten aktif et, iznini onayla.</div></div>
-          <div class="hstep"><div class="hnum">2</div><div class="htxt"><strong>10-15 sn bekle</strong><br>Model ilk yüklemede biraz zaman alır.</div></div>
+          <div class="hstep"><div class="hnum">1</div><div class="htxt"><strong>El Kontrolü'ne bas</strong><br>Aktif et, kamera iznini onayla.</div></div>
+          <div class="hstep"><div class="hnum">2</div><div class="htxt"><strong>Projeler sayfasına geç</strong><br>El kontrolü galeri için aktif.</div></div>
           <div class="hstep"><div class="hnum">3</div><div class="htxt"><strong>Elini sola süpür</strong><br>Sonraki projeye geçer.</div></div>
           <div class="hstep"><div class="hnum">4</div><div class="htxt"><strong>Elini sağa süpür</strong><br>Önceki projeye döner.</div></div>
         </div>
         <div class="chips">
-          <div class="chip">👈 Sola → Sonraki</div><div class="chip">👉 Sağa → Önceki</div>
-          <div class="chip">💡 İyi aydınlık ortam</div><div class="chip">📏 30-50 cm mesafe</div>
+          <div class="chip">👈 Sola → Sonraki</div>
+          <div class="chip">👉 Sağa → Önceki</div>
+          <div class="chip">📷 HTTPS gerekli</div>
+          <div class="chip">💡 Açık renk arka plan</div>
         </div>
       </div>
       <div class="hcta">
@@ -224,15 +241,16 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 60px; di
     </div>
     <div class="hright">
       <div class="mosaic">
-        <div class="mimg"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt=""></div>
-        <div class="mimg"><img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&q=80" alt=""></div>
-        <div class="mimg"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&q=80" alt=""></div>
+        <div class="mimg"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt="İç Mekan"></div>
+        <div class="mimg"><img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&q=80" alt="Dış Cephe"></div>
+        <div class="mimg"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&q=80" alt="Detay"></div>
       </div>
       <div class="hbadge"><div class="hbnum">47</div><div class="hblbl">Tamamlanan Proje</div></div>
     </div>
   </div>
 </div>
 
+<!-- PROJECTS -->
 <div class="page" id="p-projects">
   <div class="phead">
     <div>
@@ -267,32 +285,34 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 60px; di
   </div>
 </div>
 
+<!-- SERVICES -->
 <div class="page" id="p-services">
   <div class="secwrap">
     <div class="seclabel">// Hizmetler</div>
     <h2 class="sectitle">Ne <i>Sunuyorum?</i></h2>
     <div class="svcs">
       <div class="svc" data-n="01"><div class="svci">🏛️</div><div class="svcn">Dış Cephe Render</div><div class="svcd">Binanın dış görünümünü gerçekçi peyzaj, doğru ışık ve atmosferik efektlerle canlandırıyorum.</div></div>
-      <div class="svc" data-n="02"><div class="svci">🛋️</div><div class="svcn">İç Mekan Görselleştirme</div><div class="svcd">Malzeme, mobilya ve aydınlatma tasarımını fotogerçekçi render ile sunuyorum.</div></div>
-      <div class="svc" data-n="03"><div class="svci">🎬</div><div class="svcn">Animasyon &amp; Walkthrough</div><div class="svcd">3D animasyon ve sanal tur videoları ile proje sunumlarını güçlendiriyorum.</div></div>
-      <div class="svc" data-n="04"><div class="svci">🌆</div><div class="svcn">Master Plan Görselleştirme</div><div class="svcd">Kentsel dönüşüm projelerinde kuşbakışı perspektif ile bağlam görselleştirmesi.</div></div>
-      <div class="svc" data-n="05"><div class="svci">💡</div><div class="svcn">Aydınlatma Analizi</div><div class="svcd">Güneş yörüngesi simülasyonu ile doğal ışık analizleri.</div></div>
-      <div class="svc" data-n="06"><div class="svci">📐</div><div class="svcn">Sunum Paftası</div><div class="svcd">Yarışma veya müşteri sunumu düzeyinde profesyonel pafta hazırlama.</div></div>
+      <div class="svc" data-n="02"><div class="svci">🛋️</div><div class="svcn">İç Mekan Görselleştirme</div><div class="svcd">Malzeme seçimi, mobilya yerleşimi ve aydınlatma tasarımını fotogerçekçi render ile sunuyorum.</div></div>
+      <div class="svc" data-n="03"><div class="svci">🎬</div><div class="svcn">Animasyon &amp; Walkthrough</div><div class="svcd">Proje sunumlarını 3D animasyon ve sanal tur videoları ile güçlendiriyorum.</div></div>
+      <div class="svc" data-n="04"><div class="svci">🌆</div><div class="svcn">Master Plan Görselleştirme</div><div class="svcd">Kuşbakışı perspektif ile çevre bağlamını doğru yansıtan görseller üretiyorum.</div></div>
+      <div class="svc" data-n="05"><div class="svci">💡</div><div class="svcn">Aydınlatma Analizi</div><div class="svcd">Güneş yörüngesi simülasyonu ile doğal ışığın mekân etkisini analiz ediyorum.</div></div>
+      <div class="svc" data-n="06"><div class="svci">📐</div><div class="svcn">Sunum Paftası</div><div class="svcd">Yarışma veya müşteri sunumu düzeyinde pafta ve dosya hazırlıyorum.</div></div>
     </div>
   </div>
 </div>
 
+<!-- ABOUT -->
 <div class="page" id="p-about">
   <div class="abwrap">
     <div class="seclabel">// Hakkımda</div>
     <div class="abgrid">
       <div class="abimgw">
-        <img class="abimg" src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=600&q=80" alt="">
+        <img class="abimg" src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=600&q=80" alt="Studio">
         <div class="abbadge"><div class="abbn">7+</div><div class="abbl">Yıl Deneyim</div></div>
       </div>
       <div class="abtxt">
         <div class="sectitle" style="margin-bottom:18px;">Mekânı <i>Işıkla</i><br>Anlatan Görüntüler</div>
-        <p class="abbio">Merhaba, ben bir <strong>mimari görselleştirme uzmanıyım</strong>. Mimarlar, müteahhitler ve iç mimar firmalarıyla çalışarak projeleri inşaat öncesi fotogerçekçi render ve animasyonlarla hayata taşıyorum.<br><br><strong>3ds Max, Corona Renderer, V-Ray ve Blender</strong> araçlarını kullanıyorum. Konut, ticari, otel ve kentsel dönüşüm projelerinde <strong>47+ render seti</strong> teslim ettim.</p>
+        <p class="abbio">Merhaba, ben bir <strong>mimari görselleştirme uzmanıyım</strong>. Mimarlar, müteahhitler ve iç mimar firmalarıyla çalışarak projeleri inşaat öncesi fotogerçekçi render ve animasyonlarla hayata taşıyorum.<br><br><strong>3ds Max, Corona Renderer, V-Ray ve Blender</strong> araçlarını kullanıyorum. Her projede mekânın ruhunu ve atmosferini aktarmayı hedefliyorum.</p>
         <div class="seclabel" style="margin-bottom:9px;">Kullandığım Yazılımlar</div>
         <div class="absoft">
           <span class="soft">3ds Max</span><span class="soft">Corona Renderer</span><span class="soft">V-Ray</span>
@@ -309,18 +329,19 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 60px; di
   </div>
 </div>
 
+<!-- CONTACT -->
 <div class="page" id="p-contact">
   <div class="ctwrap">
     <div class="seclabel" style="color:rgba(200,169,110,.6)">// İletişim</div>
     <div class="ctgrid">
       <div>
         <h2 class="ptitle" style="margin-bottom:16px;">Projen mi var?<br><i>Konuşalım.</i></h2>
-        <p class="ctsub">Yeni bir render projesi, sunum paftası veya 3D animasyon için benimle iletişime geç. Teklif ücretsizdir.</p>
+        <p class="ctsub">Yeni bir render projesi, sunum paftası veya 3D animasyon için benimle iletişime geçebilirsin.</p>
         <div class="ctlist">
-          <a class="ctrow" href="mailto:hello@archviz.studio"><span style="font-size:1.1rem">📧</span><div><div class="ctlbl">E-posta</div><div class="ctval">hello@archviz.studio</div></div><span class="ctarr">→</span></a>
-          <a class="ctrow" href="https://linkedin.com" target="_blank"><span style="font-size:1.1rem">💼</span><div><div class="ctlbl">LinkedIn</div><div class="ctval">linkedin.com/in/username</div></div><span class="ctarr">→</span></a>
-          <a class="ctrow" href="https://instagram.com" target="_blank"><span style="font-size:1.1rem">📷</span><div><div class="ctlbl">Instagram</div><div class="ctval">@archviz.studio</div></div><span class="ctarr">→</span></a>
-          <a class="ctrow" href="https://behance.net" target="_blank"><span style="font-size:1.1rem">🎨</span><div><div class="ctlbl">Behance</div><div class="ctval">behance.net/username</div></div><span class="ctarr">→</span></a>
+          <a class="ctrow" href="mailto:hello@archviz.studio"><span>📧</span><div><div class="ctlbl">E-posta</div><div class="ctval">hello@archviz.studio</div></div><span class="ctarr">→</span></a>
+          <a class="ctrow" href="https://linkedin.com" target="_blank"><span>💼</span><div><div class="ctlbl">LinkedIn</div><div class="ctval">linkedin.com/in/username</div></div><span class="ctarr">→</span></a>
+          <a class="ctrow" href="https://instagram.com" target="_blank"><span>📷</span><div><div class="ctlbl">Instagram</div><div class="ctval">@archviz.studio</div></div><span class="ctarr">→</span></a>
+          <a class="ctrow" href="https://behance.net" target="_blank"><span>🎨</span><div><div class="ctlbl">Behance</div><div class="ctval">behance.net/username</div></div><span class="ctarr">→</span></a>
         </div>
       </div>
       <div class="ctright">
@@ -331,6 +352,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 60px; di
   </div>
 </div>
 
+<!-- OVERLAY -->
 <div id="mpover">
   <button class="mpx" onclick="stopMP()">✕</button>
   <div class="mphd">El Kontrolü Aktif</div>
@@ -338,170 +360,193 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 60px; di
     <video id="mpvid" autoplay playsinline muted></video>
     <canvas id="mpcvs"></canvas>
   </div>
-  <div class="mpst" id="mpst">Kamera başlatılıyor...</div>
-  <div class="mpge" id="mpge">—</div>
+  <div class="motion-bar-wrap"><div class="motion-bar" id="mbar"></div></div>
+  <div class="mpst" id="mpst">Kamera açılıyor...</div>
+  <div class="mpge" id="mpge">— Elini sola veya sağa süpür</div>
   <div class="mptips">
     <div class="mptip">👈 Sola → Sonraki</div>
     <div class="mptip">👉 Sağa → Önceki</div>
-    <div class="mptip">💡 İyi aydınlık, 30-50 cm</div>
+    <div class="mptip">💡 Açık arka plan önünde dur</div>
   </div>
 </div>
 
 <script>
-/* NAV */
+/* ── NAVIGATION ── */
 let curP = 'welcome';
-function go(n) {
+function go(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
   document.querySelectorAll('.navlinks a').forEach(a => a.classList.remove('on'));
-  document.getElementById('p-' + n).classList.add('on');
-  document.getElementById('n-' + n).classList.add('on');
-  curP = n;
+  document.getElementById('p-' + name).classList.add('on');
+  document.getElementById('n-' + name).classList.add('on');
+  curP = name;
 }
 
-/* FILM STRIP */
+/* ── FILM STRIP ── */
 const TOTAL = 7;
 let fi = 0, fDrag = false, fX0 = 0, fXN = 0, ftX0 = 0;
-function cardW() { return document.getElementById('fstrip').children[0].offsetWidth + 18; }
 function frender(anim) {
   const s = document.getElementById('fstrip');
-  anim === false ? s.classList.add('notrans') : s.classList.remove('notrans');
-  s.style.transform = 'translateX(-' + (fi * cardW()) + 'px)';
-  document.querySelectorAll('.fcard').forEach((c,i) => c.classList.toggle('cur', i===fi));
-  document.querySelectorAll('.fdot').forEach((d,i) => d.classList.toggle('on', i===fi));
-  document.getElementById('pidx').textContent = String(fi+1).padStart(2,'0');
-  if (anim === false) requestAnimationFrame(() => s.classList.remove('notrans'));
+  const cw = s.children[0].offsetWidth + 18;
+  if (!anim) s.classList.add('notrans'); else s.classList.remove('notrans');
+  s.style.transform = 'translateX(-' + (fi * cw) + 'px)';
+  document.querySelectorAll('.fcard').forEach((c, i) => c.classList.toggle('cur', i === fi));
+  document.querySelectorAll('.fdot').forEach((d, i) => d.classList.toggle('on', i === fi));
+  document.getElementById('pidx').textContent = String(fi + 1).padStart(2, '0');
+  if (!anim) requestAnimationFrame(() => s.classList.remove('notrans'));
 }
-function fn() { fi = Math.min(fi+1, TOTAL-1); frender(true); }
-function fp() { fi = Math.max(fi-1, 0); frender(true); }
+function fn() { fi = Math.min(fi + 1, TOTAL - 1); frender(true); }
+function fp() { fi = Math.max(fi - 1, 0); frender(true); }
 function fgo(i) { fi = i; frender(true); }
-function fmd(e) { fDrag=true; fX0=e.clientX; fXN=fX0; }
-function fmm(e) { if(!fDrag)return; fXN=e.clientX; const s=document.getElementById('fstrip'); s.classList.add('notrans'); s.style.transform='translateX(calc(-'+(fi*cardW())+'px + '+(fXN-fX0)+'px))'; }
-function fmu(e) { if(!fDrag)return; fDrag=false; if(fXN-fX0<-60)fn(); else if(fXN-fX0>60)fp(); else frender(true); }
-function ftd(e) { ftX0=e.touches[0].clientX; }
-function ftm(e) { const d=e.touches[0].clientX-ftX0; const s=document.getElementById('fstrip'); s.classList.add('notrans'); s.style.transform='translateX(calc(-'+(fi*cardW())+'px + '+d+'px))'; }
-function ftu(e) { const d=e.changedTouches[0].clientX-ftX0; if(d<-60)fn(); else if(d>60)fp(); else frender(true); }
+function fmd(e) { fDrag = true; fX0 = e.clientX; fXN = fX0; }
+function fmm(e) { if (!fDrag) return; fXN = e.clientX; const s = document.getElementById('fstrip'); const cw = s.children[0].offsetWidth + 18; s.classList.add('notrans'); s.style.transform = 'translateX(calc(-' + (fi * cw) + 'px + ' + (fXN - fX0) + 'px))'; }
+function fmu() { if (!fDrag) return; fDrag = false; if (fXN - fX0 < -60) fn(); else if (fXN - fX0 > 60) fp(); else frender(true); }
+function ftd(e) { ftX0 = e.touches[0].clientX; }
+function ftm(e) { const d = e.touches[0].clientX - ftX0; const s = document.getElementById('fstrip'); const cw = s.children[0].offsetWidth + 18; s.classList.add('notrans'); s.style.transform = 'translateX(calc(-' + (fi * cw) + 'px + ' + d + 'px))'; }
+function ftu(e) { const d = e.changedTouches[0].clientX - ftX0; if (d < -60) fn(); else if (d > 60) fp(); else frender(true); }
 
-/* FLASH */
+/* ── FLASH ── */
 let flT;
-function flash(m) { const el=document.getElementById('gflash'); el.textContent=m; el.classList.add('on'); clearTimeout(flT); flT=setTimeout(()=>el.classList.remove('on'),1400); }
+function flash(msg) { const el = document.getElementById('gflash'); el.textContent = msg; el.classList.add('on'); clearTimeout(flT); flT = setTimeout(() => el.classList.remove('on'), 1400); }
+function setStatus(m) { document.getElementById('mpst').textContent = m; }
 
-/* MEDIAPIPE */
-let mpOn=false, camS=null, mpC=null, lX=null, lG=0;
-const COOL=900;
+/* ── MOTION DETECTION (saf JS, CDN yok) ── */
+/*
+   Nasıl çalışır:
+   - Her frame'de canvas'a video yansıt
+   - Önceki frame ile karşılaştır (pixel diff)
+   - Hareketin ağırlıklı X merkezini hesapla (centroid)
+   - Centroid hızlıca sola giderse → NEXT, sağa → PREV
+   - Bar widget ile hareket miktarını görsel göster
+*/
+let mpOn = false, camS = null, rafId = null;
+let prevData = null, centX = 0.5, smoothCX = 0.5;
+let lastTrigger = 0;
+const COOL = 1000;
+const THRESH = 18;    // piksel fark eşiği (0-255)
+const SWIPE_DELTA = 0.10; // centroid ne kadar kayarsa tetiklesin
+const SMOOTH = 0.3;
 
 async function toggleMP() { mpOn ? stopMP() : await startMP(); }
 
 async function startMP() {
-  mpOn=true;
+  mpOn = true;
   document.getElementById('mpover').classList.add('on');
   document.getElementById('mpbtn').classList.add('on');
-  document.getElementById('mplbl').textContent='Aktif';
-  document.getElementById('mpst').textContent='Kamera açılıyor...';
+  document.getElementById('mplbl').textContent = 'Aktif';
+  setStatus('Kamera açılıyor...');
 
   try {
-    // Try front camera
-    try {
-      camS = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact:'user' } } });
-    } catch(e1) {
-      try {
-        camS = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-      } catch(e2) {
-        camS = await navigator.mediaDevices.getUserMedia({ video: true });
-      }
-    }
-
-    const v = document.getElementById('mpvid');
-    v.srcObject = camS;
-    await v.play();
-    document.getElementById('mpst').textContent = '⏳ Model yükleniyor (10-15 sn)...';
-
-    if (!window._mpL) {
-      await ljs('https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/hands.js');
-      await ljs('https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.js');
-      await ljs('https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3.1675466862/drawing_utils.js');
-      window._mpL = true;
-    }
-
-    const cv = document.getElementById('mpcvs');
-    const ctx = cv.getContext('2d');
-    await new Promise(r => { if(v.videoWidth) r(); else v.onloadedmetadata = r; });
-    cv.width = v.videoWidth || 640;
-    cv.height = v.videoHeight || 480;
-
-    const hands = new Hands({ locateFile: f => 'https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/' + f });
-    hands.setOptions({
-      maxNumHands: 1,
-      modelComplexity: 0,           // lite model — mobilde daha hızlı
-      minDetectionConfidence: 0.4,  // düşük eşik — daha kolay algılar
-      minTrackingConfidence: 0.3
+    camS = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'user', width: { ideal: 320 }, height: { ideal: 240 } }
     });
-
-    let frames = 0;
-    hands.onResults(r => {
-      frames++;
-      ctx.clearRect(0, 0, cv.width, cv.height);
-      const cur = document.getElementById('hcur');
-      if (r.multiHandLandmarks && r.multiHandLandmarks.length > 0) {
-        const lms = r.multiHandLandmarks[0];
-        drawConnectors(ctx, lms, HAND_CONNECTIONS, { color:'rgba(200,169,110,.7)', lineWidth:4 });
-        drawLandmarks(ctx, lms, { color:'#c8a96e', lineWidth:2, radius:6 });
-        const w = lms[0];
-        cur.style.left = ((1-w.x)*window.innerWidth)+'px';
-        cur.style.top  = (w.y*window.innerHeight)+'px';
-        cur.classList.add('on');
-        const ix = lms[8].x, now = Date.now();
-        if (lX !== null) {
-          const d = ix - lX;
-          if (Math.abs(d) > 0.035 && now-lG > COOL) {
-            lG = now;
-            if (d > 0) { document.getElementById('mpge').textContent='← Önceki'; if(curP==='projects')fp(); flash('← Önceki Proje'); }
-            else        { document.getElementById('mpge').textContent='→ Sonraki'; if(curP==='projects')fn(); flash('→ Sonraki Proje'); }
-          }
-        }
-        lX = ix;
-        document.getElementById('mpst').textContent = '✓ El algılandı — sola/sağa süpür!';
-      } else {
-        lX = null; cur.classList.remove('on');
-        document.getElementById('mpge').textContent = '—';
-        document.getElementById('mpst').textContent = frames < 25
-          ? '⏳ Hazırlanıyor... elini göster (' + frames + '/25)'
-          : '◌ Elini göster — iyi aydınlık, 30-50 cm mesafe';
-      }
-    });
-
-    mpC = new Camera(v, { onFrame: async () => { await hands.send({ image:v }); }, width:640, height:480 });
-    mpC.start();
-    document.getElementById('mpst').textContent = '✓ Kamera açık — elini göster';
-
-  } catch(err) {
-    console.warn(err.name, err.message);
-    mpOn=false;
+    const vid = document.getElementById('mpvid');
+    vid.srcObject = camS;
+    await new Promise(r => { vid.onloadedmetadata = r; });
+    await vid.play();
+    setStatus('✓ Hazır — elini sola veya sağa süpür');
+    prevData = null;
+    loop();
+  } catch (err) {
+    console.error(err);
+    setStatus(location.protocol === 'file:'
+      ? '⚠️ file:// protokolünde çalışmaz. GitHub Pages üzerinden aç.'
+      : '✕ Kamera açılamadı: ' + err.message);
+    mpOn = false;
     document.getElementById('mpbtn').classList.remove('on');
-    document.getElementById('mplbl').textContent='El Kontrolü';
-    document.getElementById('mpst').textContent = location.protocol==='file:'
-      ? '⚠️ file:// protokolünde çalışmaz. knmrtzdn.github.io/Portfolio adresini kullan.'
-      : '✕ ' + err.name + ' — Kamera izni yok veya başka uygulama kamerayı kullanıyor.';
+    document.getElementById('mplbl').textContent = 'El Kontrolü';
   }
 }
 
-function stopMP() {
-  mpOn=false;
-  document.getElementById('mpover').classList.remove('on');
-  document.getElementById('mpbtn').classList.remove('on');
-  document.getElementById('mplbl').textContent='El Kontrolü';
-  document.getElementById('hcur').classList.remove('on');
-  if(camS){camS.getTracks().forEach(t=>t.stop());camS=null;}
-  if(mpC){try{mpC.stop();}catch(e){}mpC=null;}
-  lX=null;
+function loop() {
+  if (!mpOn) return;
+  const vid = document.getElementById('mpvid');
+  const cv  = document.getElementById('mpcvs');
+  const ctx = cv.getContext('2d');
+  const W = vid.videoWidth  || 320;
+  const H = vid.videoHeight || 240;
+  cv.width = W; cv.height = H;
+
+  // draw mirrored frame
+  ctx.save();
+  ctx.translate(W, 0);
+  ctx.scale(-1, 1);
+  ctx.drawImage(vid, 0, 0, W, H);
+  ctx.restore();
+
+  const cur = ctx.getImageData(0, 0, W, H);
+
+  if (prevData) {
+    // compute diff & motion centroid
+    let totalMotion = 0;
+    let weightedX = 0;
+    const d = cur.data;
+    const p = prevData.data;
+
+    for (let i = 0; i < d.length; i += 4) {
+      const diff = Math.abs(d[i] - p[i]) + Math.abs(d[i+1] - p[i+1]) + Math.abs(d[i+2] - p[i+2]);
+      if (diff > THRESH * 3) {
+        const px = ((i / 4) % W) / W; // normalized x
+        totalMotion++;
+        weightedX += px;
+      }
+    }
+
+    if (totalMotion > 200) {
+      const newCX = weightedX / totalMotion;
+      smoothCX = smoothCX * (1 - SMOOTH) + newCX * SMOOTH;
+
+      // update bar (centroid position)
+      document.getElementById('mbar').style.width = (smoothCX * 100) + '%';
+
+      // show cursor at centroid
+      const cur2 = document.getElementById('hcur');
+      cur2.style.left = (smoothCX * window.innerWidth) + 'px';
+      cur2.style.top  = (0.5 * window.innerHeight) + 'px';
+      cur2.classList.add('on');
+
+      // detect swipe
+      const now = Date.now();
+      if (now - lastTrigger > COOL) {
+        const delta = smoothCX - centX;
+        if (Math.abs(delta) > SWIPE_DELTA) {
+          lastTrigger = now;
+          if (delta > 0) {
+            // centroid moved right = hand went right = PREV
+            document.getElementById('mpge').textContent = '← Önceki Proje';
+            if (curP === 'projects') fp();
+            flash('← Önceki Proje');
+          } else {
+            // centroid moved left = hand went left = NEXT
+            document.getElementById('mpge').textContent = '→ Sonraki Proje';
+            if (curP === 'projects') fn();
+            flash('→ Sonraki Proje');
+          }
+          centX = smoothCX;
+        }
+      }
+      // slowly drift centX toward current
+      centX = centX * 0.98 + smoothCX * 0.02;
+      setStatus('✓ Hareket algılandı — sola veya sağa süpür');
+    } else {
+      document.getElementById('hcur').classList.remove('on');
+      document.getElementById('mbar').style.width = '50%';
+      setStatus('◌ Elini süpür (büyük hareket yap)');
+    }
+  }
+
+  prevData = cur;
+  rafId = requestAnimationFrame(loop);
 }
 
-function ljs(src) {
-  return new Promise((res,rej) => {
-    if(document.querySelector('script[src="'+src+'"]')){res();return;}
-    const s=document.createElement('script');
-    s.src=src; s.crossOrigin='anonymous'; s.onload=res; s.onerror=rej;
-    document.head.appendChild(s);
-  });
+function stopMP() {
+  mpOn = false;
+  if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  document.getElementById('mpover').classList.remove('on');
+  document.getElementById('mpbtn').classList.remove('on');
+  document.getElementById('mplbl').textContent = 'El Kontrolü';
+  document.getElementById('hcur').classList.remove('on');
+  if (camS) { camS.getTracks().forEach(t => t.stop()); camS = null; }
+  prevData = null;
 }
 
 frender(false);
