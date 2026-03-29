@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARCHVIZ — Mimari Görselleştirme</title>
+<title>Kaan Özden — CG Artist</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -57,7 +57,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;height:100%;gap:3px;}
 .mimg{overflow:hidden;}
 .mimg:first-child{grid-row:1/3;}
-.mimg img{width:100%;height:100%;object-fit:cover;filter:sepia(6%) saturate(85%) brightness(95%);transition:transform .6s;}
+.mimg img{width:100%;height:100%;object-fit:cover;filter:sepia(4%) saturate(88%) brightness(96%);transition:transform .6s;}
 .mimg:hover img{transform:scale(1.04);}
 .hbadge{position:absolute;bottom:20px;right:20px;background:rgba(245,240,232,.93);backdrop-filter:blur(10px);border:1px solid var(--warm2);border-radius:2px;padding:14px 18px;text-align:center;}
 .hbnum{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;line-height:1;color:var(--dark);}
@@ -70,7 +70,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .gtrack{display:flex;height:100%;will-change:transform;}
 .gtrack.snap{transition:transform .45s cubic-bezier(.25,.1,.25,1);}
 .gslide{flex-shrink:0;width:100%;height:100%;position:relative;}
-.gslide img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(72%);}
+.gslide img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(70%);}
 .ginfo{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(18,11,6,.96) 0%,rgba(18,11,6,.3) 65%,transparent 100%);padding:56px 72px 44px;display:flex;align-items:flex-end;justify-content:space-between;pointer-events:none;}
 .gtag{font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
 .gtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.8rem);font-weight:300;line-height:1.05;color:#fff;margin-bottom:10px;}
@@ -78,6 +78,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .gbadge{background:rgba(200,169,110,.15);border:1px solid rgba(200,169,110,.3);color:var(--gold);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;}
 .gcounter{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(255,255,255,.12);line-height:1;text-align:right;flex-shrink:0;}
 .gcounter small{font-size:1rem;color:rgba(255,255,255,.25);}
+.glink{position:absolute;top:80px;right:28px;z-index:10;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);border:1px solid rgba(200,169,110,.3);color:var(--gold);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:2px;text-decoration:none;transition:all .2s;}
+.glink:hover{background:rgba(200,169,110,.15);}
 .garr{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.3);backdrop-filter:blur(8px);color:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;}
 .garr:hover{border-color:var(--gold);color:var(--gold);}
 .garr.l{left:28px;} .garr.r{right:28px;}
@@ -150,8 +152,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .mpst{margin-top:6px;font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;color:var(--stone);text-align:center;line-height:1.5;}
 .mpge{font-family:'Cormorant Garamond',serif;font-size:.88rem;color:var(--gold);min-height:1.2em;text-align:center;margin-top:3px;}
 
-/* El imleci */
-#hcursor{position:fixed;z-index:99999;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);display:none;transition:width .08s,height .08s,background .08s,border-color .08s;}
+#hcursor{position:fixed;z-index:99999;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);display:none;transition:width .08s,height .08s,background .08s;}
 #hcursor.show{display:block;}
 #hcursor.open{width:34px;height:34px;background:rgba(200,169,110,.2);border:2px solid rgba(200,169,110,.8);}
 #hcursor.closed{width:22px;height:22px;background:rgba(200,169,110,.85);border:2px solid var(--gold);box-shadow:0 0 18px rgba(200,169,110,.7);}
@@ -170,7 +171,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 <div id="gflash"></div>
 
 <nav>
-  <div class="logo" onclick="go('welcome')">ARCH<b>·</b>VIZ</div>
+  <div class="logo" onclick="go('welcome')">KAAN<b>·</b>ÖZDEN</div>
   <ul class="navlinks">
     <li><a id="n-welcome"  onclick="go('welcome')"  class="on">Studio</a></li>
     <li><a id="n-projects" onclick="go('projects')">Projeler</a></li>
@@ -188,16 +189,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 <div class="page on" id="p-welcome">
   <div class="hero">
     <div class="hleft">
-      <div class="eyebrow">Mimari Görselleştirme Stüdyosu</div>
+      <div class="eyebrow">CG Artist · İstanbul</div>
       <h1 class="htitle">Mekânı<br><i>Hissettiren</i><br>Görüntüler</h1>
-      <p class="hsub">Mimari projeleri fotogerçekçi render ve atmosferik görselleştirmelerle hayata taşıyorum. Yumruk yapıp sürükleyerek projeler arasında geçiş yapabilirsin.</p>
+      <p class="hsub">İnşaat mühendisliği formasyonumu dijital sanatla birleştirerek fotorealistik görselleştirme ve animasyon üretiyorum. 3ds Max, Corona, V-Ray ve Unreal Engine kullanıyorum.</p>
       <div class="howcard">
         <div class="howtitle">El Kontrolü — Nasıl Kullanılır?</div>
         <div class="howsteps">
-          <div class="hstep"><div class="hnum">1</div><div class="htxt"><strong>El Kontrolü'ne bas</strong><br>Sağ altta kamera açılır, model yüklenir.</div></div>
+          <div class="hstep"><div class="hnum">1</div><div class="htxt"><strong>El Kontrolü'ne bas</strong><br>Sağ altta kamera açılır.</div></div>
           <div class="hstep"><div class="hnum">2</div><div class="htxt"><strong>Projeler sayfasına geç</strong><br>Tam ekran galeri açılır.</div></div>
           <div class="hstep"><div class="hnum">3</div><div class="htxt"><strong>Açık el = serbest</strong><br>Altın halka imleç görünür.</div></div>
-          <div class="hstep"><div class="hnum">4</div><div class="htxt"><strong>Yumruk = tut &amp; sürükle</strong><br>Sağa/sola çek, bırak → snap.</div></div>
+          <div class="hstep"><div class="hnum">4</div><div class="htxt"><strong>Yumruk = tut &amp; sürükle</strong><br>Sağa/sola çek → resim kayar.</div></div>
         </div>
         <div class="chips">
           <div class="chip">🖐 Açık = serbest</div>
@@ -212,11 +213,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
     </div>
     <div class="hright">
       <div class="mosaic">
-        <div class="mimg"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt=""></div>
-        <div class="mimg"><img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&q=80" alt=""></div>
-        <div class="mimg"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&q=80" alt=""></div>
+        <div class="mimg"><img src="https://mir-s3-cdn-cf.behance.net/projects/808/886e81215084051.Y3JvcCw0MjAwLDMyODUsMCwxMTEy.jpg" alt="Artemis Aten"></div>
+        <div class="mimg"><img src="https://mir-s3-cdn-cf.behance.net/projects/808/3f9a18202731373.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg" alt="Bathtubs"></div>
+        <div class="mimg"><img src="https://mir-s3-cdn-cf.behance.net/projects/808/b13b1b193731161.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg" alt="Shower"></div>
       </div>
-      <div class="hbadge"><div class="hbnum">47</div><div class="hblbl">Tamamlanan Proje</div></div>
+      <div class="hbadge"><div class="hbnum">8</div><div class="hblbl">Behance Projesi</div></div>
     </div>
   </div>
 </div>
@@ -226,19 +227,125 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
   <div class="gallery">
     <div class="gtrack-wrap">
       <div class="gtrack" id="gtrack">
-        <div class="gslide"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=90" alt=""><div class="ginfo"><div><div class="gtag">Proje 01 — Konut · 2024</div><div class="gtitle">Bosphorus Villa<br>İç Mekan Render</div><div class="gbadges"><span class="gbadge">3ds Max</span><span class="gbadge">Corona</span><span class="gbadge">İç Mekan</span></div></div><div class="gcounter">01<br><small>/ 07</small></div></div></div>
-        <div class="gslide"><img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=90" alt=""><div class="ginfo"><div><div class="gtag">Proje 02 — Konut · 2024</div><div class="gtitle">Ankara Rezidans<br>Dış Cephe</div><div class="gbadges"><span class="gbadge">V-Ray</span><span class="gbadge">Dış Mekan</span></div></div><div class="gcounter">02<br><small>/ 07</small></div></div></div>
-        <div class="gslide"><img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1600&q=90" alt=""><div class="ginfo"><div><div class="gtag">Proje 03 — Yazlık · 2024</div><div class="gtitle">Çeşme Yazlık<br>Havuz Cephesi</div><div class="gbadges"><span class="gbadge">Lumion</span><span class="gbadge">Peyzaj</span></div></div><div class="gcounter">03<br><small>/ 07</small></div></div></div>
-        <div class="gslide"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1600&q=90" alt=""><div class="ginfo"><div><div class="gtag">Proje 04 — Lüks · 2023</div><div class="gtitle">Nişantaşı Penthouse<br>Oturma Odası</div><div class="gbadges"><span class="gbadge">Corona</span><span class="gbadge">İç Mekan</span></div></div><div class="gcounter">04<br><small>/ 07</small></div></div></div>
-        <div class="gslide"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=90" alt=""><div class="ginfo"><div><div class="gtag">Proje 05 — Ticari · 2023</div><div class="gtitle">Sky Tower<br>Kule Görselleştirme</div><div class="gbadges"><span class="gbadge">Chaos</span><span class="gbadge">Kule</span></div></div><div class="gcounter">05<br><small>/ 07</small></div></div></div>
-        <div class="gslide"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=90" alt=""><div class="ginfo"><div><div class="gtag">Proje 06 — Otel · 2023</div><div class="gtitle">Zen Master Suite<br>Yatak Odası</div><div class="gbadges"><span class="gbadge">Blender</span><span class="gbadge">İç Mekan</span></div></div><div class="gcounter">06<br><small>/ 07</small></div></div></div>
-        <div class="gslide"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1600&q=90" alt=""><div class="ginfo"><div><div class="gtag">Proje 07 — Ticari · 2022</div><div class="gtitle">Merkez AVM<br>Giriş Cephesi</div><div class="gbadges"><span class="gbadge">V-Ray</span><span class="gbadge">Dış Mekan</span></div></div><div class="gcounter">07<br><small>/ 07</small></div></div></div>
+
+        <!-- 1 -->
+        <div class="gslide">
+          <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/7f124b218554235.Y3JvcCwxMDgwLDg0NCwwLDc0.jpg" alt="Solid Washbasins Animation">
+          <div class="ginfo">
+            <div>
+              <div class="gtag">Proje 01 — Ürün Animasyonu · 2025</div>
+              <div class="gtitle">Solid Washbasins<br>Animation — Artemis</div>
+              <div class="gbadges"><span class="gbadge">3ds Max</span><span class="gbadge">Corona</span><span class="gbadge">After Effects</span><span class="gbadge">Animasyon</span></div>
+            </div>
+            <div class="gcounter">01<br><small>/ 08</small></div>
+          </div>
+          <a class="glink" href="https://www.behance.net/gallery/218554235/Solid-Washbasins-Animation-Artemis" target="_blank">Behance'de Gör →</a>
+        </div>
+
+        <!-- 2 -->
+        <div class="gslide">
+          <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/0d38ca215733253.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg" alt="Monoblock Sink">
+          <div class="ginfo">
+            <div>
+              <div class="gtag">Proje 02 — Ürün Render · 2025</div>
+              <div class="gtitle">Artemis<br>Monoblock Sink</div>
+              <div class="gbadges"><span class="gbadge">3ds Max</span><span class="gbadge">Corona</span><span class="gbadge">Ürün Render</span></div>
+            </div>
+            <div class="gcounter">02<br><small>/ 08</small></div>
+          </div>
+          <a class="glink" href="https://www.behance.net/gallery/215733253/Artemis-Monoblock-Sink" target="_blank">Behance'de Gör →</a>
+        </div>
+
+        <!-- 3 -->
+        <div class="gslide">
+          <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/2935ad215711867.Y3JvcCw0MjAwLDMyODUsMCwxODcx.jpg" alt="Filira Animation">
+          <div class="ginfo">
+            <div>
+              <div class="gtag">Proje 03 — Ürün Animasyonu · 2025</div>
+              <div class="gtitle">Artemis<br>Filira Animation</div>
+              <div class="gbadges"><span class="gbadge">3ds Max</span><span class="gbadge">Corona</span><span class="gbadge">Motion Design</span></div>
+            </div>
+            <div class="gcounter">03<br><small>/ 08</small></div>
+          </div>
+          <a class="glink" href="https://www.behance.net/gallery/215711867/Artemis-Filira-Animation" target="_blank">Behance'de Gör →</a>
+        </div>
+
+        <!-- 4 -->
+        <div class="gslide">
+          <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/886e81215084051.Y3JvcCw0MjAwLDMyODUsMCwxMTEy.jpg" alt="Artemis Aten">
+          <div class="ginfo">
+            <div>
+              <div class="gtag">Proje 04 — Ürün Render · 2025</div>
+              <div class="gtitle">Artemis<br>Aten</div>
+              <div class="gbadges"><span class="gbadge">3ds Max</span><span class="gbadge">Corona</span><span class="gbadge">Ürün Render</span></div>
+            </div>
+            <div class="gcounter">04<br><small>/ 08</small></div>
+          </div>
+          <a class="glink" href="https://www.behance.net/gallery/215084051/Artemis-Aten" target="_blank">Behance'de Gör →</a>
+        </div>
+
+        <!-- 5 -->
+        <div class="gslide">
+          <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/7fb471206694533.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg" alt="Solid Sinks">
+          <div class="ginfo">
+            <div>
+              <div class="gtag">Proje 05 — Ürün Render · 2024</div>
+              <div class="gtitle">Artemis<br>Solid Sinks</div>
+              <div class="gbadges"><span class="gbadge">3ds Max</span><span class="gbadge">Corona</span><span class="gbadge">CGI</span></div>
+            </div>
+            <div class="gcounter">05<br><small>/ 08</small></div>
+          </div>
+          <a class="glink" href="https://www.behance.net/gallery/206694533/Artemis-Solid-Sinks" target="_blank">Behance'de Gör →</a>
+        </div>
+
+        <!-- 6 -->
+        <div class="gslide">
+          <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/3f9a18202731373.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg" alt="Bathtubs">
+          <div class="ginfo">
+            <div>
+              <div class="gtag">Proje 06 — Ürün Render · 2024</div>
+              <div class="gtitle">Artemis<br>Bathtubs</div>
+              <div class="gbadges"><span class="gbadge">3ds Max</span><span class="gbadge">Corona</span><span class="gbadge">Ürün Render</span></div>
+            </div>
+            <div class="gcounter">06<br><small>/ 08</small></div>
+          </div>
+          <a class="glink" href="https://www.behance.net/gallery/202731373/Artemis-Bathtubs" target="_blank">Behance'de Gör →</a>
+        </div>
+
+        <!-- 7 -->
+        <div class="gslide">
+          <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/b13b1b193731161.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg" alt="Shower Enclosures">
+          <div class="ginfo">
+            <div>
+              <div class="gtag">Proje 07 — Ürün Render · 2023</div>
+              <div class="gtitle">Shower Enclosures<br>Artemis</div>
+              <div class="gbadges"><span class="gbadge">3ds Max</span><span class="gbadge">Corona</span><span class="gbadge">CGI</span></div>
+            </div>
+            <div class="gcounter">07<br><small>/ 08</small></div>
+          </div>
+          <a class="glink" href="https://www.behance.net/gallery/193731161/Shower-Enclosures-Artemis" target="_blank">Behance'de Gör →</a>
+        </div>
+
+        <!-- 8 -->
+        <div class="gslide">
+          <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/9a4f95193084915.Y3JvcCwzNTY2LDI3OTAsNjk3LDA.jpg" alt="Unreal Engine">
+          <div class="ginfo">
+            <div>
+              <div class="gtag">Proje 08 — Animasyon · 2023</div>
+              <div class="gtitle">Unreal Engine<br>Renders &amp; Animations</div>
+              <div class="gbadges"><span class="gbadge">Unreal Engine</span><span class="gbadge">Real-time</span><span class="gbadge">Animasyon</span></div>
+            </div>
+            <div class="gcounter">08<br><small>/ 08</small></div>
+          </div>
+          <a class="glink" href="https://www.behance.net/gallery/193084915/Unreal-Engine-Renders-Animations" target="_blank">Behance'de Gör →</a>
+        </div>
+
       </div>
     </div>
     <button class="garr l" onclick="gSnap(gIdx-1)">←</button>
     <button class="garr r" onclick="gSnap(gIdx+1)">→</button>
     <div class="gdots" id="gdots">
-      <div class="gdot on" onclick="gSnap(0)"></div><div class="gdot" onclick="gSnap(1)"></div><div class="gdot" onclick="gSnap(2)"></div><div class="gdot" onclick="gSnap(3)"></div><div class="gdot" onclick="gSnap(4)"></div><div class="gdot" onclick="gSnap(5)"></div><div class="gdot" onclick="gSnap(6)"></div>
+      <div class="gdot on" onclick="gSnap(0)"></div><div class="gdot" onclick="gSnap(1)"></div><div class="gdot" onclick="gSnap(2)"></div><div class="gdot" onclick="gSnap(3)"></div><div class="gdot" onclick="gSnap(4)"></div><div class="gdot" onclick="gSnap(5)"></div><div class="gdot" onclick="gSnap(6)"></div><div class="gdot" onclick="gSnap(7)"></div>
     </div>
   </div>
 </div>
@@ -249,12 +356,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
     <div class="seclabel">// Hizmetler</div>
     <h2 class="sectitle">Ne <i>Sunuyorum?</i></h2>
     <div class="svcs">
-      <div class="svc" data-n="01"><div class="svci">🏛️</div><div class="svcn">Dış Cephe Render</div><div class="svcd">Binanın dış görünümünü gerçekçi peyzaj, doğru ışık ve atmosferik efektlerle canlandırıyorum.</div></div>
-      <div class="svc" data-n="02"><div class="svci">🛋️</div><div class="svcn">İç Mekan Görselleştirme</div><div class="svcd">Malzeme seçimi, mobilya yerleşimi ve aydınlatma tasarımını fotogerçekçi render ile sunuyorum.</div></div>
-      <div class="svc" data-n="03"><div class="svci">🎬</div><div class="svcn">Animasyon &amp; Walkthrough</div><div class="svcd">Proje sunumlarını 3D animasyon ve sanal tur videoları ile güçlendiriyorum.</div></div>
-      <div class="svc" data-n="04"><div class="svci">🌆</div><div class="svcn">Master Plan Görselleştirme</div><div class="svcd">Kuşbakışı perspektif ile çevre bağlamını doğru yansıtan görseller üretiyorum.</div></div>
-      <div class="svc" data-n="05"><div class="svci">💡</div><div class="svcn">Aydınlatma Analizi</div><div class="svcd">Güneş yörüngesi simülasyonu ile doğal ışığın mekân etkisini analiz ediyorum.</div></div>
-      <div class="svc" data-n="06"><div class="svci">📐</div><div class="svcn">Sunum Paftası</div><div class="svcd">Yarışma veya müşteri sunumu düzeyinde pafta ve dosya hazırlıyorum.</div></div>
+      <div class="svc" data-n="01"><div class="svci">🏛️</div><div class="svcn">Mimari Görselleştirme</div><div class="svcd">Bina içi ve dışı fotogerçekçi render. Gündüz, gün batımı ve gece versiyonları. Konut, ticari ve otel projeleri.</div></div>
+      <div class="svc" data-n="02"><div class="svci">🛋️</div><div class="svcn">Ürün Render &amp; CGI</div><div class="svcd">Banyo ürünleri, mobilya ve endüstriyel ürünler için stüdyo kalitesinde CGI render ve animasyon.</div></div>
+      <div class="svc" data-n="03"><div class="svci">🎬</div><div class="svcn">3D Animasyon</div><div class="svcd">Ürün tanıtım animasyonları, mimari walkthrough ve motion design. After Effects ile post prodüksiyon.</div></div>
+      <div class="svc" data-n="04"><div class="svci">⚡</div><div class="svcn">Unreal Engine</div><div class="svcd">Real-time render ve interaktif görselleştirme. Yüksek kaliteli animasyon ve sanal tur prodüksiyon.</div></div>
+      <div class="svc" data-n="05"><div class="svci">💡</div><div class="svcn">Aydınlatma Tasarımı</div><div class="svcd">Doğal ve yapay ışık simülasyonu. Güneş yörüngesi analizi ve mekân aydınlatma optimizasyonu.</div></div>
+      <div class="svc" data-n="06"><div class="svci">📐</div><div class="svcn">Sunum &amp; Pafta</div><div class="svcd">Mimari ve ürün projelerinde yarışma veya müşteri sunumu düzeyinde görsel pafta hazırlama.</div></div>
     </div>
   </div>
 </div>
@@ -265,15 +372,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
     <div class="seclabel">// Hakkımda</div>
     <div class="abgrid">
       <div class="abimgw">
-        <img class="abimg" src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=600&q=80" alt="">
-        <div class="abbadge"><div class="abbn">7+</div><div class="abbl">Yıl Deneyim</div></div>
+        <img class="abimg" src="https://mir-s3-cdn-cf.behance.net/projects/max_808/886e81215084051.Y3JvcCw0MjAwLDMyODUsMCwxMTEy.jpg" alt="Kaan Özden">
+        <div class="abbadge"><div class="abbn">8+</div><div class="abbl">Yıl Deneyim</div></div>
       </div>
       <div class="abtxt">
-        <div class="sectitle" style="margin-bottom:18px;">Mekânı <i>Işıkla</i><br>Anlatan Görüntüler</div>
-        <p class="abbio">Merhaba, ben bir <strong>mimari görselleştirme uzmanıyım</strong>. Mimarlar, müteahhitler ve iç mimar firmalarıyla çalışarak projeleri inşaat öncesi fotogerçekçi render ve animasyonlarla hayata taşıyorum.<br><br><strong>3ds Max, Corona Renderer, V-Ray ve Blender</strong> araçlarını kullanıyorum.</p>
-        <div class="seclabel" style="margin-bottom:9px;">Yazılımlar</div>
-        <div class="absoft"><span class="soft">3ds Max</span><span class="soft">Corona Renderer</span><span class="soft">V-Ray</span><span class="soft">Blender</span><span class="soft">Lumion</span><span class="soft">Chaos Vantage</span><span class="soft">Photoshop</span><span class="soft">After Effects</span></div>
-        <div class="abstats"><div class="ast"><div class="asn">47</div><div class="asl">Proje</div></div><div class="ast"><div class="asn">28</div><div class="asl">Müşteri</div></div><div class="ast"><div class="asn">7+</div><div class="asl">Yıl</div></div></div>
+        <div class="sectitle" style="margin-bottom:18px;">Mühendislik ile <i>Sanatı</i><br>Birleştiriyorum</div>
+        <p class="abbio">
+          <strong>Kaan Özden</strong> — CG Artist, İstanbul.<br><br>
+          İnşaat Mühendisliği formasyonumu dijital sanatların sınırsız dünyasıyla birleştirerek <strong>fotorealistik görselleştirme ve tasarım</strong> alanında profesyonel çözümler üretiyorum.<br><br>
+          2016 yılında mühendislik kariyerime başlayıp şantiye ve proje yönetimi deneyimi kazandıktan sonra teknik bilgimi sanatsal bir bakış açısıyla harmanladım. Şu an <strong>Artemis</strong> bünyesinde CG Artist olarak çalışıyorum.
+        </p>
+        <div class="seclabel" style="margin-bottom:9px;">Kullandığım Yazılımlar</div>
+        <div class="absoft">
+          <span class="soft">3ds Max</span><span class="soft">Corona Renderer</span><span class="soft">V-Ray</span>
+          <span class="soft">Unreal Engine</span><span class="soft">After Effects</span><span class="soft">Photoshop</span>
+        </div>
+        <div class="abstats">
+          <div class="ast"><div class="asn">8</div><div class="asl">Proje</div></div>
+          <div class="ast"><div class="asn">8+</div><div class="asl">Yıl</div></div>
+          <div class="ast"><div class="asn">2016</div><div class="asl">Başlangıç</div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -286,23 +404,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
     <div class="ctgrid">
       <div>
         <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;line-height:1.1;color:var(--cream);margin-bottom:16px;">Projen mi var?<br><i style="font-style:italic;color:var(--gold)">Konuşalım.</i></h2>
-        <p class="ctsub">Yeni bir render projesi, sunum paftası veya 3D animasyon için benimle iletişime geçebilirsin.</p>
+        <p class="ctsub">Mimari görselleştirme, ürün render veya 3D animasyon için benimle iletişime geçebilirsin.</p>
         <div class="ctlist">
-          <a class="ctrow" href="mailto:hello@archviz.studio"><span>📧</span><div><div class="ctlbl">E-posta</div><div class="ctval">hello@archviz.studio</div></div><span class="ctarr">→</span></a>
-          <a class="ctrow" href="https://linkedin.com" target="_blank"><span>💼</span><div><div class="ctlbl">LinkedIn</div><div class="ctval">linkedin.com/in/username</div></div><span class="ctarr">→</span></a>
-          <a class="ctrow" href="https://instagram.com" target="_blank"><span>📷</span><div><div class="ctlbl">Instagram</div><div class="ctval">@archviz.studio</div></div><span class="ctarr">→</span></a>
-          <a class="ctrow" href="https://behance.net" target="_blank"><span>🎨</span><div><div class="ctlbl">Behance</div><div class="ctval">behance.net/username</div></div><span class="ctarr">→</span></a>
+          <a class="ctrow" href="https://www.behance.net/kaanozden" target="_blank"><span>🎨</span><div><div class="ctlbl">Behance</div><div class="ctval">behance.net/kaanozden</div></div><span class="ctarr">→</span></a>
+          <a class="ctrow" href="http://linkedin.com/in/kaan-murat-özden-a264221b2" target="_blank"><span>💼</span><div><div class="ctlbl">LinkedIn</div><div class="ctval">Kaan Murat Özden</div></div><span class="ctarr">→</span></a>
+          <a class="ctrow" href="mailto:kaanozden@example.com"><span>📧</span><div><div class="ctlbl">E-posta</div><div class="ctval">İletişim için tıkla</div></div><span class="ctarr">→</span></a>
         </div>
       </div>
       <div class="ctright">
-        <p class="ctbig">Her mekânın<br>bir <i>hikâyesi</i> vardır.</p>
+        <p class="ctbig">Her ürünün<br>bir <i>hikâyesi</i> vardır.</p>
         <div class="avail"><span class="availd"></span>Yeni Projeye Açık</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- KAMERA WIDGET -->
+<!-- KAMERA -->
 <div id="mpover">
   <div class="mp-top">
     <div class="mphd">✊ El Kontrolü</div>
@@ -317,7 +434,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 </div>
 
 <script>
-/* ══ NAVIGATION ══ */
 var curP='welcome';
 function go(name){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on');});
@@ -327,85 +443,44 @@ function go(name){
   curP=name;
 }
 
-/* ══ GALLERY ══ */
-var gIdx=0, GTOTAL=7;
-var gDragging=false, gDragStartX=0, gBase=0, gOffset=0;
-
-function snapOff(i){ return -i*window.innerWidth; }
-
-function gSetRaw(off){
-  var t=document.getElementById('gtrack');
-  t.classList.remove('snap');
-  t.style.transform='translateX('+off+'px)';
-}
-
+/* GALLERY */
+var gIdx=0,GTOTAL=8;
+var gDragging=false,gDragStartX=0,gBase=0,gOffset=0;
+function snapOff(i){return -i*window.innerWidth;}
+function gSetRaw(off){var t=document.getElementById('gtrack');t.classList.remove('snap');t.style.transform='translateX('+off+'px)';}
 function gSnap(i){
-  i=Math.max(0,Math.min(GTOTAL-1,i));
-  gIdx=i; gOffset=snapOff(i);
-  var t=document.getElementById('gtrack');
-  t.classList.add('snap');
-  t.style.transform='translateX('+gOffset+'px)';
+  i=Math.max(0,Math.min(GTOTAL-1,i));gIdx=i;gOffset=snapOff(i);
+  var t=document.getElementById('gtrack');t.classList.add('snap');t.style.transform='translateX('+gOffset+'px)';
   document.querySelectorAll('.gdot').forEach(function(d,j){d.classList.toggle('on',j===i);});
 }
-
 function gRelease(){
   var moved=gOffset-snapOff(gIdx);
-  if(moved < -window.innerWidth*0.2) gSnap(gIdx+1);
-  else if(moved > window.innerWidth*0.2) gSnap(gIdx-1);
+  if(moved<-window.innerWidth*0.2)gSnap(gIdx+1);
+  else if(moved>window.innerWidth*0.2)gSnap(gIdx-1);
   else gSnap(gIdx);
 }
-
-/* Mouse */
 var pp=document.getElementById('p-projects');
-pp.addEventListener('mousedown',function(e){
-  if(e.target.closest('.garr')||e.target.closest('.gdots')) return;
-  gDragging=true; gDragStartX=e.clientX; gBase=snapOff(gIdx);
-});
-window.addEventListener('mousemove',function(e){
-  if(!gDragging) return;
-  gOffset=gBase+(e.clientX-gDragStartX);
-  gSetRaw(gOffset);
-});
-window.addEventListener('mouseup',function(){
-  if(!gDragging) return;
-  gDragging=false; gRelease();
-});
-
-/* Touch */
-pp.addEventListener('touchstart',function(e){
-  if(e.target.closest('.garr')||e.target.closest('.gdots')) return;
-  gDragStartX=e.touches[0].clientX; gBase=snapOff(gIdx);
-},{passive:true});
-pp.addEventListener('touchmove',function(e){
-  gOffset=gBase+(e.touches[0].clientX-gDragStartX);
-  gSetRaw(gOffset);
-},{passive:true});
+pp.addEventListener('mousedown',function(e){if(e.target.closest('.garr')||e.target.closest('.gdots')||e.target.closest('.glink'))return;gDragging=true;gDragStartX=e.clientX;gBase=snapOff(gIdx);});
+window.addEventListener('mousemove',function(e){if(!gDragging)return;gOffset=gBase+(e.clientX-gDragStartX);gSetRaw(gOffset);});
+window.addEventListener('mouseup',function(){if(!gDragging)return;gDragging=false;gRelease();});
+pp.addEventListener('touchstart',function(e){if(e.target.closest('.garr')||e.target.closest('.gdots')||e.target.closest('.glink'))return;gDragStartX=e.touches[0].clientX;gBase=snapOff(gIdx);},{passive:true});
+pp.addEventListener('touchmove',function(e){gOffset=gBase+(e.touches[0].clientX-gDragStartX);gSetRaw(gOffset);},{passive:true});
 pp.addEventListener('touchend',function(){gRelease();});
+document.addEventListener('keydown',function(e){if(curP!=='projects')return;if(e.key==='ArrowRight')gSnap(gIdx+1);if(e.key==='ArrowLeft')gSnap(gIdx-1);});
 
-document.addEventListener('keydown',function(e){
-  if(curP!=='projects') return;
-  if(e.key==='ArrowRight') gSnap(gIdx+1);
-  if(e.key==='ArrowLeft')  gSnap(gIdx-1);
-});
-
-/* ══ FLASH ══ */
+/* FLASH */
 var flT;
 function flash(m){var el=document.getElementById('gflash');el.textContent=m;el.classList.add('on');clearTimeout(flT);flT=setTimeout(function(){el.classList.remove('on');},1200);}
 function setSt(m){document.getElementById('mpst').textContent=m;}
 function setGe(m){document.getElementById('mpge').textContent=m;}
 
-/* ══ MEDIAPIPE — gerçek landmark tabanlı yumruk tespiti ══ */
-var mpOn=false, camS=null, mpDetector=null, rafId=null;
+/* MEDIAPIPE */
+var mpOn=false,camS=null,mpCam=null;
+var hx=0.5,hy=0.5,EMA=0.15;
+var fistOn=false,fistSmooth=0;
+var handDragActive=false,handDragStartX=0,handDragBase=0;
 
-/* Smooth hand position */
-var hx=0.5, hy=0.5, EMA=0.15;
-var fistOn=false, fistConfSmooth=0;
-
-/* El drag için sahte mousedown/mouseup simülasyonu */
-var handDragActive=false;
-var handDragStartX=0, handDragBase=0;
-
-function toggleMP(){ mpOn ? stopMP() : startMP(); }
+function toggleMP(){mpOn?stopMP():startMP();}
 
 async function startMP(){
   mpOn=true;
@@ -413,160 +488,93 @@ async function startMP(){
   document.getElementById('mpbtn').classList.add('on');
   document.getElementById('mplbl').textContent='Aktif';
   setSt('Kamera açılıyor...');
-
-  try {
+  try{
     camS=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}}});
     var vid=document.getElementById('mpvid');
     vid.srcObject=camS;
     await new Promise(function(r){vid.onloadedmetadata=r;});
     await vid.play();
     setSt('Model yükleniyor...');
-
-    /* MediaPipe Hands — CDN'den yükle */
     if(!window._mpLoaded){
       await loadScript('https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/hands.js');
       await loadScript('https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.js');
       await loadScript('https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3.1675466862/drawing_utils.js');
       window._mpLoaded=true;
     }
-
-    var cv=document.getElementById('mpcvs');
-    var ctx=cv.getContext('2d');
-    cv.width=640; cv.height=480;
-
-    var hands=new Hands({locateFile:function(f){
-      return 'https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/'+f;
-    }});
+    var cv=document.getElementById('mpcvs'),ctx=cv.getContext('2d');
+    cv.width=640;cv.height=480;
+    var hands=new Hands({locateFile:function(f){return 'https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/'+f;}});
     hands.setOptions({maxNumHands:1,modelComplexity:1,minDetectionConfidence:0.7,minTrackingConfidence:0.6});
-
     hands.onResults(function(res){
       ctx.clearRect(0,0,640,480);
-
-      if(!res.multiHandLandmarks || res.multiHandLandmarks.length===0){
-        /* El yok — drag bırak */
-        if(handDragActive){ handDragActive=false; gRelease(); }
-        fistOn=false; fistConfSmooth=0;
+      if(!res.multiHandLandmarks||res.multiHandLandmarks.length===0){
+        if(handDragActive){handDragActive=false;gRelease();}
+        fistOn=false;fistSmooth=0;
         document.getElementById('hcursor').classList.remove('show');
-        setSt('◌ Elini kameraya göster');
-        setGe('🖐 Açık el = serbest');
-        return;
+        setSt('◌ Elini kameraya göster');setGe('🖐 Açık el = serbest');return;
       }
-
       var lm=res.multiHandLandmarks[0];
-
-      /* İskelet çiz */
       drawConnectors(ctx,lm,HAND_CONNECTIONS,{color:'rgba(200,169,110,0.5)',lineWidth:2});
       drawLandmarks(ctx,lm,{color:'#c8a96e',lineWidth:1,radius:3});
-
-      /* El pozisyonu — bilek (0) */
-      var rawX=1-lm[0].x; /* mirror */
-      var rawY=lm[0].y;
-      hx=hx*(1-EMA)+rawX*EMA;
-      hy=hy*(1-EMA)+rawY*EMA;
-
-      var sx=hx*window.innerWidth;
-      var sy=hy*window.innerHeight;
-
-      /* ── Yumruk tespiti: parmak uçları bilekten ne kadar uzak? ──
-         Açık el: parmak uçları uzak
-         Yumruk: parmak uçları bilek/avuç yakını
-         
-         Landmarklar:
-           4=başparmak ucu, 8=işaret ucu, 12=orta ucu, 16=yüzük ucu, 20=serçe ucu
-           0=bilek, 9=orta MCP (avuç ortası referans)
-      */
-      var palm=lm[9]; /* avuç referans noktası */
-      var tips=[lm[8],lm[12],lm[16],lm[20]]; /* 4 parmak ucu (başparmak hariç) */
+      var rawX=1-lm[0].x,rawY=lm[0].y;
+      hx=hx*(1-EMA)+rawX*EMA;hy=hy*(1-EMA)+rawY*EMA;
+      var sx=hx*window.innerWidth,sy=hy*window.innerHeight;
+      /* Yumruk: parmak uçları (8,12,16,20) ile avuç (9) arası mesafe */
+      var palm=lm[9];
+      var tips=[lm[8],lm[12],lm[16],lm[20]];
       var totalDist=0;
       for(var t=0;t<tips.length;t++){
-        var dx=tips[t].x-palm.x, dy=tips[t].y-palm.y, dz=tips[t].z-palm.z;
+        var dx=tips[t].x-palm.x,dy=tips[t].y-palm.y,dz=tips[t].z-palm.z;
         totalDist+=Math.sqrt(dx*dx+dy*dy+dz*dz);
       }
       var avgDist=totalDist/4;
-      /* Açık el ~0.25-0.35, yumruk ~0.05-0.12 */
-      var fistScore=(avgDist<0.10) ? 1 : (avgDist>0.22 ? 0 : (0.22-avgDist)/0.12);
-      fistConfSmooth=fistConfSmooth*0.6+fistScore*0.4;
-      var isFist=(fistConfSmooth>0.55);
-
-      /* İmleç güncelle */
+      var fistScore=(avgDist<0.10)?1:(avgDist>0.22?0:(0.22-avgDist)/0.12);
+      fistSmooth=fistSmooth*0.6+fistScore*0.4;
+      var isFist=(fistSmooth>0.55);
       var hcur=document.getElementById('hcursor');
-      hcur.style.left=sx+'px';
-      hcur.style.top=sy+'px';
+      hcur.style.left=sx+'px';hcur.style.top=sy+'px';
       hcur.classList.add('show');
       hcur.className='show '+(isFist?'closed':'open');
-
-      /* Drag simülasyonu */
-      if(isFist && !fistOn){
-        /* Yumruk kapandı = mousedown */
+      if(isFist&&!fistOn){
         fistOn=true;
-        if(curP==='projects'){
-          handDragActive=true;
-          handDragStartX=sx;
-          handDragBase=snapOff(gIdx);
-          document.getElementById('gtrack').classList.remove('snap');
-        }
-        setGe('✊ Basılı — sürükle');
-        setSt('✓ Yumruk');
-      } else if(!isFist && fistOn){
-        /* Yumruk açıldı = mouseup */
+        if(curP==='projects'){handDragActive=true;handDragStartX=sx;handDragBase=snapOff(gIdx);document.getElementById('gtrack').classList.remove('snap');}
+        setGe('✊ Basılı — sürükle');setSt('✓ Yumruk');
+      }else if(!isFist&&fistOn){
         fistOn=false;
-        if(handDragActive){ handDragActive=false; gRelease(); }
-        setGe('🖐 Açık el = serbest');
-        setSt('✓ El algılandı');
-      } else if(isFist && handDragActive && curP==='projects'){
-        /* Sürükleme devam */
+        if(handDragActive){handDragActive=false;gRelease();}
+        setGe('🖐 Açık el = serbest');setSt('✓ El algılandı');
+      }else if(isFist&&handDragActive&&curP==='projects'){
         var newOff=handDragBase+(sx-handDragStartX);
-        gOffset=newOff;
-        gSetRaw(newOff);
+        gOffset=newOff;gSetRaw(newOff);
         setGe('✊ '+(sx-handDragStartX>0?'→':'←')+' '+Math.abs(Math.round(sx-handDragStartX))+'px');
-      } else if(!isFist){
-        setSt('✓ El algılandı');
       }
     });
-
-    var camera=new Camera(vid,{
-      onFrame:async function(){ await hands.send({image:vid}); },
-      width:640, height:480
-    });
-    camera.start();
-    window._mpCamera=camera;
-    setSt('✓ Hazır');
-    setGe('🖐 Açık el = serbest');
-
-  } catch(err){
+    mpCam=new Camera(vid,{onFrame:async function(){await hands.send({image:vid});},width:640,height:480});
+    mpCam.start();window._mpCamera=mpCam;
+    setSt('✓ Hazır');setGe('🖐 Açık el = serbest');
+  }catch(err){
     console.error(err);
-    setSt(location.protocol==='file:'
-      ? '⚠️ GitHub Pages üzerinden aç'
-      : '✕ '+err.message);
-    mpOn=false;
-    document.getElementById('mpbtn').classList.remove('on');
-    document.getElementById('mplbl').textContent='El Kontrolü';
+    setSt(location.protocol==='file:'?'⚠️ GitHub Pages üzerinden aç':'✕ '+err.message);
+    mpOn=false;document.getElementById('mpbtn').classList.remove('on');document.getElementById('mplbl').textContent='El Kontrolü';
   }
 }
 
 function stopMP(){
-  mpOn=false;
-  if(handDragActive){ handDragActive=false; gRelease(); }
-  fistOn=false;
+  mpOn=false;if(handDragActive){handDragActive=false;gRelease();}fistOn=false;
   document.getElementById('mpover').classList.remove('on');
   document.getElementById('mpbtn').classList.remove('on');
   document.getElementById('mplbl').textContent='El Kontrolü';
   document.getElementById('hcursor').classList.remove('show');
-  if(camS){ camS.getTracks().forEach(function(t){t.stop();}); camS=null; }
-  if(window._mpCamera){ try{window._mpCamera.stop();}catch(e){} window._mpCamera=null; }
+  if(camS){camS.getTracks().forEach(function(t){t.stop();});camS=null;}
+  if(window._mpCamera){try{window._mpCamera.stop();}catch(e){}window._mpCamera=null;}
 }
 
 function loadScript(src){
   return new Promise(function(res,rej){
     if(document.querySelector('script[src="'+src+'"]')){res();return;}
-    var s=document.createElement('script');
-    s.src=src; s.crossOrigin='anonymous';
-    s.onload=res; s.onerror=rej;
-    document.head.appendChild(s);
+    var s=document.createElement('script');s.src=src;s.crossOrigin='anonymous';s.onload=res;s.onerror=rej;document.head.appendChild(s);
   });
 }
-
-/* init */
 gSnap(0);
 </script>
 </body>
