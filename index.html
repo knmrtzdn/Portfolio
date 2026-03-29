@@ -12,10 +12,10 @@
   --stone:#8c7b6b;--dark:#2a2118;--ink:#3d3028;
   --gold:#c8a96e;--goldd:#9e7f48;
 }
-html,body{height:100%;overflow:hidden;background:var(--cream);color:var(--ink);font-family:'Jost',sans-serif;}
+html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--ink);font-family:'Jost',sans-serif;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(245,240,232,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--warm2);}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(245,240,232,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--warm2);}
 .logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);cursor:pointer;}
 .logo b{color:var(--gold);}
 .navlinks{display:flex;gap:4px;list-style:none;}
@@ -29,27 +29,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 
 /* PAGES */
-.page{position:fixed;inset:0;padding-top:60px;opacity:0;pointer-events:none;transition:opacity .35s;overflow-y:auto;}
+.page{position:fixed;inset:0;padding-top:60px;opacity:0;pointer-events:none;transition:opacity .35s;overflow-y:auto;background:var(--cream);}
 .page.on{opacity:1;pointer-events:all;}
 
-/* WELCOME */
-#p-welcome{display:flex;align-items:center;justify-content:center;background:var(--cream);}
+/* ══ WELCOME ══ */
+#p-welcome{display:flex;align-items:center;justify-content:center;}
 .hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 60px);width:100%;}
 .hleft{display:flex;flex-direction:column;justify-content:center;padding:60px 48px 60px 64px;}
 .eyebrow{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
 .eyebrow::after{content:'';width:32px;height:1px;background:var(--gold);}
 .htitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4vw,4.8rem);font-weight:300;line-height:1.07;color:var(--dark);margin-bottom:20px;}
 .htitle i{font-style:italic;color:var(--gold);}
-.hsub{font-size:.84rem;font-weight:300;line-height:1.9;color:var(--stone);max-width:380px;margin-bottom:40px;}
-.howcard{background:var(--warm1);border:1px solid var(--warm2);border-radius:3px;padding:24px 28px;margin-bottom:32px;}
-.howtitle{font-family:'Cormorant Garamond',serif;font-size:.92rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:16px;}
-.howsteps{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;margin-bottom:16px;}
-.hstep{display:flex;gap:10px;}
+.hsub{font-size:.84rem;font-weight:300;line-height:1.9;color:var(--stone);max-width:380px;margin-bottom:36px;}
+.howcard{background:var(--warm1);border:1px solid var(--warm2);border-radius:3px;padding:24px 28px;margin-bottom:28px;}
+.howtitle{font-family:'Cormorant Garamond',serif;font-size:.92rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:14px;}
+.howsteps{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin-bottom:14px;}
+.hstep{display:flex;gap:9px;}
 .hnum{min-width:20px;height:20px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);font-size:.62rem;display:flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0;}
-.htxt{font-size:.73rem;line-height:1.65;color:var(--stone);}
+.htxt{font-size:.72rem;line-height:1.6;color:var(--stone);}
 .htxt strong{color:var(--ink);}
-.chips{display:flex;flex-wrap:wrap;gap:6px;}
-.chip{background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.28);border-radius:2px;padding:5px 12px;font-size:.66rem;color:var(--stone);}
+.chips{display:flex;flex-wrap:wrap;gap:5px;}
+.chip{background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.28);border-radius:2px;padding:4px 11px;font-size:.65rem;color:var(--stone);}
 .hcta{display:flex;gap:10px;}
 .btng{background:var(--gold);color:var(--dark);border:none;font-family:'Jost',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:12px 28px;border-radius:2px;cursor:pointer;transition:all .2s;}
 .btng:hover{background:var(--goldd);transform:translateY(-1px);}
@@ -65,37 +65,68 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .hbnum{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;line-height:1;color:var(--dark);}
 .hblbl{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-top:2px;}
 
-/* PROJECTS */
-#p-projects{background:var(--dark);color:var(--cream);display:flex;flex-direction:column;}
-.phead{display:flex;align-items:flex-end;justify-content:space-between;padding:32px 56px 24px;flex-shrink:0;}
-.ptitle{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;line-height:1.1;}
-.ptitle i{font-style:italic;color:var(--gold);}
-.pcounter{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);}
-.pcounter span{color:var(--gold);}
-.fstrip-wrap{flex:1;overflow:hidden;padding:0 56px 28px;display:flex;flex-direction:column;justify-content:center;}
-.fstrip{display:flex;gap:18px;transition:transform .5s cubic-bezier(.25,.1,.25,1);cursor:grab;user-select:none;padding:8px 0;}
-.fstrip.notrans{transition:none!important;}
-.fstrip:active{cursor:grabbing;}
-.fcard{flex-shrink:0;width:400px;height:280px;border-radius:3px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.06);transition:transform .3s,box-shadow .3s;}
-.fcard.cur{transform:scale(1.04);box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 1px var(--gold);}
-.fcard img{width:100%;height:100%;object-fit:cover;filter:brightness(82%) saturate(85%);transition:filter .3s;}
-.fcard.cur img{filter:brightness(100%) saturate(100%);}
-.fover{position:absolute;inset:0;background:linear-gradient(to top,rgba(42,33,24,.92) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;opacity:0;transition:opacity .3s;}
-.fcard.cur .fover{opacity:1;}
-.fnum{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
-.fname{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;line-height:1.2;color:var(--cream);margin-bottom:6px;}
-.ftags{display:flex;gap:5px;flex-wrap:wrap;}
-.ftag{background:rgba(200,169,110,.18);border:1px solid rgba(200,169,110,.28);color:var(--gold);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:1px;}
-.ffoot{display:flex;align-items:center;gap:16px;padding:0 56px 28px;flex-shrink:0;}
-.fdots{display:flex;gap:6px;}
-.fdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);transition:all .3s;cursor:pointer;}
-.fdot.on{background:var(--gold);width:18px;border-radius:3px;}
-.farr{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:transparent;color:var(--cream);font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-.farr:hover{border-color:var(--gold);color:var(--gold);}
-.fhint{margin-left:auto;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);display:flex;align-items:center;gap:7px;}
-.fhintdot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;}
+/* ══ PROJECTS — TAM EKRAN ══ */
+#p-projects{background:var(--dark);overflow:hidden;}
+.gallery{position:absolute;inset:0;top:60px;}
 
-/* SERVICES */
+/* Slides */
+.slides{position:relative;width:100%;height:100%;}
+.slide{
+  position:absolute;inset:0;
+  opacity:0;transition:opacity .6s ease;
+  cursor:default;
+}
+.slide.active{opacity:1;z-index:1;}
+.slide img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(75%);}
+
+/* Slide overlay */
+.slide-info{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top, rgba(20,13,8,.95) 0%, rgba(20,13,8,.4) 60%, transparent 100%);
+  padding:60px 72px 48px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+.slide-text{}
+.slide-tag{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.slide-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.8rem);font-weight:300;line-height:1.05;color:#fff;margin-bottom:10px;}
+.slide-tags{display:flex;gap:7px;flex-wrap:wrap;}
+.slide-badge{background:rgba(200,169,110,.15);border:1px solid rgba(200,169,110,.3);color:var(--gold);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;}
+
+/* Slide counter */
+.slide-counter{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(255,255,255,.15);line-height:1;text-align:right;}
+.slide-counter span{font-size:1rem;color:rgba(255,255,255,.3);}
+
+/* Nav arrows */
+.g-arr{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:10;
+  width:52px;height:52px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.3);
+  backdrop-filter:blur(8px);color:#fff;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .25s;
+}
+.g-arr:hover{border-color:var(--gold);color:var(--gold);background:rgba(0,0,0,.5);}
+.g-arr.left{left:32px;}
+.g-arr.right{right:32px;}
+
+/* Dots */
+.g-dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;}
+.g-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25);transition:all .3s;cursor:pointer;}
+.g-dot.on{background:var(--gold);width:20px;border-radius:3px;}
+
+/* Gesture hint */
+.g-hint{
+  position:absolute;top:80px;left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.5);backdrop-filter:blur(8px);
+  border:1px solid rgba(200,169,110,.2);
+  border-radius:20px;padding:7px 20px;
+  font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);
+  display:flex;align-items:center;gap:8px;z-index:10;
+  transition:opacity .5s;
+}
+.g-hint-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;}
+
+/* ══ SERVICES ══ */
 #p-services{background:#fdfaf5;}
 .secwrap{max-width:1080px;margin:0 auto;padding:64px 40px;}
 .seclabel{font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
@@ -104,13 +135,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .svcs{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
 .svc{background:var(--warm1);padding:32px 28px;border:1px solid var(--warm2);position:relative;overflow:hidden;transition:background .25s;}
 .svc:hover{background:var(--warm2);}
-.svc::before{content:attr(data-n);position:absolute;top:14px;right:18px;font-family:'Cormorant Garamond',serif;font-size:3.6rem;font-weight:300;color:var(--warm2);line-height:1;pointer-events:none;transition:color .25s;}
-.svc:hover::before{color:#c9bfae;}
+.svc::before{content:attr(data-n);position:absolute;top:14px;right:18px;font-family:'Cormorant Garamond',serif;font-size:3.6rem;font-weight:300;color:var(--warm2);line-height:1;pointer-events:none;}
 .svci{font-size:1.4rem;margin-bottom:16px;}
 .svcn{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--dark);margin-bottom:8px;}
 .svcd{font-size:.77rem;line-height:1.85;color:var(--stone);font-weight:300;}
 
-/* ABOUT */
+/* ══ ABOUT ══ */
 #p-about{background:var(--cream);}
 .abwrap{max-width:1080px;margin:0 auto;padding:64px 40px;}
 .abgrid{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;margin-top:8px;}
@@ -130,8 +160,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .asn{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--dark);line-height:1;}
 .asl{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);margin-top:3px;}
 
-/* CONTACT */
-#p-contact{background:var(--dark);color:var(--cream);}
+/* ══ CONTACT ══ */
+#p-contact{background:var(--dark);}
 .ctwrap{max-width:880px;margin:0 auto;padding:64px 40px;}
 .ctgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;}
 .ctsub{font-size:.83rem;line-height:1.9;color:var(--stone);margin-bottom:36px;font-weight:300;}
@@ -148,58 +178,59 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .avail{display:inline-flex;align-items:center;gap:9px;background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.22);padding:10px 18px;border-radius:2px;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
 .availd{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;}
 
-/* ── KAMERA WIDGET (sağ alt köşe, küçük) ── */
+/* ══ KAMERA WIDGET ══ */
 #mpover{
-  position:fixed;bottom:24px;right:24px;z-index:9999;
+  position:fixed;bottom:20px;right:20px;z-index:9999;
   display:none;flex-direction:column;
-  background:rgba(28,20,12,.93);backdrop-filter:blur(12px);
-  border:1px solid rgba(200,169,110,.25);border-radius:8px;
-  padding:12px;width:260px;
-  box-shadow:0 8px 32px rgba(0,0,0,.4);
+  background:rgba(22,15,8,.94);backdrop-filter:blur(14px);
+  border:1px solid rgba(200,169,110,.22);border-radius:8px;
+  padding:10px;width:240px;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
 }
 #mpover.on{display:flex;}
-.mp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.mphd{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
-.mpx{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--cream);font-size:.7rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0;}
+.mp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.mphd{font-family:'Cormorant Garamond',serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
+.mpx{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:.65rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0;}
 .mpx:hover{border-color:var(--gold);color:var(--gold);}
-.camframe{position:relative;width:100%;height:150px;border:1px solid rgba(200,169,110,.2);border-radius:4px;overflow:hidden;background:#000;}
+.camframe{position:relative;width:100%;height:140px;border:1px solid rgba(200,169,110,.18);border-radius:4px;overflow:hidden;background:#000;}
 #mpvid{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:block;}
 #mpcvs{position:absolute;inset:0;width:100%;height:100%;transform:scaleX(-1);pointer-events:none;}
-.mbar-wrap{width:100%;margin-top:6px;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
-.mbar{height:100%;width:50%;background:var(--gold);border-radius:2px;transition:width .08s;}
-.mpst{margin-top:6px;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);text-align:center;line-height:1.6;}
-.mpge{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--gold);min-height:1.3em;text-align:center;margin-top:2px;}
-.mptips{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;justify-content:center;}
-.mptip{background:rgba(200,169,110,.07);border:1px solid rgba(200,169,110,.14);padding:3px 7px;border-radius:2px;font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--stone);}
 
-/* flash & cursor */
-#hcur{position:fixed;z-index:99999;pointer-events:none;width:24px;height:24px;border-radius:50%;background:rgba(200,169,110,.65);border:2px solid var(--gold);transform:translate(-50%,-50%);display:none;box-shadow:0 0 14px rgba(200,169,110,.5);}
-#hcur.on{display:block;}
-#gflash{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark);font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.12em;text-transform:uppercase;padding:9px 26px;border-radius:2px;z-index:99998;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap;}
+/* fist indicator */
+.fist-row{display:flex;align-items:center;gap:8px;margin-top:7px;}
+.fist-icon{font-size:1.1rem;transition:transform .15s;}
+.fist-icon.active{transform:scale(1.3);}
+.fist-bar-wrap{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
+.fist-bar{height:100%;width:0%;background:var(--gold);border-radius:2px;transition:width .1s;}
+.mpst{margin-top:5px;font-size:.57rem;letter-spacing:.09em;text-transform:uppercase;color:var(--stone);text-align:center;line-height:1.5;}
+.mpge{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--gold);min-height:1.2em;text-align:center;margin-top:2px;}
+
+/* flash */
+#gflash{position:fixed;top:72px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark);font-family:'Cormorant Garamond',serif;font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 24px;border-radius:2px;z-index:99998;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap;}
 #gflash.on{opacity:1;}
 
 /* responsive */
-@media(max-width:860px){
+@media(max-width:900px){
   .hero{grid-template-columns:1fr;}
-  .hright{height:260px;}
+  .hright{height:240px;}
   .mimg:first-child{grid-row:1;}
-  .hleft{padding:36px 24px;}
+  .hleft{padding:32px 22px;}
   .howsteps{grid-template-columns:1fr;}
-  .phead,.fstrip-wrap,.ffoot{padding-left:20px;padding-right:20px;}
-  .fcard{width:280px;height:210px;}
+  .slide-info{padding:40px 28px 56px;}
+  .slide-title{font-size:1.8rem;}
+  .g-arr{width:40px;height:40px;}
   .svcs{grid-template-columns:1fr;}
-  .abgrid,.ctgrid{grid-template-columns:1fr;gap:36px;}
-  .secwrap,.abwrap,.ctwrap{padding:48px 20px;}
+  .abgrid,.ctgrid{grid-template-columns:1fr;gap:32px;}
+  .secwrap,.abwrap,.ctwrap{padding:44px 20px;}
   nav{padding:0 16px;}
   .navlinks a{padding:6px 8px;font-size:.62rem;}
   .mpbtn{padding:6px 12px;font-size:.62rem;}
-  #mpover{bottom:12px;right:12px;width:220px;}
+  #mpover{width:200px;}
 }
 </style>
 </head>
 <body>
 
-<div id="hcur"></div>
 <div id="gflash"></div>
 
 <nav>
@@ -223,20 +254,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
     <div class="hleft">
       <div class="eyebrow">Mimari Görselleştirme Stüdyosu</div>
       <h1 class="htitle">Mekânı<br><i>Hissettiren</i><br>Görüntüler</h1>
-      <p class="hsub">Mimari projeleri fotogerçekçi render ve atmosferik görselleştirmelerle hayata taşıyorum. Kamerandan elini okuyarak çalışan interaktif portfolio.</p>
+      <p class="hsub">Mimari projeleri fotogerçekçi render ve atmosferik görselleştirmelerle hayata taşıyorum. Kamerandan yumruk hareketi ile projeler arasında geçiş yapılabilir.</p>
       <div class="howcard">
         <div class="howtitle">El Kontrolü — Nasıl Kullanılır?</div>
         <div class="howsteps">
-          <div class="hstep"><div class="hnum">1</div><div class="htxt"><strong>El Kontrolü'ne bas</strong><br>Aktif et, kamera iznini onayla.</div></div>
-          <div class="hstep"><div class="hnum">2</div><div class="htxt"><strong>Projeler sayfasına geç</strong><br>Widget sağ altta kalır.</div></div>
-          <div class="hstep"><div class="hnum">3</div><div class="htxt"><strong>Elini hızlıca sola süpür</strong><br>Sonraki projeye geçer.</div></div>
-          <div class="hstep"><div class="hnum">4</div><div class="htxt"><strong>Elini hızlıca sağa süpür</strong><br>Önceki projeye döner.</div></div>
+          <div class="hstep"><div class="hnum">1</div><div class="htxt"><strong>El Kontrolü'ne bas</strong><br>Sağ altta kamera açılır.</div></div>
+          <div class="hstep"><div class="hnum">2</div><div class="htxt"><strong>Projeler'e geç</strong><br>Tam ekran galeri açılır.</div></div>
+          <div class="hstep"><div class="hnum">3</div><div class="htxt"><strong>Yumruk yap</strong><br>Elini yum, kamera algılar.</div></div>
+          <div class="hstep"><div class="hnum">4</div><div class="htxt"><strong>Sağa veya sola sürükle</strong><br>Yumruklu elle kaydır.</div></div>
         </div>
         <div class="chips">
-          <div class="chip">👈 Sola → Sonraki</div>
-          <div class="chip">👉 Sağa → Önceki</div>
-          <div class="chip">💡 Açık arka plan önünde dur</div>
-          <div class="chip">✋ Büyük ve hızlı hareket yap</div>
+          <div class="chip">✊ Yumruk yap</div>
+          <div class="chip">→ Sağa sürükle = Sonraki</div>
+          <div class="chip">← Sola sürükle = Önceki</div>
         </div>
       </div>
       <div class="hcta">
@@ -246,47 +276,123 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
     </div>
     <div class="hright">
       <div class="mosaic">
-        <div class="mimg"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt="İç Mekan"></div>
-        <div class="mimg"><img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&q=80" alt="Dış Cephe"></div>
-        <div class="mimg"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&q=80" alt="Detay"></div>
+        <div class="mimg"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt=""></div>
+        <div class="mimg"><img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&q=80" alt=""></div>
+        <div class="mimg"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&q=80" alt=""></div>
       </div>
       <div class="hbadge"><div class="hbnum">47</div><div class="hblbl">Tamamlanan Proje</div></div>
     </div>
   </div>
 </div>
 
-<!-- PROJECTS -->
-<div class="page" id="p-projects">
-  <div class="phead">
-    <div>
-      <div class="seclabel" style="color:rgba(200,169,110,.6)">// Seçilmiş Çalışmalar</div>
-      <h2 class="ptitle">Projeler &amp; <i>Renderlar</i></h2>
+<!-- PROJECTS — TAM EKRAN -->
+<div class="page" id="p-projects" style="background:var(--dark);overflow:hidden;">
+  <div class="gallery">
+    <div class="slides" id="slides">
+
+      <div class="slide active">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=90" alt="">
+        <div class="slide-info">
+          <div class="slide-text">
+            <div class="slide-tag">Proje 01 — Konut · 2024</div>
+            <div class="slide-title">Bosphorus Villa<br>İç Mekan Render</div>
+            <div class="slide-tags"><span class="slide-badge">3ds Max</span><span class="slide-badge">Corona</span><span class="slide-badge">İç Mekan</span></div>
+          </div>
+          <div class="slide-counter">01<br><span>/ 07</span></div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=90" alt="">
+        <div class="slide-info">
+          <div class="slide-text">
+            <div class="slide-tag">Proje 02 — Konut · 2024</div>
+            <div class="slide-title">Ankara Rezidans<br>Dış Cephe</div>
+            <div class="slide-tags"><span class="slide-badge">V-Ray</span><span class="slide-badge">Dış Mekan</span></div>
+          </div>
+          <div class="slide-counter">02<br><span>/ 07</span></div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1600&q=90" alt="">
+        <div class="slide-info">
+          <div class="slide-text">
+            <div class="slide-tag">Proje 03 — Yazlık · 2024</div>
+            <div class="slide-title">Çeşme Yazlık<br>Havuz Cephesi</div>
+            <div class="slide-tags"><span class="slide-badge">Lumion</span><span class="slide-badge">Peyzaj</span></div>
+          </div>
+          <div class="slide-counter">03<br><span>/ 07</span></div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1600&q=90" alt="">
+        <div class="slide-info">
+          <div class="slide-text">
+            <div class="slide-tag">Proje 04 — Lüks · 2023</div>
+            <div class="slide-title">Nişantaşı Penthouse<br>Oturma Odası</div>
+            <div class="slide-tags"><span class="slide-badge">Corona</span><span class="slide-badge">İç Mekan</span></div>
+          </div>
+          <div class="slide-counter">04<br><span>/ 07</span></div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=90" alt="">
+        <div class="slide-info">
+          <div class="slide-text">
+            <div class="slide-tag">Proje 05 — Ticari · 2023</div>
+            <div class="slide-title">Sky Tower<br>Kule Görselleştirme</div>
+            <div class="slide-tags"><span class="slide-badge">Chaos</span><span class="slide-badge">Kule</span></div>
+          </div>
+          <div class="slide-counter">05<br><span>/ 07</span></div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=90" alt="">
+        <div class="slide-info">
+          <div class="slide-text">
+            <div class="slide-tag">Proje 06 — Otel · 2023</div>
+            <div class="slide-title">Zen Master Suite<br>Yatak Odası</div>
+            <div class="slide-tags"><span class="slide-badge">Blender</span><span class="slide-badge">İç Mekan</span></div>
+          </div>
+          <div class="slide-counter">06<br><span>/ 07</span></div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1600&q=90" alt="">
+        <div class="slide-info">
+          <div class="slide-text">
+            <div class="slide-tag">Proje 07 — Ticari · 2022</div>
+            <div class="slide-title">Merkez AVM<br>Giriş Cephesi</div>
+            <div class="slide-tags"><span class="slide-badge">V-Ray</span><span class="slide-badge">Dış Mekan</span></div>
+          </div>
+          <div class="slide-counter">07<br><span>/ 07</span></div>
+        </div>
+      </div>
+
+    </div><!-- /slides -->
+
+    <button class="g-arr left"  onclick="gPrev()">←</button>
+    <button class="g-arr right" onclick="gNext()">→</button>
+
+    <div class="g-dots" id="gdots">
+      <div class="g-dot on"  onclick="gTo(0)"></div>
+      <div class="g-dot"     onclick="gTo(1)"></div>
+      <div class="g-dot"     onclick="gTo(2)"></div>
+      <div class="g-dot"     onclick="gTo(3)"></div>
+      <div class="g-dot"     onclick="gTo(4)"></div>
+      <div class="g-dot"     onclick="gTo(5)"></div>
+      <div class="g-dot"     onclick="gTo(6)"></div>
     </div>
-    <div class="pcounter">Proje <span id="pidx">01</span> / 07</div>
-  </div>
-  <div class="fstrip-wrap">
-    <div class="fstrip" id="fstrip"
-      onmousedown="fmd(event)" onmousemove="fmm(event)" onmouseup="fmu(event)" onmouseleave="fmu(event)"
-      ontouchstart="ftd(event)" ontouchmove="ftm(event)" ontouchend="ftu(event)">
-      <div class="fcard cur"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&q=85" alt=""><div class="fover"><div class="fnum">Proje 01 — 2024</div><div class="fname">Bosphorus Villa<br>İç Mekan</div><div class="ftags"><span class="ftag">Konut</span><span class="ftag">İç Mekan</span><span class="ftag">3ds Max</span></div></div></div>
-      <div class="fcard"><img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85" alt=""><div class="fover"><div class="fnum">Proje 02 — 2024</div><div class="fname">Ankara Rezidans<br>Dış Cephe</div><div class="ftags"><span class="ftag">Konut</span><span class="ftag">Dış Mekan</span><span class="ftag">V-Ray</span></div></div></div>
-      <div class="fcard"><img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=900&q=85" alt=""><div class="fover"><div class="fnum">Proje 03 — 2024</div><div class="fname">Çeşme Yazlık<br>Havuz Cephesi</div><div class="ftags"><span class="ftag">Yazlık</span><span class="ftag">Peyzaj</span><span class="ftag">Lumion</span></div></div></div>
-      <div class="fcard"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=900&q=85" alt=""><div class="fover"><div class="fnum">Proje 04 — 2023</div><div class="fname">Nişantaşı Penthouse<br>Oturma Odası</div><div class="ftags"><span class="ftag">Lüks</span><span class="ftag">İç Mekan</span><span class="ftag">Corona</span></div></div></div>
-      <div class="fcard"><img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=900&q=85" alt=""><div class="fover"><div class="fnum">Proje 05 — 2023</div><div class="fname">Sky Tower<br>Kule Görselleştirme</div><div class="ftags"><span class="ftag">Ticari</span><span class="ftag">Kule</span><span class="ftag">Chaos</span></div></div></div>
-      <div class="fcard"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900&q=85" alt=""><div class="fover"><div class="fnum">Proje 06 — 2023</div><div class="fname">Zen Master Suite<br>Yatak Odası</div><div class="ftags"><span class="ftag">Otel</span><span class="ftag">İç Mekan</span><span class="ftag">Blender</span></div></div></div>
-      <div class="fcard"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=900&q=85" alt=""><div class="fover"><div class="fnum">Proje 07 — 2022</div><div class="fname">Merkez AVM<br>Giriş Cephesi</div><div class="ftags"><span class="ftag">Ticari</span><span class="ftag">Dış Mekan</span><span class="ftag">V-Ray</span></div></div></div>
+
+    <div class="g-hint" id="ghint">
+      <span class="g-hint-dot"></span>
+      Yumruk yapıp sürükle · veya ok tuşları
     </div>
-  </div>
-  <div class="ffoot">
-    <button class="farr" onclick="fp()">←</button>
-    <div class="fdots" id="fdots">
-      <div class="fdot on" onclick="fgo(0)"></div><div class="fdot" onclick="fgo(1)"></div>
-      <div class="fdot" onclick="fgo(2)"></div><div class="fdot" onclick="fgo(3)"></div>
-      <div class="fdot" onclick="fgo(4)"></div><div class="fdot" onclick="fgo(5)"></div>
-      <div class="fdot" onclick="fgo(6)"></div>
-    </div>
-    <button class="farr" onclick="fn()">→</button>
-    <div class="fhint"><span class="fhintdot"></span>El ile veya sürükle</div>
   </div>
 </div>
 
@@ -312,13 +418,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
     <div class="seclabel">// Hakkımda</div>
     <div class="abgrid">
       <div class="abimgw">
-        <img class="abimg" src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=600&q=80" alt="Studio">
+        <img class="abimg" src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=600&q=80" alt="">
         <div class="abbadge"><div class="abbn">7+</div><div class="abbl">Yıl Deneyim</div></div>
       </div>
       <div class="abtxt">
         <div class="sectitle" style="margin-bottom:18px;">Mekânı <i>Işıkla</i><br>Anlatan Görüntüler</div>
-        <p class="abbio">Merhaba, ben bir <strong>mimari görselleştirme uzmanıyım</strong>. Mimarlar, müteahhitler ve iç mimar firmalarıyla çalışarak projeleri inşaat öncesi fotogerçekçi render ve animasyonlarla hayata taşıyorum.<br><br><strong>3ds Max, Corona Renderer, V-Ray ve Blender</strong> araçlarını kullanıyorum. Her projede mekânın ruhunu ve atmosferini aktarmayı hedefliyorum.</p>
-        <div class="seclabel" style="margin-bottom:9px;">Kullandığım Yazılımlar</div>
+        <p class="abbio">Merhaba, ben bir <strong>mimari görselleştirme uzmanıyım</strong>. Mimarlar, müteahhitler ve iç mimar firmalarıyla çalışarak projeleri inşaat öncesi fotogerçekçi render ve animasyonlarla hayata taşıyorum.<br><br><strong>3ds Max, Corona Renderer, V-Ray ve Blender</strong> araçlarını kullanıyorum.</p>
+        <div class="seclabel" style="margin-bottom:9px;">Yazılımlar</div>
         <div class="absoft">
           <span class="soft">3ds Max</span><span class="soft">Corona Renderer</span><span class="soft">V-Ray</span>
           <span class="soft">Blender</span><span class="soft">Lumion</span><span class="soft">Chaos Vantage</span>
@@ -335,12 +441,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 </div>
 
 <!-- CONTACT -->
-<div class="page" id="p-contact">
+<div class="page" id="p-contact" style="background:var(--dark);">
   <div class="ctwrap">
     <div class="seclabel" style="color:rgba(200,169,110,.6)">// İletişim</div>
     <div class="ctgrid">
       <div>
-        <h2 class="ptitle" style="margin-bottom:16px;">Projen mi var?<br><i>Konuşalım.</i></h2>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;line-height:1.1;color:var(--cream);margin-bottom:16px;">Projen mi var?<br><i style="font-style:italic;color:var(--gold)">Konuşalım.</i></h2>
         <p class="ctsub">Yeni bir render projesi, sunum paftası veya 3D animasyon için benimle iletişime geçebilirsin.</p>
         <div class="ctlist">
           <a class="ctrow" href="mailto:hello@archviz.studio"><span>📧</span><div><div class="ctlbl">E-posta</div><div class="ctval">hello@archviz.studio</div></div><span class="ctarr">→</span></a>
@@ -360,213 +466,281 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 <!-- KAMERA WIDGET -->
 <div id="mpover">
   <div class="mp-top">
-    <div class="mphd">🤚 El Kontrolü</div>
+    <div class="mphd">✊ El Kontrolü</div>
     <button class="mpx" onclick="stopMP()">✕</button>
   </div>
   <div class="camframe">
     <video id="mpvid" autoplay playsinline muted></video>
     <canvas id="mpcvs"></canvas>
   </div>
-  <div class="mbar-wrap"><div class="mbar" id="mbar"></div></div>
-  <div class="mpst" id="mpst">Kamera açılıyor...</div>
-  <div class="mpge" id="mpge">— Elini süpür</div>
-  <div class="mptips">
-    <div class="mptip">👈 Sola → Sonraki</div>
-    <div class="mptip">👉 Sağa → Önceki</div>
+  <div class="fist-row">
+    <span class="fist-icon" id="fist-icon">✊</span>
+    <div class="fist-bar-wrap"><div class="fist-bar" id="fist-bar"></div></div>
   </div>
+  <div class="mpst" id="mpst">Kamera açılıyor...</div>
+  <div class="mpge" id="mpge">Yumruk yap → sürükle</div>
 </div>
 
 <script>
-/* ── NAVIGATION ── */
-let curP = 'welcome';
+/* ══ NAVIGATION ══ */
+var curP = 'welcome';
 function go(name) {
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('on'); });
   document.querySelectorAll('.navlinks a').forEach(function(a){ a.classList.remove('on'); });
-  document.getElementById('p-' + name).classList.add('on');
-  document.getElementById('n-' + name).classList.add('on');
+  document.getElementById('p-'+name).classList.add('on');
+  document.getElementById('n-'+name).classList.add('on');
   curP = name;
 }
 
-/* ── FILM STRIP ── */
-var TOTAL = 7, fi = 0, fDrag = false, fX0 = 0, fXN = 0, ftX0 = 0;
+/* ══ GALLERY ══ */
+var gi = 0, GTOTAL = 7;
+function gRender() {
+  document.querySelectorAll('.slide').forEach(function(s,i){ s.classList.toggle('active',i===gi); });
+  document.querySelectorAll('.g-dot').forEach(function(d,i){ d.classList.toggle('on',i===gi); });
+}
+function gNext(){ gi=(gi+1)%GTOTAL; gRender(); }
+function gPrev(){ gi=(gi-1+GTOTAL)%GTOTAL; gRender(); }
+function gTo(i){ gi=i; gRender(); }
 
-function frender(anim) {
-  var s = document.getElementById('fstrip');
-  var cw = s.children[0].offsetWidth + 18;
-  if (!anim) { s.classList.add('notrans'); } else { s.classList.remove('notrans'); }
-  s.style.transform = 'translateX(-' + (fi * cw) + 'px)';
-  document.querySelectorAll('.fcard').forEach(function(c,i){ c.classList.toggle('cur', i===fi); });
-  document.querySelectorAll('.fdot').forEach(function(d,i){ d.classList.toggle('on', i===fi); });
-  document.getElementById('pidx').textContent = String(fi+1).padStart(2,'0');
-  if (!anim) { requestAnimationFrame(function(){ s.classList.remove('notrans'); }); }
-}
-function fn() { fi = Math.min(fi+1, TOTAL-1); frender(true); }
-function fp() { fi = Math.max(fi-1, 0); frender(true); }
-function fgo(i) { fi = i; frender(true); }
-function fmd(e) { fDrag=true; fX0=e.clientX; fXN=fX0; }
-function fmm(e) {
-  if (!fDrag) return;
-  fXN = e.clientX;
-  var s = document.getElementById('fstrip');
-  var cw = s.children[0].offsetWidth + 18;
-  s.classList.add('notrans');
-  s.style.transform = 'translateX(calc(-' + (fi*cw) + 'px + ' + (fXN-fX0) + 'px))';
-}
-function fmu() {
-  if (!fDrag) return; fDrag=false;
-  if (fXN-fX0 < -60) fn(); else if (fXN-fX0 > 60) fp(); else frender(true);
-}
-function ftd(e) { ftX0 = e.touches[0].clientX; }
-function ftm(e) {
-  var d = e.touches[0].clientX - ftX0;
-  var s = document.getElementById('fstrip');
-  var cw = s.children[0].offsetWidth + 18;
-  s.classList.add('notrans');
-  s.style.transform = 'translateX(calc(-' + (fi*cw) + 'px + ' + d + 'px))';
-}
-function ftu(e) {
-  var d = e.changedTouches[0].clientX - ftX0;
-  if (d < -60) fn(); else if (d > 60) fp(); else frender(true);
-}
+/* keyboard */
+document.addEventListener('keydown', function(e){
+  if (curP !== 'projects') return;
+  if (e.key === 'ArrowRight') gNext();
+  if (e.key === 'ArrowLeft')  gPrev();
+});
 
-/* ── FLASH ── */
+/* mouse swipe on gallery */
+var gDrag=false, gDX0=0;
+document.getElementById('p-projects').addEventListener('mousedown', function(e){ gDrag=true; gDX0=e.clientX; });
+document.getElementById('p-projects').addEventListener('mouseup',   function(e){ if(!gDrag)return; gDrag=false; var d=e.clientX-gDX0; if(d<-60)gNext(); else if(d>60)gPrev(); });
+document.getElementById('p-projects').addEventListener('touchstart',function(e){ gDX0=e.touches[0].clientX; });
+document.getElementById('p-projects').addEventListener('touchend',  function(e){ var d=e.changedTouches[0].clientX-gDX0; if(d<-60)gNext(); else if(d>60)gPrev(); });
+
+/* ══ FLASH ══ */
 var flT;
-function flash(msg) {
-  var el = document.getElementById('gflash');
-  el.textContent = msg; el.classList.add('on');
-  clearTimeout(flT); flT = setTimeout(function(){ el.classList.remove('on'); }, 1400);
+function flash(msg){
+  var el=document.getElementById('gflash');
+  el.textContent=msg; el.classList.add('on');
+  clearTimeout(flT); flT=setTimeout(function(){ el.classList.remove('on'); },1400);
 }
-function setStatus(m) { document.getElementById('mpst').textContent = m; }
+function setStatus(m){ document.getElementById('mpst').textContent=m; }
+function setGesture(m){ document.getElementById('mpge').textContent=m; }
 
-/* ── MOTION DETECTION ── */
-var mpOn = false, camS = null, rafId = null;
-var prevData = null;
-var smoothCX = 0.5, refCX = 0.5;
-var lastTrigger = 0;
+/* ══ CAMERA — FIST DETECTION ══
+   Yumruk tespiti yöntemi:
+   1) Her frame'de griyscale alınır
+   2) Belirli bir bölgedeki piksel varyansı ölçülür
+      (yumruk = kompakt kütle = düşük varyans + koyu blob)
+   3) Fist algılandığında drag modu açılır
+   4) Drag modunda yatay konum takip edilir
+   5) Yeterli kayma → next/prev
+   6) Titremeyi önlemek için konum EMA smoothing ile izlenir
+      ve sadece anlamlı değişimde tepki verilir
+*/
+var mpOn=false, camS=null, rafId=null;
+var prevGray=null;
 
-var COOL         = 1100;   // ms tetiklemeler arası minimum süre
-var DIFF_THRESH  = 25;     // renk farkı eşiği (daha yüksek = daha az gürültü)
-var MIN_PIXELS   = 1500;   // en az bu kadar hareketli piksel olmalı
-var SWIPE_DELTA  = 0.15;   // centroid kayma miktarı
-var SMOOTH_F     = 0.25;   // smoothing faktörü
+/* Fist state */
+var fistActive=false;
+var fistStartX=0;
+var fistCurX=0;
+var fistConfidence=0;   /* 0-1 arası yumruk güveni */
+var dragTriggered=false;
+var COOL=800, lastTrigger=0;
 
-function toggleMP() { if (mpOn) stopMP(); else startMP(); }
+/* Smoothing */
+var smoothX=0.5;        /* El X pozisyonu (0-1), EMA */
+var EMA=0.2;            /* EMA faktörü — küçük=daha az titreme */
 
-function startMP() {
-  mpOn = true;
+function toggleMP(){ mpOn ? stopMP() : startMP(); }
+
+function startMP(){
+  mpOn=true;
   document.getElementById('mpover').classList.add('on');
   document.getElementById('mpbtn').classList.add('on');
-  document.getElementById('mplbl').textContent = 'Aktif';
+  document.getElementById('mplbl').textContent='Aktif';
   setStatus('Kamera açılıyor...');
 
-  navigator.mediaDevices.getUserMedia({ video: { facingMode:'user', width:{ideal:320}, height:{ideal:240} } })
-  .then(function(stream) {
-    camS = stream;
-    var vid = document.getElementById('mpvid');
-    vid.srcObject = stream;
-    return new Promise(function(r){ vid.onloadedmetadata = r; });
-  })
-  .then(function() {
+  navigator.mediaDevices.getUserMedia({
+    video:{ facingMode:'user', width:{ideal:320}, height:{ideal:240} }
+  }).then(function(stream){
+    camS=stream;
+    var vid=document.getElementById('mpvid');
+    vid.srcObject=stream;
+    return new Promise(function(r){ vid.onloadedmetadata=r; });
+  }).then(function(){
     document.getElementById('mpvid').play();
-    setStatus('✓ Hazır — elini hızlıca süpür');
-    prevData = null;
+    setStatus('✓ Yumruk yap ve sürükle');
+    prevGray=null; fistActive=false; fistConfidence=0; smoothX=0.5;
     loop();
-  })
-  .catch(function(err) {
+  }).catch(function(err){
     console.error(err);
-    var msg = location.protocol === 'file:'
-      ? '⚠️ file:// protokolünde çalışmaz. GitHub Pages üzerinden aç.'
-      : '✕ Kamera açılamadı: ' + err.message;
-    setStatus(msg);
-    mpOn = false;
+    setStatus(location.protocol==='file:'
+      ? '⚠️ GitHub Pages üzerinden aç'
+      : '✕ '+err.message);
+    mpOn=false;
     document.getElementById('mpbtn').classList.remove('on');
-    document.getElementById('mplbl').textContent = 'El Kontrolü';
+    document.getElementById('mplbl').textContent='El Kontrolü';
   });
 }
 
-function loop() {
-  if (!mpOn) return;
-  var vid = document.getElementById('mpvid');
-  var cv  = document.getElementById('mpcvs');
-  var ctx = cv.getContext('2d');
-  var W = vid.videoWidth  || 320;
-  var H = vid.videoHeight || 240;
-  cv.width = W; cv.height = H;
+function loop(){
+  if(!mpOn) return;
+  var vid=document.getElementById('mpvid');
+  if(vid.readyState < 2){ rafId=requestAnimationFrame(loop); return; }
 
+  var cv=document.getElementById('mpcvs');
+  var ctx=cv.getContext('2d');
+  var W=vid.videoWidth||320, H=vid.videoHeight||240;
+  cv.width=W; cv.height=H;
+
+  /* mirror */
   ctx.save();
-  ctx.translate(W, 0);
-  ctx.scale(-1, 1);
-  ctx.drawImage(vid, 0, 0, W, H);
+  ctx.translate(W,0); ctx.scale(-1,1);
+  ctx.drawImage(vid,0,0,W,H);
   ctx.restore();
 
-  var cur = ctx.getImageData(0, 0, W, H);
+  var frame=ctx.getImageData(0,0,W,H);
+  var gray=toGray(frame,W,H);
 
-  if (prevData) {
-    var totalMotion = 0, weightedX = 0;
-    var d = cur.data, p = prevData.data;
+  /* ── Yumruk tespiti ──
+     Elin olduğu bölgeyi bulmak için:
+     - Önceki frame ile fark al (hareket maskesi)
+     - Hareket olan piksellerin bounding box'ını hesapla
+     - Box'ın aspect ratio ve yoğunluğuna göre yumruk skoru ver
+  */
+  if(prevGray){
+    var motionMap=new Float32Array(W*H);
+    var motionCount=0, sumX=0, sumY=0;
 
-    for (var i = 0; i < d.length; i += 4) {
-      var diff = Math.abs(d[i]-p[i]) + Math.abs(d[i+1]-p[i+1]) + Math.abs(d[i+2]-p[i+2]);
-      if (diff > DIFF_THRESH * 3) {
-        var px = ((i/4) % W) / W;
-        totalMotion++;
-        weightedX += px;
+    for(var i=0;i<gray.length;i++){
+      var diff=Math.abs(gray[i]-prevGray[i]);
+      if(diff>20){
+        motionMap[i]=diff;
+        motionCount++;
+        sumX+=(i%W);
+        sumY+=Math.floor(i/W);
       }
     }
 
-    if (totalMotion > MIN_PIXELS) {
-      var newCX = weightedX / totalMotion;
-      smoothCX = smoothCX * (1-SMOOTH_F) + newCX * SMOOTH_F;
+    if(motionCount>300){
+      /* Hareketin ağırlıklı merkezi */
+      var cx=(sumX/motionCount)/W;  /* 0-1 */
+      /* Smooth — titreme önleme */
+      smoothX=smoothX*(1-EMA)+cx*EMA;
 
-      document.getElementById('mbar').style.width = (smoothCX * 100) + '%';
+      /* Hareket blob kompaktlığı — yumruk skoru */
+      var blobW=getBlobWidth(motionMap,W,H,smoothX);
+      /* Yumruk: kompakt blob (geniş değil, uzun değil) */
+      var compactness=Math.min(1, blobW<0.25 ? 1 : 0.25/blobW);
+      fistConfidence=fistConfidence*0.7+compactness*0.3;
 
-      var hc = document.getElementById('hcur');
-      hc.style.left = (smoothCX * window.innerWidth) + 'px';
-      hc.style.top  = (window.innerHeight * 0.5) + 'px';
-      hc.classList.add('on');
+      /* Fist bar güncelle */
+      document.getElementById('fist-bar').style.width=(fistConfidence*100)+'%';
+      document.getElementById('fist-icon').classList.toggle('active',fistConfidence>0.5);
 
-      var now = Date.now();
-      if (now - lastTrigger > COOL) {
-        var delta = smoothCX - refCX;
-        if (Math.abs(delta) > SWIPE_DELTA) {
-          lastTrigger = now;
-          if (delta > 0) {
-            document.getElementById('mpge').textContent = '← Önceki';
-            if (curP === 'projects') fp();
-            flash('← Önceki Proje');
-          } else {
-            document.getElementById('mpge').textContent = '→ Sonraki';
-            if (curP === 'projects') fn();
+      /* Fist aktif mi? */
+      var wasFist=fistActive;
+      fistActive=(fistConfidence>0.45 && motionCount>500);
+
+      if(fistActive && !wasFist){
+        /* Yumruk yeni başladı */
+        fistStartX=smoothX;
+        dragTriggered=false;
+        setGesture('✊ Sürükle...');
+        setStatus('✓ Yumruk algılandı');
+      } else if(fistActive){
+        /* Sürükleme devam ediyor */
+        var drag=smoothX-fistStartX;
+        var pct=Math.round(Math.abs(drag)*200);
+        setGesture(drag>0 ? '→ '+pct+'%' : '← '+pct+'%');
+
+        /* Tetikle */
+        var now=Date.now();
+        if(!dragTriggered && Math.abs(drag)>0.12 && now-lastTrigger>COOL){
+          lastTrigger=now;
+          dragTriggered=true;
+          if(drag>0){
+            setGesture('→ Sonraki ✓');
+            if(curP==='projects') gNext();
             flash('→ Sonraki Proje');
+          } else {
+            setGesture('← Önceki ✓');
+            if(curP==='projects') gPrev();
+            flash('← Önceki Proje');
           }
-          refCX = smoothCX;
+          fistStartX=smoothX; /* sıfırla */
         }
+      } else if(!fistActive && wasFist){
+        setGesture('Yumruk yap → sürükle');
+        dragTriggered=false;
       }
-      refCX = refCX * 0.97 + smoothCX * 0.03;
-      setStatus('✓ Hareket algılandı');
+
+      /* Canvas'a nokta çiz (titremesiz) */
+      ctx.clearRect(0,0,W,H);
+      if(fistActive){
+        var px=smoothX*W, py=H/2;
+        ctx.beginPath();
+        ctx.arc(px,py,14,0,Math.PI*2);
+        ctx.fillStyle='rgba(200,169,110,0.7)';
+        ctx.fill();
+        ctx.strokeStyle='rgba(200,169,110,1)';
+        ctx.lineWidth=2;
+        ctx.stroke();
+      }
+
     } else {
-      document.getElementById('hcur').classList.remove('on');
-      document.getElementById('mbar').style.width = '50%';
-      setStatus('◌ Elini hızlıca süpür');
+      /* Hareket yok */
+      fistActive=false;
+      fistConfidence=Math.max(0,fistConfidence-0.05);
+      document.getElementById('fist-bar').style.width=(fistConfidence*100)+'%';
+      document.getElementById('fist-icon').classList.remove('active');
+      setStatus('◌ Yumruk yap ve sürükle');
+      setGesture('Yumruk yap → sürükle');
+      ctx.clearRect(0,0,W,H);
     }
   }
 
-  prevData = cur;
-  rafId = requestAnimationFrame(loop);
+  prevGray=gray;
+  rafId=requestAnimationFrame(loop);
 }
 
-function stopMP() {
-  mpOn = false;
-  if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+/* Griyscale dönüşüm */
+function toGray(imageData,W,H){
+  var g=new Uint8Array(W*H);
+  var d=imageData.data;
+  for(var i=0;i<W*H;i++){
+    var j=i*4;
+    g[i]=(d[j]*77+d[j+1]*150+d[j+2]*29)>>8;
+  }
+  return g;
+}
+
+/* Hareket blobunun genişliğini hesapla */
+function getBlobWidth(motionMap,W,H,cx){
+  var minX=W, maxX=0;
+  for(var i=0;i<motionMap.length;i++){
+    if(motionMap[i]>20){
+      var x=i%W;
+      if(x<minX) minX=x;
+      if(x>maxX) maxX=x;
+    }
+  }
+  return (maxX-minX)/W;
+}
+
+function stopMP(){
+  mpOn=false;
+  if(rafId){ cancelAnimationFrame(rafId); rafId=null; }
   document.getElementById('mpover').classList.remove('on');
   document.getElementById('mpbtn').classList.remove('on');
-  document.getElementById('mplbl').textContent = 'El Kontrolü';
-  document.getElementById('hcur').classList.remove('on');
-  if (camS) { camS.getTracks().forEach(function(t){ t.stop(); }); camS = null; }
-  prevData = null;
+  document.getElementById('mplbl').textContent='El Kontrolü';
+  if(camS){ camS.getTracks().forEach(function(t){ t.stop(); }); camS=null; }
+  prevGray=null; fistActive=false; fistConfidence=0;
 }
 
-frender(false);
+/* init */
+gRender();
 </script>
 </body>
 </html>
