@@ -148,26 +148,31 @@ nav{ position:fixed; top:0; left:0; right:0; z-index:999; height:60px; display:f
 .avail{ display:inline-flex; align-items:center; gap:9px; background:rgba(200,169,110,.1); border:1px solid rgba(200,169,110,.22); padding:10px 18px; border-radius:2px; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); }
 .availd{ width:6px; height:6px; border-radius:50%; background:var(--gold); animation:blink 2s infinite; }
 
-/* MEDIAPIPE OVERLAY */
-#mpover{ position:fixed; inset:0; z-index:9999; display:none; flex-direction:column; align-items:center; justify-content:center; background:rgba(42,33,24,.97); backdrop-filter:blur(18px); }
+/* MEDIAPIPE OVERLAY — küçük köşe widget */
+#mpover{
+  position:fixed; bottom:24px; right:24px; z-index:9999;
+  display:none; flex-direction:column; align-items:flex-end;
+  background:rgba(30,22,14,.92); backdrop-filter:blur(12px);
+  border:1px solid rgba(200,169,110,.25); border-radius:6px;
+  padding:14px; width:280px;
+}
 #mpover.on{ display:flex; }
-.mpx{ position:absolute; top:72px; right:36px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); color:var(--cream); font-size:1rem; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .2s; }
+.mp-widget-top{ display:flex; align-items:center; justify-content:space-between; width:100%; margin-bottom:10px; }
+.mphd{ font-family:'Cormorant Garamond',serif; font-size:.85rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); }
+.mpx{ width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); color:var(--cream); font-size:.75rem; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .2s; flex-shrink:0; }
 .mpx:hover{ border-color:var(--gold); color:var(--gold); }
-.mphd{ font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
-.camframe{ position:relative; width:460px; height:300px; border:1px solid rgba(200,169,110,.28); border-radius:3px; overflow:hidden; background:#000; }
-@media(max-width:500px){ .camframe{ width:92vw; height:62vw; } }
+.camframe{ position:relative; width:100%; height:158px; border:1px solid rgba(200,169,110,.2); border-radius:3px; overflow:hidden; background:#000; }
 #mpvid{ width:100%; height:100%; object-fit:cover; transform:scaleX(-1); display:block; }
 #mpcvs{ position:absolute; inset:0; width:100%; height:100%; transform:scaleX(-1); pointer-events:none; }
 
 /* motion bar */
-.motion-bar-wrap{ width:460px; margin-top:14px; height:6px; background:rgba(255,255,255,.08); border-radius:3px; overflow:hidden; }
-@media(max-width:500px){ .motion-bar-wrap{ width:92vw; } }
-.motion-bar{ height:100%; width:50%; background:var(--gold); border-radius:3px; transition:width .1s; }
+.motion-bar-wrap{ width:100%; margin-top:8px; height:4px; background:rgba(255,255,255,.08); border-radius:2px; overflow:hidden; }
+.motion-bar{ height:100%; width:50%; background:var(--gold); border-radius:2px; transition:width .1s; }
 
-.mpst{ margin-top:10px; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--stone); text-align:center; max-width:460px; line-height:1.7; padding:0 12px; }
-.mpge{ margin-top:4px; font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--gold); min-height:1.4em; text-align:center; }
-.mptips{ display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; justify-content:center; }
-.mptip{ background:rgba(200,169,110,.08); border:1px solid rgba(200,169,110,.18); padding:8px 12px; border-radius:2px; font-size:.63rem; letter-spacing:.08em; text-transform:uppercase; color:var(--stone); }
+.mpst{ margin-top:6px; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--stone); text-align:center; width:100%; line-height:1.6; }
+.mpge{ margin-top:3px; font-family:'Cormorant Garamond',serif; font-size:.95rem; color:var(--gold); min-height:1.3em; text-align:center; width:100%; }
+.mptips{ display:flex; gap:5px; margin-top:8px; flex-wrap:wrap; justify-content:center; width:100%; }
+.mptip{ background:rgba(200,169,110,.08); border:1px solid rgba(200,169,110,.15); padding:4px 8px; border-radius:2px; font-size:.58rem; letter-spacing:.06em; text-transform:uppercase; color:var(--stone); }
 
 /* hand trail */
 #hcur{ position:fixed; z-index:99999; pointer-events:none; width:28px; height:28px; border-radius:50%; background:rgba(200,169,110,.7); border:2px solid var(--gold); transform:translate(-50%,-50%); display:none; box-shadow:0 0 16px rgba(200,169,110,.6); }
@@ -338,7 +343,7 @@ nav{ position:fixed; top:0; left:0; right:0; z-index:999; height:60px; display:f
         <h2 class="ptitle" style="margin-bottom:16px;">Projen mi var?<br><i>Konuşalım.</i></h2>
         <p class="ctsub">Yeni bir render projesi, sunum paftası veya 3D animasyon için benimle iletişime geçebilirsin.</p>
         <div class="ctlist">
-          <a class="ctrow" href="mailto:hello@archviz.studio"><span>📧</span><div><div class="ctlbl">E-posta</div><div class="ctval">hello@archviz.studio</div></div><span class="ctarr">→</span></a>
+          <a class="ctrow" href="/cdn-cgi/l/email-protection#99f1fcf5f5f6d9f8ebfaf1eff0e3b7eaedecfdf0f6"><span>📧</span><div><div class="ctlbl">E-posta</div><div class="ctval"><span class="__cf_email__" data-cfemail="fc9499909093bc9d8e9f948a9586d28f8889989593">[email&#160;protected]</span></div></div><span class="ctarr">→</span></a>
           <a class="ctrow" href="https://linkedin.com" target="_blank"><span>💼</span><div><div class="ctlbl">LinkedIn</div><div class="ctval">linkedin.com/in/username</div></div><span class="ctarr">→</span></a>
           <a class="ctrow" href="https://instagram.com" target="_blank"><span>📷</span><div><div class="ctlbl">Instagram</div><div class="ctval">@archviz.studio</div></div><span class="ctarr">→</span></a>
           <a class="ctrow" href="https://behance.net" target="_blank"><span>🎨</span><div><div class="ctlbl">Behance</div><div class="ctval">behance.net/username</div></div><span class="ctarr">→</span></a>
@@ -354,8 +359,10 @@ nav{ position:fixed; top:0; left:0; right:0; z-index:999; height:60px; display:f
 
 <!-- OVERLAY -->
 <div id="mpover">
-  <button class="mpx" onclick="stopMP()">✕</button>
-  <div class="mphd">El Kontrolü Aktif</div>
+  <div class="mp-widget-top">
+    <div class="mphd">🤚 El Kontrolü</div>
+    <button class="mpx" onclick="stopMP()">✕</button>
+  </div>
   <div class="camframe">
     <video id="mpvid" autoplay playsinline muted></video>
     <canvas id="mpcvs"></canvas>
@@ -370,7 +377,7 @@ nav{ position:fixed; top:0; left:0; right:0; z-index:999; height:60px; display:f
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── NAVIGATION ── */
 let curP = 'welcome';
 function go(name) {
@@ -423,7 +430,8 @@ let prevData = null, centX = 0.5, smoothCX = 0.5;
 let lastTrigger = 0;
 const COOL = 1000;
 const THRESH = 18;    // piksel fark eşiği (0-255)
-const SWIPE_DELTA = 0.10; // centroid ne kadar kayarsa tetiklesin
+const SWIPE_DELTA = 0.18; // centroid ne kadar kayarsa tetiklesin (daha yüksek = daha az hassas)
+const MIN_MOTION_PX = 1200; // en az bu kadar piksel hareket etmeli
 const SMOOTH = 0.3;
 
 async function toggleMP() { mpOn ? stopMP() : await startMP(); }
@@ -491,7 +499,7 @@ function loop() {
       }
     }
 
-    if (totalMotion > 200) {
+    if (totalMotion > MIN_MOTION_PX) {
       const newCX = weightedX / totalMotion;
       smoothCX = smoothCX * (1 - SMOOTH) + newCX * SMOOTH;
 
@@ -543,13 +551,4 @@ function stopMP() {
   if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
   document.getElementById('mpover').classList.remove('on');
   document.getElementById('mpbtn').classList.remove('on');
-  document.getElementById('mplbl').textContent = 'El Kontrolü';
-  document.getElementById('hcur').classList.remove('on');
-  if (camS) { camS.getTracks().forEach(t => t.stop()); camS = null; }
-  prevData = null;
-}
-
-frender(false);
-</script>
-</body>
-</html>
+  document.g
