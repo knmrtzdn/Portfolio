@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kaan Özden — CG Artist</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- TensorFlow.js + HandPose — daha stabil el algılama -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core@3.9.0/dist/tf-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter@3.9.0/dist/tf-converter.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl@3.9.0/dist/tf-backend-webgl.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/hand-pose-detection@2.0.0/dist/hand-pose-detection.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -387,7 +392,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
         <div class="ctlist">
           <a class="ctrow" href="https://www.behance.net/kaanozden" target="_blank"><span>🎨</span><div><div class="ctlbl">Behance</div><div class="ctval">behance.net/kaanozden</div></div><span class="ctarr">→</span></a>
           <a class="ctrow" href="http://linkedin.com/in/kaan-murat-özden-a264221b2" target="_blank"><span>💼</span><div><div class="ctlbl">LinkedIn</div><div class="ctval">Kaan Murat Özden</div></div><span class="ctarr">→</span></a>
-          <a class="ctrow" href="mailto:kaanozden@example.com"><span>📧</span><div><div class="ctlbl">E-posta</div><div class="ctval">İletişim için tıkla</div></div><span class="ctarr">→</span></a>
+          <a class="ctrow" href="/cdn-cgi/l/email-protection#781319191617021c1d16381d00191508141d561b1715"><span>📧</span><div><div class="ctlbl">E-posta</div><div class="ctval">İletişim için tıkla</div></div><span class="ctarr">→</span></a>
         </div>
       </div>
       <div class="ctright">
@@ -423,7 +428,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ══ DEFAULT DATA ══ */
 var DEFAULT_PROJECTS=[
   {id:1,title:'Solid Washbasins Animation',subtitle:'Artemis',tag:'Ürün Animasyonu · 2025',
@@ -771,11 +776,16 @@ function flash(m){var el=document.getElementById('gflash');el.textContent=m;el.c
 function setSt(m){document.getElementById('mpst').textContent=m;}
 function setGe(m){document.getElementById('mpge').textContent=m;}
 
-/* ══ MEDIAPIPE ══ */
-var mpOn=false,camS=null,mpCam=null;
-var hx=0.5,hy=0.5,EMA=0.15;
-var fistOn=false,fistSmooth=0;
-var handDragActive=false,handDragStartX=0,handDragBase=0;
+/* ══ EL KONTROLÜ — TensorFlow.js HandPose ══ */
+var mpOn=false, camS=null, rafId=null, detector=null;
+var hx=0.5, hy=0.5, EMA=0.12;
+var fistOn=false, fistSmooth=0;
+var handDragActive=false, handDragStartX=0, handDragBase=0;
+
+/* Bağlantı çizimi için el iskeleti */
+var CONNECTIONS=[[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],
+  [0,9],[9,10],[10,11],[11,12],[0,13],[13,14],[14,15],[15,16],
+  [0,17],[17,18],[18,19],[19,20],[5,9],[9,13],[13,17]];
 
 function toggleMP(){mpOn?stopMP():startMP();}
 
@@ -786,98 +796,151 @@ async function startMP(){
   document.getElementById('mplbl').textContent='Aktif';
   setSt('Kamera açılıyor...');
   try{
-    camS=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}}});
+    camS=await navigator.mediaDevices.getUserMedia({
+      video:{facingMode:'user',width:{ideal:640},height:{ideal:480}}
+    });
     var vid=document.getElementById('mpvid');
     vid.srcObject=camS;
     await new Promise(function(r){vid.onloadedmetadata=r;});
     await vid.play();
-    setSt('Model yükleniyor...');
-    if(!window._mpLoaded){
-      await loadScript('https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/hands.js');
-      await loadScript('https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.js');
-      await loadScript('https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3.1675466862/drawing_utils.js');
-      window._mpLoaded=true;
-    }
-    var cv=document.getElementById('mpcvs'),ctx=cv.getContext('2d');
-    cv.width=640;cv.height=480;
-    var hands=new Hands({locateFile:function(f){return 'https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1646424915/'+f;}});
-    hands.setOptions({maxNumHands:1,modelComplexity:1,minDetectionConfidence:0.7,minTrackingConfidence:0.6});
-    hands.onResults(function(res){
-      ctx.clearRect(0,0,640,480);
-      if(!res.multiHandLandmarks||res.multiHandLandmarks.length===0){
-        if(handDragActive){handDragActive=false;gRelease();}
-        fistOn=false;fistSmooth=0;
-        document.getElementById('hcursor').classList.remove('show');
-        setSt('◌ Elini kameraya göster');setGe('🖐 Açık el');return;
-      }
-      var lm=res.multiHandLandmarks[0];
-      drawConnectors(ctx,lm,HAND_CONNECTIONS,{color:'rgba(200,169,110,0.5)',lineWidth:2});
-      drawLandmarks(ctx,lm,{color:'#c8a96e',lineWidth:1,radius:3});
-      var rawX=1-lm[0].x,rawY=lm[0].y;
-      hx=hx*(1-EMA)+rawX*EMA;hy=hy*(1-EMA)+rawY*EMA;
-      var sx=hx*window.innerWidth,sy=hy*window.innerHeight;
-      var palm=lm[9];
-      var tipIdxs=[8,12,16,20],totalDist=0;
-      for(var ti=0;ti<tipIdxs.length;ti++){
-        var tip=lm[tipIdxs[ti]];
-        var ddx=tip.x-palm.x,ddy=tip.y-palm.y,ddz=(tip.z||0)-(palm.z||0);
-        totalDist+=Math.sqrt(ddx*ddx+ddy*ddy+ddz*ddz);
-      }
-      var avgDist=totalDist/4;
-      var fistScore=(avgDist<0.09)?1:(avgDist>0.20?0:(0.20-avgDist)/0.11);
-      fistSmooth=fistSmooth*0.55+fistScore*0.45;
-      var isFist=(fistSmooth>0.50);
-      var hcur=document.getElementById('hcursor');
-      hcur.style.left=sx+'px';hcur.style.top=sy+'px';
-      hcur.classList.add('show');
-      hcur.className='show '+(isFist?'closed':'open');
-      setSt('dist:'+avgDist.toFixed(2)+' | '+(isFist?'✊':'🖐'));
-      if(isFist&&!fistOn){
-        fistOn=true;
-        if(curP==='projects'&&!document.getElementById('proj-detail').classList.contains('on')){
-          handDragActive=true;handDragStartX=sx;handDragBase=snapOff(gIdx);
-          document.getElementById('gtrack').classList.remove('snap');
-        }
-        setGe('✊ Yumruk — sürükle');
-      }else if(!isFist&&fistOn){
-        fistOn=false;
-        if(handDragActive){handDragActive=false;gRelease();}
-        setGe('🖐 Açık el');
-      }else if(isFist&&handDragActive&&curP==='projects'){
-        var newOff=handDragBase+(sx-handDragStartX);
-        gOffset=newOff;gSetRaw(newOff);
-        var moved=Math.round(sx-handDragStartX);
-        setGe('✊ '+(moved>=0?'→ ':'← ')+Math.abs(moved)+'px');
-      }else{setGe(isFist?'✊ Yumruk':'🖐 Açık el');}
-    });
-    mpCam=new Camera(vid,{onFrame:async function(){await hands.send({image:vid});},width:640,height:480});
-    mpCam.start();window._mpCamera=mpCam;
-    setSt('✓ Hazır');setGe('🖐 Açık el = serbest');
+    setSt('Model yükleniyor... (~10sn)');
+
+    /* TF backend */
+    await tf.setBackend('webgl');
+    await tf.ready();
+
+    /* HandPose dedektörü */
+    detector=await handPoseDetection.createDetector(
+      handPoseDetection.SupportedModels.MediaPipeHands,
+      {runtime:'tfjs', modelType:'lite', maxHands:1}
+    );
+
+    setSt('✓ Hazır — elini göster');
+    setGe('🖐 Açık el = serbest');
+    loop();
   }catch(err){
     console.error(err);
-    setSt(location.protocol==='file:'?'⚠️ GitHub Pages üzerinden aç':'✕ '+err.message);
-    mpOn=false;document.getElementById('mpbtn').classList.remove('on');document.getElementById('mplbl').textContent='El Kontrolü';
+    setSt(location.protocol==='file:'
+      ?'⚠️ GitHub Pages üzerinden aç'
+      :'✕ '+err.message);
+    mpOn=false;
+    document.getElementById('mpbtn').classList.remove('on');
+    document.getElementById('mplbl').textContent='El Kontrolü';
   }
 }
 
+async function loop(){
+  if(!mpOn||!detector) return;
+  var vid=document.getElementById('mpvid');
+  var cv=document.getElementById('mpcvs');
+  var ctx=cv.getContext('2d');
+
+  if(vid.readyState>=2){
+    var W=vid.videoWidth||640, H=vid.videoHeight||480;
+    cv.width=W; cv.height=H;
+
+    var hands=await detector.estimateHands(vid,{flipHorizontal:true});
+    ctx.clearRect(0,0,W,H);
+
+    var hcur=document.getElementById('hcursor');
+
+    if(hands&&hands.length>0){
+      var kps=hands[0].keypoints;
+      var kps3=hands[0].keypoints3D;
+
+      /* İskelet çiz */
+      ctx.strokeStyle='rgba(200,169,110,0.6)'; ctx.lineWidth=2;
+      CONNECTIONS.forEach(function(c){
+        var a=kps[c[0]], b=kps[c[1]];
+        if(!a||!b) return;
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+      });
+      ctx.fillStyle='#c8a96e';
+      kps.forEach(function(p){
+        if(!p) return;
+        ctx.beginPath(); ctx.arc(p.x,p.y,4,0,Math.PI*2); ctx.fill();
+      });
+
+      /* Pozisyon — bilek (0), mirror edilmiş */
+      var rawX=kps[0].x/W;
+      var rawY=kps[0].y/H;
+      hx=hx*(1-EMA)+rawX*EMA;
+      hy=hy*(1-EMA)+rawY*EMA;
+      var sx=hx*window.innerWidth;
+      var sy=hy*window.innerHeight;
+      hcur.style.left=sx+'px'; hcur.style.top=sy+'px';
+      hcur.classList.add('show');
+
+      /* Yumruk tespiti — 3D keypoints ile daha hassas */
+      var palm3=kps3?kps3[9]:null;
+      var totalDist=0;
+      var tipIdx=[8,12,16,20];
+      for(var ti=0;ti<tipIdx.length;ti++){
+        var tip3=kps3?kps3[tipIdx[ti]]:null;
+        if(tip3&&palm3){
+          var dx=tip3.x-palm3.x, dy=tip3.y-palm3.y, dz=(tip3.z||0)-(palm3.z||0);
+          totalDist+=Math.sqrt(dx*dx+dy*dy+dz*dz);
+        } else {
+          /* 2D fallback */
+          var tip2=kps[tipIdx[ti]], palm2=kps[9];
+          var dx2=(tip2.x-palm2.x)/W, dy2=(tip2.y-palm2.y)/H;
+          totalDist+=Math.sqrt(dx2*dx2+dy2*dy2)*4;
+        }
+      }
+      var avgDist=totalDist/4;
+      /* 3D: yumruk ~0.03-0.08, açık ~0.12-0.25 */
+      var fistScore=(avgDist<0.07)?1:(avgDist>0.16?0:(0.16-avgDist)/0.09);
+      fistSmooth=fistSmooth*0.6+fistScore*0.4;
+      var isFist=(fistSmooth>0.52);
+
+      hcur.className='show '+(isFist?'closed':'open');
+      setSt('d:'+avgDist.toFixed(3)+' s:'+fistSmooth.toFixed(2)+' '+(isFist?'✊':'🖐'));
+
+      if(isFist&&!fistOn){
+        fistOn=true;
+        if(curP==='projects'&&!document.getElementById('proj-detail').classList.contains('on')){
+          handDragActive=true; handDragStartX=sx; handDragBase=snapOff(gIdx);
+          document.getElementById('gtrack').classList.remove('snap');
+        }
+        setGe('✊ Yumruk — sürükle');
+      } else if(!isFist&&fistOn){
+        fistOn=false;
+        if(handDragActive){handDragActive=false; gRelease();}
+        setGe('🖐 Açık el');
+      } else if(isFist&&handDragActive&&curP==='projects'){
+        var newOff=handDragBase+(sx-handDragStartX);
+        gOffset=newOff; gSetRaw(newOff);
+        setGe('✊ '+(sx-handDragStartX>=0?'→ ':'← ')+Math.abs(Math.round(sx-handDragStartX))+'px');
+      } else {
+        setGe(isFist?'✊ Yumruk':'🖐 Açık el');
+      }
+    } else {
+      /* El yok */
+      if(handDragActive){handDragActive=false; gRelease();}
+      fistSmooth=Math.max(0,fistSmooth-0.05);
+      if(fistOn&&fistSmooth<0.3){fistOn=false;}
+      hcur.classList.remove('show');
+      setSt('◌ Elini kameraya göster');
+      setGe('🖐 Açık el = serbest');
+    }
+  }
+  rafId=requestAnimationFrame(loop);
+}
+
 function stopMP(){
-  mpOn=false;if(handDragActive){handDragActive=false;gRelease();}fistOn=false;
+  mpOn=false;
+  if(rafId){cancelAnimationFrame(rafId);rafId=null;}
+  if(handDragActive){handDragActive=false;gRelease();}
+  fistOn=false; fistSmooth=0;
   document.getElementById('mpover').classList.remove('on');
   document.getElementById('mpbtn').classList.remove('on');
   document.getElementById('mplbl').textContent='El Kontrolü';
   document.getElementById('hcursor').classList.remove('show');
   if(camS){camS.getTracks().forEach(function(t){t.stop();});camS=null;}
-  if(window._mpCamera){try{window._mpCamera.stop();}catch(e){}window._mpCamera=null;}
+  if(detector){try{detector.dispose();}catch(e){}detector=null;}
 }
 
 function loadScript(src){
   return new Promise(function(res,rej){
     if(document.querySelector('script[src="'+src+'"]')){res();return;}
-    var s=document.createElement('script');s.src=src;s.crossOrigin='anonymous';s.onload=res;s.onerror=rej;document.head.appendChild(s);
-  });
-}
-
-renderGallery();
-</script>
-</body>
-</html>
+    var s=document.createElement('sc
