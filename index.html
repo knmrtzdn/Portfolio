@@ -11,14 +11,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/hand-pose-detection@2.0.0/dist/hand-pose-detection.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --cream:#f5f0e8;--warm1:#ede5d8;--warm2:#d9ccb8;
-  --stone:#8c7b6b;--dark:#2a2118;--ink:#3d3028;
-  --gold:#c8a96e;--goldd:#9e7f48;
-}
+:root{--cream:#f5f0e8;--warm1:#ede5d8;--warm2:#d9ccb8;--stone:#8c7b6b;--dark:#2a2118;--ink:#3d3028;--gold:#c8a96e;--goldd:#9e7f48;}
 html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--ink);font-family:'Jost',sans-serif;}
-
-/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(245,240,232,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--warm2);}
 .logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);cursor:pointer;}
 .logo b{color:var(--gold);}
@@ -31,8 +25,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .mpbtn.on{background:var(--gold);color:var(--dark);}
 .mpdot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:blink 2s infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-
-/* PAGES */
 .page{position:fixed;inset:0;padding-top:60px;opacity:0;pointer-events:none;transition:opacity .35s;overflow-y:auto;background:var(--cream);}
 .page.on{opacity:1;pointer-events:all;}
 
@@ -76,7 +68,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .gtrack{display:flex;height:100%;will-change:transform;}
 .gtrack.snap{transition:transform .45s cubic-bezier(.25,.1,.25,1);}
 .gslide{flex-shrink:0;width:100%;height:100%;position:relative;cursor:pointer;}
-.gslide img.gcover{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(65%);}
+.gslide img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(65%);}
 .ginfo{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(18,11,6,.96) 0%,rgba(18,11,6,.3) 65%,transparent 100%);padding:56px 72px 52px;display:flex;align-items:flex-end;justify-content:space-between;pointer-events:none;}
 .gtag{font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
 .gtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.8rem);font-weight:300;line-height:1.05;color:#fff;margin-bottom:10px;}
@@ -84,7 +76,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .gbadge{background:rgba(200,169,110,.15);border:1px solid rgba(200,169,110,.3);color:var(--gold);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;}
 .gcounter{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(255,255,255,.12);line-height:1;text-align:right;flex-shrink:0;}
 .gcounter small{font-size:1rem;color:rgba(255,255,255,.25);}
-.genter-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.25);color:rgba(200,169,110,.8);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 18px;border-radius:20px;pointer-events:none;white-space:nowrap;}
+.ghint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.25);color:rgba(200,169,110,.8);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 18px;border-radius:20px;pointer-events:none;white-space:nowrap;}
 .garr{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:52px;height:52px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.3);backdrop-filter:blur(8px);color:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;}
 .garr:hover{border-color:var(--gold);color:var(--gold);}
 .garr.l{left:28px;}.garr.r{right:28px;}
@@ -92,7 +84,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .gdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.22);transition:all .3s;cursor:pointer;}
 .gdot.on{background:var(--gold);width:20px;border-radius:3px;}
 
-/* PROJECT DETAIL */
+/* DETAIL */
 #proj-detail{position:fixed;inset:0;z-index:500;display:none;background:rgba(10,6,3,.96);overflow-y:auto;}
 #proj-detail.on{display:block;}
 .pd-close{position:fixed;top:20px;right:28px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:1.2rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;z-index:10;}
@@ -105,15 +97,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .pd-badge{background:rgba(200,169,110,.12);border:1px solid rgba(200,169,110,.25);color:var(--gold);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:2px;}
 .pd-desc{font-size:.88rem;line-height:1.95;color:rgba(255,255,255,.55);font-weight:300;max-width:700px;margin-bottom:44px;white-space:pre-line;}
 .pd-grid{display:grid;gap:6px;grid-template-columns:repeat(2,1fr);}
-.pd-grid.single{grid-template-columns:1fr;}
-.pd-grid.three{grid-template-columns:repeat(3,1fr);}
-.pd-img-wrap{overflow:hidden;border-radius:2px;cursor:zoom-in;background:rgba(255,255,255,.03);}
-.pd-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
-.pd-img-wrap:hover img{transform:scale(1.03);}
-.pd-img-wrap.tall{grid-row:span 2;}
+.pd-grid.s1{grid-template-columns:1fr;}
+.pd-grid.s3{grid-template-columns:repeat(3,1fr);}
+.pd-img{overflow:hidden;border-radius:2px;cursor:zoom-in;}
+.pd-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+.pd-img:hover img{transform:scale(1.03);}
+.pd-img.tall{grid-row:span 2;}
 #img-zoom{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;cursor:zoom-out;}
 #img-zoom.on{display:flex;}
-#zoom-img{max-width:95vw;max-height:95vh;object-fit:contain;border-radius:2px;}
+#zoom-img{max-width:95vw;max-height:95vh;object-fit:contain;}
 
 /* SERVICES */
 #p-services{background:#fdfaf5;}
@@ -168,7 +160,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .availd{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;}
 
 /* KAMERA */
-#mpover{position:fixed;bottom:20px;right:20px;z-index:9999;display:none;flex-direction:column;background:rgba(22,15,8,.94);backdrop-filter:blur(14px);border:1px solid rgba(200,169,110,.22);border-radius:8px;padding:10px;width:260px;box-shadow:0 8px 32px rgba(0,0,0,.5);}
+#mpover{position:fixed;bottom:20px;right:20px;z-index:9999;display:none;flex-direction:column;background:rgba(22,15,8,.94);backdrop-filter:blur(14px);border:1px solid rgba(200,169,110,.22);border-radius:8px;padding:10px;width:270px;box-shadow:0 8px 32px rgba(0,0,0,.5);}
 #mpover.on{display:flex;}
 .mp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
 .mphd{font-family:'Cormorant Garamond',serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
@@ -177,8 +169,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .camframe{position:relative;width:100%;height:150px;border:1px solid rgba(200,169,110,.18);border-radius:4px;overflow:hidden;background:#000;}
 #mpvid{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:block;}
 #mpcvs{position:absolute;inset:0;width:100%;height:100%;transform:scaleX(-1);pointer-events:none;}
-.mpst{margin-top:6px;font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;color:var(--stone);text-align:center;line-height:1.5;}
+.mpst{margin-top:6px;font-size:.58rem;letter-spacing:.09em;color:var(--stone);text-align:center;line-height:1.5;}
 .mpge{font-family:'Cormorant Garamond',serif;font-size:.88rem;color:var(--gold);min-height:1.2em;text-align:center;margin-top:3px;}
+.cal-row{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(200,169,110,.12);}
+.cal-lbl{font-size:.55rem;color:var(--stone);white-space:nowrap;}
+#fist-slider{flex:1;accent-color:var(--gold);}
+#fist-val{font-size:.7rem;color:var(--gold);min-width:34px;text-align:right;}
+.cal-note{font-size:.54rem;color:var(--stone);margin-top:4px;line-height:1.5;}
+
 #hcursor{position:fixed;z-index:99999;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%);display:none;transition:width .08s,height .08s,background .08s;}
 #hcursor.show{display:block;}
 #hcursor.open{width:34px;height:34px;background:rgba(200,169,110,.2);border:2px solid rgba(200,169,110,.8);}
@@ -186,7 +184,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 #gflash{position:fixed;top:72px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark);font-family:'Cormorant Garamond',serif;font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 24px;border-radius:2px;z-index:99998;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap;}
 #gflash.on{opacity:1;}
 
-/* ADMİN */
+/* ADMIN */
 #admin-btn{position:fixed;bottom:20px;left:20px;z-index:9999;background:rgba(22,15,8,.85);border:1px solid rgba(200,169,110,.3);color:var(--gold);font-family:'Jost',sans-serif;font-size:.65rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:7px;backdrop-filter:blur(10px);transition:all .2s;}
 #admin-btn:hover{background:rgba(200,169,110,.12);border-color:var(--gold);}
 #admin-overlay{position:fixed;inset:0;z-index:10000;background:rgba(10,6,3,.75);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;}
@@ -207,42 +205,42 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 .proj-item:hover{border-color:rgba(200,169,110,.25);}
 .proj-thumb{width:48px;height:36px;object-fit:cover;border-radius:2px;}
 .proj-thumb-ph{width:48px;height:36px;border-radius:2px;background:rgba(200,169,110,.08);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--stone);}
-.proj-title-txt{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--cream);margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.proj-tag-txt{font-size:.58rem;color:var(--stone);letter-spacing:.06em;}
+.proj-title-t{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--cream);margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.proj-tag-t{font-size:.58rem;color:var(--stone);letter-spacing:.06em;}
 .proj-actions{display:flex;gap:5px;flex-shrink:0;}
-.proj-btn{width:26px;height:26px;border-radius:3px;border:1px solid rgba(255,255,255,.08);background:transparent;color:rgba(255,255,255,.35);font-size:.7rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
-.proj-btn:hover{border-color:var(--gold);color:var(--gold);}
-.proj-btn.del:hover{border-color:#e05;color:#e05;}
-.add-proj-btn{display:flex;align-items:center;gap:7px;background:rgba(200,169,110,.07);border:1px solid rgba(200,169,110,.18);color:var(--gold);font-family:'Jost',sans-serif;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;padding:10px 18px;border-radius:4px;cursor:pointer;transition:all .2s;width:100%;justify-content:center;margin-top:4px;}
-.add-proj-btn:hover{background:rgba(200,169,110,.14);border-color:var(--gold);}
-.adm-form{display:flex;flex-direction:column;gap:13px;}
-.adm-form-title{font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+.pbtn{width:26px;height:26px;border-radius:3px;border:1px solid rgba(255,255,255,.08);background:transparent;color:rgba(255,255,255,.35);font-size:.7rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
+.pbtn:hover{border-color:var(--gold);color:var(--gold);}
+.pbtn.del:hover{border-color:#e05;color:#e05;}
+.add-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(200,169,110,.07);border:1px solid rgba(200,169,110,.18);color:var(--gold);font-family:'Jost',sans-serif;font-size:.67rem;letter-spacing:.12em;text-transform:uppercase;padding:10px 18px;border-radius:4px;cursor:pointer;transition:all .2s;width:100%;margin-top:4px;}
+.add-btn:hover{background:rgba(200,169,110,.14);border-color:var(--gold);}
+.aform{display:flex;flex-direction:column;gap:13px;}
+.aform-title{font-family:'Cormorant Garamond',serif;font-size:.88rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
 .frow{display:flex;flex-direction:column;gap:4px;}
-.frow-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.frow2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .flabel{font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);}
 .finput,.ftextarea{background:rgba(255,255,255,.05);border:1px solid rgba(200,169,110,.15);border-radius:4px;padding:8px 11px;color:var(--cream);font-family:'Jost',sans-serif;font-size:.78rem;outline:none;transition:border-color .2s;width:100%;}
 .finput:focus,.ftextarea:focus{border-color:rgba(200,169,110,.5);}
 .ftextarea{resize:vertical;min-height:80px;}
 .imgs-list{display:flex;flex-direction:column;gap:6px;}
 .img-row{display:grid;grid-template-columns:1fr 32px;gap:6px;align-items:center;}
-.img-del-btn{width:32px;height:32px;border-radius:3px;border:1px solid rgba(255,255,255,.08);background:transparent;color:rgba(255,255,255,.3);cursor:pointer;transition:all .2s;font-size:.8rem;display:flex;align-items:center;justify-content:center;}
-.img-del-btn:hover{border-color:#e05;color:#e05;}
-.add-img-btn{background:rgba(200,169,110,.06);border:1px dashed rgba(200,169,110,.2);color:var(--stone);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:7px;border-radius:4px;cursor:pointer;transition:all .2s;width:100%;text-align:center;}
-.add-img-btn:hover{border-color:var(--gold);color:var(--gold);}
-.tag-input-wrap{display:flex;flex-wrap:wrap;gap:5px;background:rgba(255,255,255,.05);border:1px solid rgba(200,169,110,.15);border-radius:4px;padding:6px 9px;min-height:38px;cursor:text;}
-.tag-chip{background:rgba(200,169,110,.13);border:1px solid rgba(200,169,110,.28);color:var(--gold);font-size:.62rem;padding:2px 7px 2px 9px;border-radius:2px;display:flex;align-items:center;gap:4px;}
-.tag-chip button{background:none;border:none;color:var(--stone);cursor:pointer;font-size:.65rem;line-height:1;padding:0;}
-.tag-chip button:hover{color:#e05;}
+.img-del{width:32px;height:32px;border-radius:3px;border:1px solid rgba(255,255,255,.08);background:transparent;color:rgba(255,255,255,.3);cursor:pointer;transition:all .2s;font-size:.8rem;display:flex;align-items:center;justify-content:center;}
+.img-del:hover{border-color:#e05;color:#e05;}
+.add-img{background:rgba(200,169,110,.06);border:1px dashed rgba(200,169,110,.2);color:var(--stone);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:7px;border-radius:4px;cursor:pointer;transition:all .2s;width:100%;text-align:center;}
+.add-img:hover{border-color:var(--gold);color:var(--gold);}
+.tw{display:flex;flex-wrap:wrap;gap:5px;background:rgba(255,255,255,.05);border:1px solid rgba(200,169,110,.15);border-radius:4px;padding:6px 9px;min-height:38px;cursor:text;}
+.tchip{background:rgba(200,169,110,.13);border:1px solid rgba(200,169,110,.28);color:var(--gold);font-size:.62rem;padding:2px 7px 2px 9px;border-radius:2px;display:flex;align-items:center;gap:4px;}
+.tchip button{background:none;border:none;color:var(--stone);cursor:pointer;font-size:.65rem;line-height:1;padding:0;}
+.tchip button:hover{color:#e05;}
 #tag-field{background:none;border:none;outline:none;color:var(--cream);font-family:'Jost',sans-serif;font-size:.76rem;min-width:70px;flex:1;}
-.btn-row{display:flex;gap:8px;}
-.adm-save-btn{background:var(--gold);color:var(--dark);border:none;font-family:'Jost',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:11px;border-radius:4px;cursor:pointer;transition:all .2s;flex:1;}
-.adm-save-btn:hover{background:var(--goldd);}
-.adm-cancel-btn{background:transparent;color:var(--stone);border:1px solid rgba(255,255,255,.1);font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:11px 20px;border-radius:4px;cursor:pointer;transition:all .2s;}
-.adm-cancel-btn:hover{border-color:var(--stone);color:var(--cream);}
-.note{font-size:.6rem;color:var(--stone);line-height:1.6;letter-spacing:.04em;}
+.brow{display:flex;gap:8px;}
+.save-btn{background:var(--gold);color:var(--dark);border:none;font-family:'Jost',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:11px;border-radius:4px;cursor:pointer;transition:all .2s;flex:1;}
+.save-btn:hover{background:var(--goldd);}
+.cancel-btn{background:transparent;color:var(--stone);border:1px solid rgba(255,255,255,.1);font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:11px 20px;border-radius:4px;cursor:pointer;transition:all .2s;}
+.cancel-btn:hover{border-color:var(--stone);color:var(--cream);}
+.fnote{font-size:.58rem;color:var(--stone);line-height:1.5;margin-top:3px;}
 
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr;}.hright{height:240px;}.mimg:first-child{grid-row:1;}.hleft{padding:32px 22px;}.howsteps{grid-template-columns:1fr;}.ginfo{padding:32px 24px 52px;}.gtitle{font-size:1.8rem;}.garr{width:40px;height:40px;}.svcs{grid-template-columns:1fr;}.abgrid,.ctgrid{grid-template-columns:1fr;gap:32px;}.secwrap,.abwrap,.ctwrap{padding:44px 20px;}nav{padding:0 16px;}.navlinks a{padding:6px 8px;font-size:.62rem;}.mpbtn{padding:6px 12px;font-size:.62rem;}#mpover{width:200px;}#admin-panel{width:96vw;}.frow-2{grid-template-columns:1fr;}.pd-inner{padding:80px 20px 40px;}.pd-grid{grid-template-columns:1fr;}
+  .hero{grid-template-columns:1fr;}.hright{height:240px;}.mimg:first-child{grid-row:1;}.hleft{padding:32px 22px;}.howsteps{grid-template-columns:1fr;}.ginfo{padding:32px 24px 52px;}.gtitle{font-size:1.8rem;}.garr{width:40px;height:40px;}.svcs{grid-template-columns:1fr;}.abgrid,.ctgrid{grid-template-columns:1fr;gap:32px;}.secwrap,.abwrap,.ctwrap{padding:44px 20px;}nav{padding:0 16px;}.navlinks a{padding:6px 8px;font-size:.62rem;}.mpbtn{padding:6px 12px;font-size:.62rem;}#mpover{width:220px;}#admin-panel{width:96vw;}.frow2{grid-template-columns:1fr;}.pd-inner{padding:80px 20px 40px;}.pd-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -255,11 +253,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 <nav>
   <div class="logo" onclick="go('welcome')">KAAN<b>·</b>ÖZDEN</div>
   <ul class="navlinks">
-    <li><a id="n-welcome"  onclick="go('welcome')"  class="on">Studio</a></li>
+    <li><a id="n-welcome" onclick="go('welcome')" class="on">Studio</a></li>
     <li><a id="n-projects" onclick="go('projects')">Projeler</a></li>
     <li><a id="n-services" onclick="go('services')">Hizmetler</a></li>
-    <li><a id="n-about"    onclick="go('about')">Hakkımda</a></li>
-    <li><a id="n-contact"  onclick="go('contact')">İletişim</a></li>
+    <li><a id="n-about" onclick="go('about')">Hakkımda</a></li>
+    <li><a id="n-contact" onclick="go('contact')">İletişim</a></li>
   </ul>
   <button class="mpbtn" id="mpbtn" onclick="toggleMP()">
     <span class="mpdot"></span><span id="mplbl">El Kontrolü</span>
@@ -276,10 +274,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
       <div class="howcard">
         <div class="howtitle">Nasıl Kullanılır?</div>
         <div class="howsteps">
-          <div class="hstep"><div class="hnum">1</div><div class="htxt"><strong>Projeye tıkla</strong><br>Tüm renderlar + açıklama.</div></div>
+          <div class="hstep"><div class="hnum">1</div><div class="htxt"><strong>Projeye tıkla</strong><br>Tüm renderlar + açıklama açılır.</div></div>
           <div class="hstep"><div class="hnum">2</div><div class="htxt"><strong>Sürükle / kaydır</strong><br>Projeler arası geçiş.</div></div>
-          <div class="hstep"><div class="hnum">3</div><div class="htxt"><strong>El Kontrolü</strong><br>Yumruk yap, sürükle.</div></div>
-          <div class="hstep"><div class="hnum">4</div><div class="htxt"><strong>⚙ Sol altta</strong><br>Projeleri yönet.</div></div>
+          <div class="hstep"><div class="hnum">3</div><div class="htxt"><strong>El Kontrolü</strong><br>Yumruk yap ve sürükle.</div></div>
+          <div class="hstep"><div class="hnum">4</div><div class="htxt"><strong>⚙ Sol altta</strong><br>Projeleri düzenle.</div></div>
         </div>
         <div class="chips">
           <div class="chip">🖐 Açık = serbest</div>
@@ -293,12 +291,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
       </div>
     </div>
     <div class="hright">
-      <div class="mosaic" id="hero-mosaic">
-        <div class="mimg"><img id="hero-img-0" src="" alt=""></div>
-        <div class="mimg"><img id="hero-img-1" src="" alt=""></div>
-        <div class="mimg"><img id="hero-img-2" src="" alt=""></div>
+      <div class="mosaic">
+        <div class="mimg"><img id="hi0" src="" alt=""></div>
+        <div class="mimg"><img id="hi1" src="" alt=""></div>
+        <div class="mimg"><img id="hi2" src="" alt=""></div>
       </div>
-      <div class="hbadge"><div class="hbnum" id="hero-count">0</div><div class="hblbl">Proje</div></div>
+      <div class="hbadge"><div class="hbnum" id="hcount">0</div><div class="hblbl">Proje</div></div>
     </div>
   </div>
 </div>
@@ -313,7 +311,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
   </div>
 </div>
 
-<!-- PROJECT DETAIL -->
+<!-- DETAIL -->
 <div id="proj-detail">
   <button class="pd-close" onclick="closeDetail()">✕</button>
   <div class="pd-inner" id="pd-inner"></div>
@@ -346,7 +344,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
       </div>
       <div class="abtxt">
         <div class="sectitle" style="margin-bottom:18px;">Mühendislik ile <i>Sanatı</i><br>Birleştiriyorum</div>
-        <p class="abbio"><strong>Kaan Özden</strong> — CG Artist, İstanbul.<br><br>İnşaat Mühendisliği formasyonumu dijital sanatların sınırsız dünyasıyla birleştirerek <strong>fotorealistik görselleştirme ve tasarım</strong> alanında profesyonel çözümler üretiyorum.<br><br>2016 yılında mühendislik kariyerime başlayıp şantiye ve proje yönetimi deneyimi kazandıktan sonra teknik bilgimi sanatsal bir bakış açısıyla harmanladım. Şu an <strong>Artemis</strong> bünyesinde CG Artist olarak çalışıyorum.</p>
+        <p class="abbio"><strong>Kaan Özden</strong> — CG Artist, İstanbul.<br><br>İnşaat Mühendisliği formasyonumu dijital sanatların sınırsız dünyasıyla birleştirerek <strong>fotorealistik görselleştirme</strong> alanında profesyonel çözümler üretiyorum. Şu an <strong>Artemis</strong> bünyesinde CG Artist olarak çalışıyorum.</p>
         <div class="seclabel" style="margin-bottom:9px;">Yazılımlar</div>
         <div class="absoft"><span class="soft">3ds Max</span><span class="soft">Corona Renderer</span><span class="soft">V-Ray</span><span class="soft">Unreal Engine</span><span class="soft">After Effects</span><span class="soft">Photoshop</span></div>
         <div class="abstats"><div class="ast"><div class="asn">8</div><div class="asl">Proje</div></div><div class="ast"><div class="asn">8+</div><div class="asl">Yıl</div></div><div class="ast"><div class="asn">2016</div><div class="asl">Başlangıç</div></div></div>
@@ -366,7 +364,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
         <div class="ctlist">
           <a class="ctrow" href="https://www.behance.net/kaanozden" target="_blank"><span>🎨</span><div><div class="ctlbl">Behance</div><div class="ctval">behance.net/kaanozden</div></div><span class="ctarr">→</span></a>
           <a class="ctrow" href="http://linkedin.com/in/kaan-murat-özden-a264221b2" target="_blank"><span>💼</span><div><div class="ctlbl">LinkedIn</div><div class="ctval">Kaan Murat Özden</div></div><span class="ctarr">→</span></a>
-          <a class="ctrow" href="/cdn-cgi/l/email-protection#1b707a7a7574617f7e755b7e637a766b777e35787476"><span>📧</span><div><div class="ctlbl">E-posta</div><div class="ctval">İletişim için tıkla</div></div><span class="ctarr">→</span></a>
+          <a class="ctrow" href="mailto:kaanozden@example.com"><span>📧</span><div><div class="ctlbl">E-posta</div><div class="ctval">İletişim için tıkla</div></div><span class="ctarr">→</span></a>
         </div>
       </div>
       <div class="ctright">
@@ -379,22 +377,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
 
 <!-- KAMERA -->
 <div id="mpover">
-  <div class="mp-top"><div class="mphd">✊ El Kontrolü</div><button class="mpx" onclick="stopMP()">✕</button></div>
-  <div class="camframe"><video id="mpvid" autoplay playsinline muted></video><canvas id="mpcvs"></canvas></div>
+  <div class="mp-top">
+    <div class="mphd">✊ El Kontrolü</div>
+    <button class="mpx" onclick="stopMP()">✕</button>
+  </div>
+  <div class="camframe">
+    <video id="mpvid" autoplay playsinline muted></video>
+    <canvas id="mpcvs"></canvas>
+  </div>
   <div class="mpst" id="mpst">Başlatılıyor...</div>
   <div class="mpge" id="mpge">🖐 Açık el = serbest</div>
-  <!-- Kalibrasyon -->
-  <div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(200,169,110,.15);">
-    <div style="font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);margin-bottom:6px;">Yumruk Eşiği (dist &lt; eşik = yumruk)</div>
-    <div style="display:flex;align-items:center;gap:8px;">
-      <input type="range" id="fist-thresh" min="0.03" max="0.25" step="0.005" value="0.09"
-        style="flex:1;accent-color:var(--gold);" oninput="FIST_MAX=parseFloat(this.value);document.getElementById('thresh-val').textContent=this.value;">
-      <span id="thresh-val" style="font-size:.7rem;color:var(--gold);min-width:36px;">0.09</span>
-    </div>
-    <div style="font-size:.56rem;color:var(--stone);margin-top:4px;">
-      Açık elde dist değerini gör → eşiği onun altına çek
-    </div>
+  <div class="cal-row">
+    <span class="cal-lbl">Yumruk eşiği:</span>
+    <input type="range" id="fist-slider" class="cal-lbl" min="0.02" max="0.30" step="0.005" value="0.10"
+      style="flex:1;accent-color:var(--gold);"
+      oninput="FIST_T=parseFloat(this.value);document.getElementById('fist-val').textContent=parseFloat(this.value).toFixed(3);">
+    <span id="fist-val" style="font-size:.7rem;color:var(--gold);min-width:38px;text-align:right;">0.100</span>
   </div>
+  <div class="cal-note">dist değeri açık elde kaç? → eşiği ortasına al</div>
 </div>
 
 <button id="admin-btn" onclick="openAdmin()">⚙ Projeleri Yönet</button>
@@ -413,19 +413,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;ali
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ══ PROJECTS DATA ══ */
+<script>
+/* ══ DATA ══ */
 var DEF=[
   {id:1,title:'Solid Washbasins Animation',subtitle:'Artemis',tag:'Ürün Animasyonu · 2025',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/7f124b218554235.Y3JvcCwxMDgwLDg0NCwwLDc0.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/7f124b218554235.Y3JvcCwxMDgwLDg0NCwwLDc0.jpg'],tags:['3ds Max','Corona','After Effects','Animasyon'],desc:'Artemis Solid Washbasins ürün serisinin 3D animasyonu.'},
-  {id:2,title:'Monoblock Sink',subtitle:'Artemis',tag:'Ürün Render · 2025',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/0d38ca215733253.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/0d38ca215733253.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg'],tags:['3ds Max','Corona','Ürün Render'],desc:'Artemis Monoblock Sink ürünü için fotogerçekçi CGI render çalışması.'},
-  {id:3,title:'Filira Animation',subtitle:'Artemis',tag:'Ürün Animasyonu · 2025',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/2935ad215711867.Y3JvcCw0MjAwLDMyODUsMCwxODcx.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/2935ad215711867.Y3JvcCw0MjAwLDMyODUsMCwxODcx.jpg'],tags:['3ds Max','Corona','Motion Design'],desc:'Artemis Filira ürün animasyonu. Hareket tasarımı ve post prodüksiyon After Effects ile tamamlandı.'},
-  {id:4,title:'Aten',subtitle:'Artemis',tag:'Ürün Render · 2025',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/886e81215084051.Y3JvcCw0MjAwLDMyODUsMCwxMTEy.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/886e81215084051.Y3JvcCw0MjAwLDMyODUsMCwxMTEy.jpg'],tags:['3ds Max','Corona','CGI'],desc:'Bu projede Artemis Aten model duş kabininin çok yönlülüğünü, kırsal tarzda bir banyo tasarımına entegre ederek sergilemeye odaklandım.\n\nRenderlar, kabinin beyaz profillerinin ülke tarzı ortamın sıcak ve toprak tonlarıyla güzel bir kontrast oluşturduğunu vurguluyor. Işık ve malzeme detaylarına özel önem verildi.'},
-  {id:5,title:'Solid Sinks',subtitle:'Artemis',tag:'Ürün Render · 2024',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/7fb471206694533.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/7fb471206694533.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg'],tags:['3ds Max','Corona','CGI'],desc:'Artemis Solid Sinks serisi için kapsamlı ürün render çalışması.'},
-  {id:6,title:'Bathtubs',subtitle:'Artemis',tag:'Ürün Render · 2024',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/3f9a18202731373.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/3f9a18202731373.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg'],tags:['3ds Max','Corona','Ürün Render'],desc:'Artemis küvet serisi ürün görselleştirmesi. Stüdyo aydınlatması ve malzeme simülasyonu.'},
-  {id:7,title:'Shower Enclosures',subtitle:'Artemis',tag:'Ürün Render · 2023',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/b13b1b193731161.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/b13b1b193731161.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg'],tags:['3ds Max','Corona','CGI'],desc:'Artemis duş kabini serisi için fotogerçekçi CGI render.'},
+  {id:2,title:'Monoblock Sink',subtitle:'Artemis',tag:'Ürün Render · 2025',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/0d38ca215733253.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/0d38ca215733253.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg'],tags:['3ds Max','Corona','Ürün Render'],desc:'Artemis Monoblock Sink ürünü için fotogerçekçi CGI render.'},
+  {id:3,title:'Filira Animation',subtitle:'Artemis',tag:'Ürün Animasyonu · 2025',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/2935ad215711867.Y3JvcCw0MjAwLDMyODUsMCwxODcx.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/2935ad215711867.Y3JvcCw0MjAwLDMyODUsMCwxODcx.jpg'],tags:['3ds Max','Corona','Motion Design'],desc:'Artemis Filira ürün animasyonu.'},
+  {id:4,title:'Aten',subtitle:'Artemis',tag:'Ürün Render · 2025',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/886e81215084051.Y3JvcCw0MjAwLDMyODUsMCwxMTEy.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/886e81215084051.Y3JvcCw0MjAwLDMyODUsMCwxMTEy.jpg'],tags:['3ds Max','Corona','CGI'],desc:'Artemis Aten model duş kabininin kırsal tarzda bir banyo tasarımına entegre edilmiş hali.\n\nRenderlar, kabinin beyaz profillerinin sıcak ve toprak tonlarıyla oluşturduğu kontrast üzerine odaklanıyor. Işık ve malzeme detaylarına özel önem verildi.'},
+  {id:5,title:'Solid Sinks',subtitle:'Artemis',tag:'Ürün Render · 2024',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/7fb471206694533.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/7fb471206694533.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg'],tags:['3ds Max','Corona','CGI'],desc:'Artemis Solid Sinks serisi ürün render.'},
+  {id:6,title:'Bathtubs',subtitle:'Artemis',tag:'Ürün Render · 2024',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/3f9a18202731373.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/3f9a18202731373.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg'],tags:['3ds Max','Corona','Ürün Render'],desc:'Artemis küvet serisi fotogerçekçi render.'},
+  {id:7,title:'Shower Enclosures',subtitle:'Artemis',tag:'Ürün Render · 2023',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/b13b1b193731161.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/b13b1b193731161.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg'],tags:['3ds Max','Corona','CGI'],desc:'Artemis duş kabini serisi CGI render.'},
   {id:8,title:'Unreal Engine Renders',subtitle:'& Animations',tag:'Animasyon · 2023',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/9a4f95193084915.Y3JvcCwzNTY2LDI3OTAsNjk3LDA.jpg',images:['https://mir-s3-cdn-cf.behance.net/projects/max_808/9a4f95193084915.Y3JvcCwzNTY2LDI3OTAsNjk3LDA.jpg'],tags:['Unreal Engine','Real-time','Animasyon'],desc:'Unreal Engine ile gerçek zamanlı render ve animasyon çalışmaları.'}
 ];
-
 function loadP(){try{var s=localStorage.getItem('kaan_v3');if(s)return JSON.parse(s);}catch(e){}return JSON.parse(JSON.stringify(DEF));}
 function saveP(a){try{localStorage.setItem('kaan_v3',JSON.stringify(a));}catch(e){}}
 var PROJECTS=loadP();
@@ -442,11 +441,11 @@ function go(name){
 }
 
 /* ══ GALLERY ══ */
-var gIdx=0,gDrag=false,gDX0=0,gDXN=0,gBase=0,gOff=0,gMoved=false;
+var gIdx=0,gDrag=false,gMoved=false,gDX0=0,gBase=0,gOff=0;
 function sOff(i){return -i*window.innerWidth;}
 function gRaw(o){var t=document.getElementById('gtrack');t.classList.remove('snap');t.style.transform='translateX('+o+'px)';}
 function gSnap(i){
-  var n=PROJECTS.length;i=Math.max(0,Math.min(n-1,i));gIdx=i;gOff=sOff(i);
+  i=Math.max(0,Math.min(PROJECTS.length-1,i));gIdx=i;gOff=sOff(i);
   var t=document.getElementById('gtrack');t.classList.add('snap');t.style.transform='translateX('+gOff+'px)';
   document.querySelectorAll('.gdot').forEach(function(d,j){d.classList.toggle('on',j===i);});
 }
@@ -455,10 +454,10 @@ function gRelease(){var m=gOff-sOff(gIdx);if(m<-window.innerWidth*.2)gSnap(gIdx+
 var pp=document.getElementById('p-projects');
 pp.addEventListener('mousedown',function(e){if(e.target.closest('.garr')||e.target.closest('.gdots'))return;gDrag=true;gMoved=false;gDX0=e.clientX;gBase=sOff(gIdx);});
 window.addEventListener('mousemove',function(e){if(!gDrag)return;var d=e.clientX-gDX0;if(Math.abs(d)>5)gMoved=true;gOff=gBase+d;gRaw(gOff);});
-window.addEventListener('mouseup',function(e){if(!gDrag)return;var was=gMoved;gDrag=false;if(was){gRelease();}else{var sl=e.target.closest('.gslide');if(sl){var ix=parseInt(sl.getAttribute('data-idx'));if(!isNaN(ix))openDetail(ix);}}});
+window.addEventListener('mouseup',function(e){if(!gDrag)return;var was=gMoved;gDrag=false;if(was){gRelease();}else{var sl=e.target.closest('.gslide');if(sl)openDetail(parseInt(sl.getAttribute('data-i')));} });
 pp.addEventListener('touchstart',function(e){if(e.target.closest('.garr')||e.target.closest('.gdots'))return;gMoved=false;gDX0=e.touches[0].clientX;gBase=sOff(gIdx);},{passive:true});
 pp.addEventListener('touchmove',function(e){var d=e.touches[0].clientX-gDX0;if(Math.abs(d)>5)gMoved=true;gOff=gBase+d;gRaw(gOff);},{passive:true});
-pp.addEventListener('touchend',function(e){if(gMoved)gRelease();else{var sl=e.target.closest('.gslide');if(sl){var ix=parseInt(sl.getAttribute('data-idx'));if(!isNaN(ix))openDetail(ix);}}});
+pp.addEventListener('touchend',function(e){if(gMoved)gRelease();else{var sl=e.target.closest('.gslide');if(sl)openDetail(parseInt(sl.getAttribute('data-i')));} });
 document.addEventListener('keydown',function(e){
   if(document.getElementById('proj-detail').classList.contains('on')){if(e.key==='Escape')closeDetail();return;}
   if(curP!=='projects')return;
@@ -467,38 +466,40 @@ document.addEventListener('keydown',function(e){
 });
 
 function renderGallery(){
-  var track=document.getElementById('gtrack'),dots=document.getElementById('gdots');
-  track.innerHTML='';dots.innerHTML='';
-  var total=PROJECTS.length;
+  var tr=document.getElementById('gtrack'),dots=document.getElementById('gdots');
+  tr.innerHTML='';dots.innerHTML='';
+  var n=PROJECTS.length;
   PROJECTS.forEach(function(p,i){
-    var sl=document.createElement('div');sl.className='gslide';sl.setAttribute('data-idx',i);
+    var sl=document.createElement('div');sl.className='gslide';sl.setAttribute('data-i',i);
     var tags=(p.tags||[]).map(function(t){return '<span class="gbadge">'+t+'</span>';}).join('');
-    var num=String(i+1).padStart(2,'0');
-    sl.innerHTML='<img class="gcover" src="'+p.cover+'" alt="'+p.title+'">'
+    var num=pad(i+1);
+    sl.innerHTML='<img src="'+p.cover+'" alt="'+p.title+'">'
       +'<div class="ginfo"><div><div class="gtag">Proje '+num+' — '+p.tag+'</div>'
       +'<div class="gtitle">'+p.title+'<br>'+p.subtitle+'</div>'
       +'<div class="gbadges">'+tags+'</div></div>'
-      +'<div class="gcounter">'+num+'<br><small>/ '+String(total).padStart(2,'0')+'</small></div></div>'
-      +'<div class="genter-hint">↗ Tıkla — tüm renderlar</div>';
-    track.appendChild(sl);
+      +'<div class="gcounter">'+num+'<br><small>/ '+pad(n)+'</small></div></div>'
+      +'<div class="ghint">↗ Tıkla — tüm renderlar</div>';
+    tr.appendChild(sl);
     var dot=document.createElement('div');dot.className='gdot'+(i===gIdx?' on':'');
     dot.setAttribute('onclick','gSnap('+i+')');dots.appendChild(dot);
   });
-  gIdx=Math.min(gIdx,Math.max(0,total-1));gOff=sOff(gIdx);
-  var t=document.getElementById('gtrack');t.classList.remove('snap');t.style.transform='translateX('+gOff+'px)';
-  for(var m=0;m<3;m++){var el=document.getElementById('hero-img-'+m);if(PROJECTS[m])el.src=PROJECTS[m].cover;else el.src='';}
-  document.getElementById('hero-count').textContent=total;
+  gIdx=Math.min(gIdx,Math.max(0,n-1));gOff=sOff(gIdx);
+  document.getElementById('gtrack').classList.remove('snap');
+  document.getElementById('gtrack').style.transform='translateX('+gOff+'px)';
+  for(var m=0;m<3;m++){var el=document.getElementById('hi'+m);if(PROJECTS[m])el.src=PROJECTS[m].cover;else el.src='';}
+  document.getElementById('hcount').textContent=n;
 }
+function pad(n){return String(n).padStart(2,'0');}
 
 /* ══ DETAIL ══ */
 function openDetail(i){
   var p=PROJECTS[i];if(!p)return;
   var imgs=p.images&&p.images.length?p.images:[p.cover];
   var tags=(p.tags||[]).map(function(t){return '<span class="pd-badge">'+t+'</span>';}).join('');
-  var gc='pd-grid'+(imgs.length===1?' single':imgs.length===3?' three':'');
+  var gc='pd-grid'+(imgs.length===1?' s1':imgs.length===3?' s3':'');
   var ih=imgs.map(function(u,j){
     var tall=(imgs.length===2&&j===0)?' tall':'';
-    return '<div class="pd-img-wrap'+tall+'" onclick="openZoom(\''+u.replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')">'
+    return '<div class="pd-img'+tall+'" onclick="openZoom(\''+u.replace(/'/g,"\\'")+'\')">'
       +'<img src="'+u+'" loading="lazy"></div>';
   }).join('');
   document.getElementById('pd-inner').innerHTML=
@@ -529,27 +530,24 @@ function admList(){
   var b=document.getElementById('adm-body'),h='<div class="proj-list">';
   PROJECTS.forEach(function(p){
     var th=p.cover?'<img class="proj-thumb" src="'+p.cover+'" alt="">':'<div class="proj-thumb-ph">📷</div>';
-    h+='<div class="proj-item">'+th+'<div><div class="proj-title-txt">'+p.title+'</div><div class="proj-tag-txt">'+p.tag+'</div></div>'
+    h+='<div class="proj-item">'+th
+      +'<div><div class="proj-title-t">'+p.title+'</div><div class="proj-tag-t">'+p.tag+'</div></div>'
       +'<div class="proj-actions">'
-      +'<button class="proj-btn" onclick="admEdit('+p.id+')">✏️</button>'
-      +'<button class="proj-btn" onclick="admMove('+p.id+',-1)">↑</button>'
-      +'<button class="proj-btn" onclick="admMove('+p.id+',1)">↓</button>'
-      +'<button class="proj-btn del" onclick="admDel('+p.id+')">🗑</button>'
+      +'<button class="pbtn" onclick="admEdit('+p.id+')">✏️</button>'
+      +'<button class="pbtn" onclick="admMove('+p.id+',-1)">↑</button>'
+      +'<button class="pbtn" onclick="admMove('+p.id+',1)">↓</button>'
+      +'<button class="pbtn del" onclick="admDel('+p.id+')">🗑</button>'
       +'</div></div>';
   });
-  h+='</div><button class="add-proj-btn" onclick="editId=null;switchTab(\'form\')">+ Yeni Proje Ekle</button>';
+  h+='</div><button class="add-btn" onclick="editId=null;switchTab(\'form\')">+ Yeni Proje Ekle</button>';
   b.innerHTML=h;
 }
 function admEdit(id){
   editId=id;var d=PROJECTS.find(function(p){return p.id===id;});if(!d)return;
   document.getElementById('tab-list').classList.remove('on');
-  document.getElementById('tab-form').classList.add('on');
-  admTab='form';admForm(d);
+  document.getElementById('tab-form').classList.add('on');admTab='form';admForm(d);
 }
-function admDel(id){
-  if(!confirm('Sil?'))return;
-  PROJECTS=PROJECTS.filter(function(p){return p.id!==id;});saveP(PROJECTS);renderGallery();admList();
-}
+function admDel(id){if(!confirm('Sil?'))return;PROJECTS=PROJECTS.filter(function(p){return p.id!==id;});saveP(PROJECTS);renderGallery();admList();}
 function admMove(id,dir){
   var i=PROJECTS.findIndex(function(p){return p.id===id;});if(i<0)return;
   var ni=i+dir;if(ni<0||ni>=PROJECTS.length)return;
@@ -558,28 +556,28 @@ function admMove(id,dir){
 function esc(s){return s?(s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'):''; }
 function admForm(d){
   fTags=d?(d.tags||[]).slice():[];
-  fImgs=d?(d.images&&d.images.length?d.images.slice():[d.cover]):[' '];
+  fImgs=d?(d.images&&d.images.length?d.images.slice():[d.cover]):['']; 
   var b=document.getElementById('adm-body');
-  b.innerHTML='<div class="adm-form">'
-    +'<div class="adm-form-title">'+(d?'Düzenle':'Yeni Proje')+'</div>'
-    +'<div class="frow-2">'
+  b.innerHTML='<div class="aform">'
+    +'<div class="aform-title">'+(d?'Düzenle':'Yeni Proje')+'</div>'
+    +'<div class="frow2">'
     +'<div class="frow"><label class="flabel">Başlık *</label><input class="finput" id="f-title" value="'+(d?esc(d.title):'')+'" placeholder="Bathtub Series"></div>'
     +'<div class="frow"><label class="flabel">Alt Başlık</label><input class="finput" id="f-sub" value="'+(d?esc(d.subtitle||''):'')+'" placeholder="Artemis"></div>'
     +'</div>'
     +'<div class="frow"><label class="flabel">Etiket Satırı</label><input class="finput" id="f-tag" value="'+(d?esc(d.tag):'')+'" placeholder="Ürün Render · 2024"></div>'
     +'<div class="frow"><label class="flabel">Açıklama</label><textarea class="ftextarea" id="f-desc">'+(d&&d.desc?d.desc:'')+'</textarea></div>'
-    +'<div class="frow"><label class="flabel">Görsel URL\'leri * <span class="note">(ilki kapak olur)</span></label>'
+    +'<div class="frow"><label class="flabel">Görsel URL\'leri * <span class="fnote">(ilki kapak)</span></label>'
     +'<div class="imgs-list" id="imgs-list"></div>'
-    +'<button type="button" class="add-img-btn" onclick="addImg()">+ Görsel Ekle</button>'
-    +'<p class="note" style="margin-top:5px">💡 Behance görselinde sağ tık → "Görsel adresini kopyala" → buraya yapıştır</p>'
+    +'<button type="button" class="add-img" onclick="addImg()">+ Görsel Ekle</button>'
+    +'<div class="fnote" style="margin-top:4px">💡 Behance görselinde sağ tık → Görsel adresini kopyala</div>'
     +'</div>'
-    +'<div class="frow"><label class="flabel">Etiketler <span class="note">(Enter ile ekle)</span></label>'
-    +'<div class="tag-input-wrap" id="tw" onclick="document.getElementById(\'tag-field\').focus()">'
+    +'<div class="frow"><label class="flabel">Etiketler <span class="fnote">(Enter)</span></label>'
+    +'<div class="tw" id="tw" onclick="document.getElementById(\'tag-field\').focus()">'
     +'<span id="tc"></span><input id="tag-field" placeholder="3ds Max..." onkeydown="tagKey(event)">'
     +'</div></div>'
-    +'<div class="btn-row">'
-    +'<button class="adm-save-btn" onclick="admSave()">Kaydet</button>'
-    +'<button class="adm-cancel-btn" onclick="switchTab(\'list\')">İptal</button>'
+    +'<div class="brow">'
+    +'<button class="save-btn" onclick="admSave()">Kaydet</button>'
+    +'<button class="cancel-btn" onclick="switchTab(\'list\')">İptal</button>'
     +'</div></div>';
   renderImgs();renderTags();
 }
@@ -588,7 +586,7 @@ function renderImgs(){
   fImgs.forEach(function(u,i){
     var r=document.createElement('div');r.className='img-row';
     r.innerHTML='<input class="finput" placeholder="https://..." value="'+esc(u)+'" oninput="fImgs['+i+']=this.value">'
-      +(fImgs.length>1?'<button type="button" class="img-del-btn" onclick="delImg('+i+')">✕</button>':'<div></div>');
+      +(fImgs.length>1?'<button type="button" class="img-del" onclick="delImg('+i+')">✕</button>':'<div></div>');
     l.appendChild(r);
   });
 }
@@ -597,14 +595,12 @@ function delImg(i){fImgs.splice(i,1);if(!fImgs.length)fImgs=[''];renderImgs();}
 function renderTags(){
   var c=document.getElementById('tc');if(!c)return;c.innerHTML='';
   fTags.forEach(function(t,i){
-    var ch=document.createElement('span');ch.className='tag-chip';
+    var ch=document.createElement('span');ch.className='tchip';
     ch.innerHTML=t+'<button onclick="delTag('+i+')">×</button>';c.appendChild(ch);
   });
 }
 function delTag(i){fTags.splice(i,1);renderTags();}
-function tagKey(e){
-  if(e.key==='Enter'||e.key===','){e.preventDefault();var v=e.target.value.trim().replace(/,$/,'');if(v&&!fTags.includes(v)){fTags.push(v);renderTags();e.target.value='';}}
-}
+function tagKey(e){if(e.key==='Enter'||e.key===','){e.preventDefault();var v=e.target.value.trim().replace(/,$/,'');if(v&&!fTags.includes(v)){fTags.push(v);renderTags();e.target.value='';}}}
 function admSave(){
   var title=document.getElementById('f-title').value.trim();
   var sub=document.getElementById('f-sub').value.trim();
@@ -624,12 +620,12 @@ function admSave(){
   saveP(PROJECTS);renderGallery();switchTab('list');
 }
 
-/* ══ EL KONTROLÜ — TensorFlow.js HandPose ══ */
+/* ══ EL KONTROLÜ ══ */
 var mpOn=false,camS=null,rafId=null,detector=null;
 var hx=0.5,hy=0.5,EMA=0.12;
-var fistOn=false,fistSmooth=0;
-var hdActive=false,hdStartX=0,hdBase=0;
-var FIST_MAX=0.09; /* slider ile ayarlanır */
+var fistOn=false,fSmooth=0;
+var hdActive=false,hdX0=0,hdBase=0;
+var FIST_T=0.10;
 var BONES=[[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[0,9],[9,10],[10,11],[11,12],[0,13],[13,14],[14,15],[15,16],[0,17],[17,18],[18,19],[19,20],[5,9],[9,13],[13,17]];
 
 function toggleMP(){mpOn?stopMP():startMP();}
@@ -653,7 +649,8 @@ async function startMP(){
       handPoseDetection.SupportedModels.MediaPipeHands,
       {runtime:'tfjs',modelType:'lite',maxHands:1}
     );
-    setSt('✓ Hazır');setGe('🖐 Açık el = serbest');
+    setSt('✓ Hazır — elini göster');
+    setGe('🖐 Açık el');
     loop();
   }catch(err){
     console.error(err);
@@ -663,7 +660,7 @@ async function startMP(){
 }
 
 async function loop(){
-  if(!mpOn||!detector){return;}
+  if(!mpOn||!detector)return;
   var vid=document.getElementById('mpvid');
   var cv=document.getElementById('mpcvs');
   var ctx=cv.getContext('2d');
@@ -677,50 +674,63 @@ async function loop(){
       if(hands&&hands.length>0){
         var kps=hands[0].keypoints;
         var k3=hands[0].keypoints3D;
-        /* draw */
+        /* iskelet */
         ctx.strokeStyle='rgba(200,169,110,.6)';ctx.lineWidth=2;
-        BONES.forEach(function(b){var a=kps[b[0]],c=kps[b[1]];if(!a||!c)return;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(c.x,c.y);ctx.stroke();});
+        BONES.forEach(function(b){
+          var a=kps[b[0]],c=kps[b[1]];
+          if(!a||!c)return;
+          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(c.x,c.y);ctx.stroke();
+        });
         ctx.fillStyle='#c8a96e';
         kps.forEach(function(p){if(!p)return;ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill();});
-        /* position */
+        /* pozisyon */
         hx=hx*(1-EMA)+(kps[0].x/W)*EMA;
         hy=hy*(1-EMA)+(kps[0].y/H)*EMA;
         var sx=hx*window.innerWidth,sy=hy*window.innerHeight;
         hcur.style.left=sx+'px';hcur.style.top=sy+'px';hcur.classList.add('show');
-        /* fist */
+        /* yumruk mesafesi */
         var palm=k3?k3[9]:null;
         var dist=0;
         [8,12,16,20].forEach(function(ti){
           var tip=k3?k3[ti]:null;
-          if(tip&&palm){var dx=tip.x-palm.x,dy=tip.y-palm.y,dz=(tip.z||0)-(palm.z||0);dist+=Math.sqrt(dx*dx+dy*dy+dz*dz);}
-          else{var t2=kps[ti],p2=kps[9];dist+=Math.sqrt(Math.pow((t2.x-p2.x)/W,2)+Math.pow((t2.y-p2.y)/H,2))*4;}
+          if(tip&&palm){
+            var dx=tip.x-palm.x,dy=tip.y-palm.y,dz=(tip.z||0)-(palm.z||0);
+            dist+=Math.sqrt(dx*dx+dy*dy+dz*dz);
+          }else{
+            var t2=kps[ti],p2=kps[9];
+            dist+=Math.sqrt(Math.pow((t2.x-p2.x)/W,2)+Math.pow((t2.y-p2.y)/H,2))*4;
+          }
         });
         var avg=dist/4;
-        /* FIST_MAX slider ile ayarlanır */
-        var open_thresh=FIST_MAX*2.2; /* açık el bu değerin üstünde */
-        var score=avg<FIST_MAX?1:avg>open_thresh?0:(open_thresh-avg)/(open_thresh-FIST_MAX);
-        fistSmooth=fistSmooth*.55+score*.45;
-        var isFist=fistSmooth>0.52;
+        var open_t=FIST_T*2.0;
+        var score=avg<FIST_T?1:(avg>open_t?0:(open_t-avg)/(open_t-FIST_T));
+        fSmooth=fSmooth*.55+score*.45;
+        var isFist=fSmooth>0.50;
         hcur.className='show '+(isFist?'closed':'open');
-        setSt('dist:'+avg.toFixed(3)+' | eşik:'+FIST_MAX.toFixed(3)+' | '+(isFist?'✊ YUMRUK':'🖐 AÇIK'));
+        setSt('dist:'+avg.toFixed(3)+' eşik:'+FIST_T.toFixed(3)+' '+(isFist?'✊':'🖐'));
         if(isFist&&!fistOn){
           fistOn=true;
           if(curP==='projects'&&!document.getElementById('proj-detail').classList.contains('on')){
-            hdActive=true;hdStartX=sx;hdBase=sOff(gIdx);document.getElementById('gtrack').classList.remove('snap');
+            hdActive=true;hdX0=sx;hdBase=sOff(gIdx);
+            document.getElementById('gtrack').classList.remove('snap');
           }
           setGe('✊ Yumruk — sürükle');
         }else if(!isFist&&fistOn){
-          fistOn=false;if(hdActive){hdActive=false;gRelease();}setGe('🖐 Açık el');
+          fistOn=false;if(hdActive){hdActive=false;gRelease();}
+          setGe('🖐 Açık el');
         }else if(isFist&&hdActive&&curP==='projects'){
-          var no=hdBase+(sx-hdStartX);gOff=no;gRaw(no);
-          setGe('✊ '+(sx-hdStartX>=0?'→ ':'← ')+Math.abs(Math.round(sx-hdStartX))+'px');
-        }else{setGe(isFist?'✊ Yumruk':'🖐 Açık el');}
+          var no=hdBase+(sx-hdX0);gOff=no;gRaw(no);
+          setGe('✊ '+(sx-hdX0>=0?'→ ':'← ')+Math.abs(Math.round(sx-hdX0))+'px');
+        }else{
+          setGe(isFist?'✊ Yumruk':'🖐 Açık el');
+        }
       }else{
         if(hdActive){hdActive=false;gRelease();}
-        fistSmooth=Math.max(0,fistSmooth-.05);
-        if(fistOn&&fistSmooth<.3)fistOn=false;
+        fSmooth=Math.max(0,fSmooth-.05);
+        if(fistOn&&fSmooth<.3)fistOn=false;
         hcur.classList.remove('show');
-        setSt('◌ Elini kameraya göster');setGe('🖐 Açık el = serbest');
+        setSt('◌ Elini kameraya göster');
+        setGe('🖐 Açık el = serbest');
       }
     }catch(e){console.warn(e);}
   }
@@ -729,7 +739,7 @@ async function loop(){
 
 function stopMP(){
   mpOn=false;if(rafId){cancelAnimationFrame(rafId);rafId=null;}
-  if(hdActive){hdActive=false;gRelease();}fistOn=false;fistSmooth=0;
+  if(hdActive){hdActive=false;gRelease();}fistOn=false;fSmooth=0;
   document.getElementById('mpover').classList.remove('on');
   document.getElementById('mpbtn').classList.remove('on');
   document.getElementById('mplbl').textContent='El Kontrolü';
@@ -738,6 +748,10 @@ function stopMP(){
   if(detector){try{detector.dispose();}catch(e){}detector=null;}
 }
 
-var flT;
-function flash(m){var el=document.getElementById('gflash');el.textContent=m;el.classList.add('on');clearTimeout(flT);flT=setTimeout(function(){el.classList.remove('on');},1200);}
-function setSt(m){docume
+function setSt(m){document.getElementById('mpst').textContent=m;}
+function setGe(m){document.getElementById('mpge').textContent=m;}
+
+renderGallery();
+</script>
+</body>
+</html>
