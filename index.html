@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kaan Özden — CG Artist</title>
+<title>Kaan Murat Özden — CG Artist</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -272,16 +272,37 @@ nav{
   overflow-y:auto;
 }
 #proj-detail.on{display:block;}
-.pd-close{
-  position:fixed;top:20px;right:32px;
-  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--stone);background:none;border:none;cursor:pointer;
-  display:flex;align-items:center;gap:8px;transition:color .2s;
-  z-index:10;
+/* Üst kapatma çubuğu — her zaman görünür */
+.pd-topbar{
+  position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:56px;
+  background:rgba(26,18,10,.96);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(207,196,176,.1);
 }
-.pd-close:hover{color:var(--gold2);}
-.pd-close::before{content:'✕';font-size:.9rem;}
-.pd-inner{max-width:1040px;margin:0 auto;padding:88px 48px 72px;}
+.pd-topbar-title{
+  font-family:'Playfair Display',serif;
+  font-size:.82rem;font-style:italic;
+  color:rgba(255,255,255,.35);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:60%;
+}
+.pd-close{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(184,146,74,.1);
+  border:1px solid rgba(184,146,74,.25);
+  color:var(--gold2);
+  font-family:'Outfit',sans-serif;
+  font-size:.62rem;font-weight:400;
+  letter-spacing:.18em;text-transform:uppercase;
+  padding:9px 20px;cursor:pointer;
+  transition:all .25s;border-radius:1px;
+  flex-shrink:0;
+}
+.pd-close:hover{background:rgba(184,146,74,.2);border-color:var(--gold2);}
+.pd-close-x{font-size:1rem;line-height:1;}
+.pd-inner{max-width:1040px;margin:0 auto;padding:52px 48px 72px;}
 .pd-header{margin-bottom:48px;}
 .pd-eyebrow{
   font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;
@@ -574,14 +595,14 @@ nav{
 
 /* ── PROJE DETAY BLOKLAR ── */
 .pd-blocks{margin-top:48px;display:flex;flex-direction:column;gap:32px;}
-.pb-text{font-size:.88rem;line-height:1.95;color:rgba(255,255,255,.5);font-weight:300;max-width:720px;}
-.pb-imgrid{display:grid;gap:4px;grid-template-columns:repeat(2,1fr);}
+.pb-text{line-height:1.95;max-width:760px;}
+.pb-imgrid{display:grid;}
 .pb-imgrid.s1{grid-template-columns:1fr;}
 .pb-imgrid.s3{grid-template-columns:repeat(3,1fr);}
 .pb-img{overflow:hidden;cursor:zoom-in;}
-.pb-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
-.pb-img:hover img{transform:scale(1.03);}
-.pb-video{width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;}
+.pb-img img{width:100%;display:block;transition:transform .4s;}
+.pb-img:hover img{transform:scale(1.02);}
+.pb-video{width:100%;background:#000;overflow:hidden;}
 .pb-video iframe,.pb-video video{width:100%;height:100%;border:none;display:block;}
 /* ── BLOK EDİTÖRÜ ── */
 .block-item{background:rgba(255,255,255,.03);border:1px solid rgba(207,196,176,.1);border-radius:4px;padding:14px 16px;margin-bottom:8px;}
@@ -592,6 +613,10 @@ nav{
 .block-add-btn{background:rgba(184,146,74,.06);border:1px dashed rgba(184,146,74,.25);color:var(--gold2);font-family:'Outfit',sans-serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;cursor:pointer;transition:all .2s;border-radius:2px;}
 .block-add-btn:hover{background:rgba(184,146,74,.12);border-color:var(--gold2);}
 .block-textarea{width:100%;min-height:90px;}
+.block-style-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(207,196,176,.08);}
+.bsfield{display:flex;flex-direction:column;gap:4px;min-width:110px;flex:1;}
+.bsselect{padding:6px 4px;font-size:.72rem;cursor:pointer;}
+.bsselect option{background:#1c1108;}
 
 #login-overlay{position:fixed;inset:0;z-index:20000;background:rgba(18,9,4,.97);display:none;align-items:center;justify-content:center;}
 #login-overlay.on{display:flex;}
@@ -747,7 +772,7 @@ nav{
   .ab-layout{grid-template-columns:1fr;}.ab-visual{min-height:280px;}.ab-text{padding:40px 28px;}
   .ct-layout{grid-template-columns:1fr;}.ct-left{padding-right:0;border-right:none;border-bottom:1px solid rgba(207,196,176,.1);padding-bottom:48px;margin-bottom:48px;}.ct-right{padding-left:0;}
   nav{padding:0 20px;}.navlinks a{padding:8px 12px;font-size:.6rem;}
-  .pd-body{grid-template-columns:1fr;}.pd-desc{position:static;}
+  .pd-topbar{padding:0 20px;}.pd-inner{padding:40px 20px 48px;}
   #admin-panel{width:96vw;}.frow2{grid-template-columns:1fr;}
 }
 </style>
@@ -762,7 +787,7 @@ nav{
 
 <nav>
   <div class="logo" onclick="go('welcome')">
-    Kaan Özden<span class="logo-dot">·</span>
+    Kaan Murat Özden<span class="logo-dot">·</span>
   </div>
   <ul class="navlinks">
     <li><a id="n-welcome" onclick="go('welcome')" class="on">Studio</a></li>
@@ -802,7 +827,7 @@ nav{
         <div class="w-card-num" id="hcount">0</div>
         <div class="w-card-label">Tamamlanan Proje</div>
       </div>
-      <div class="w-corner-text">Behance / kaanozden</div>
+      <div class="w-corner-text">Behance / kaanmuratozden</div>
     </div>
   </div>
 </div>
@@ -819,7 +844,12 @@ nav{
 
 <!-- DETAIL -->
 <div id="proj-detail">
-  <button class="pd-close" onclick="closeDetail()"> Kapat</button>
+  <div class="pd-topbar">
+    <div class="pd-topbar-title" id="pd-topbar-title">Proje Detayı</div>
+    <button class="pd-close" onclick="closeDetail()">
+      <span class="pd-close-x">✕</span> Kapat
+    </button>
+  </div>
   <div class="pd-inner" id="pd-inner"></div>
 </div>
 
@@ -858,7 +888,7 @@ nav{
       </div>
       <div class="ab-text">
         <div class="ab-quote">"Her mekânın kendine özgü bir atmosferi vardır — benim işim onu ışıkla görünür kılmak."</div>
-        <p class="ab-bio"><strong>Kaan Özden</strong> — CG Artist, İstanbul.<br><br>İnşaat Mühendisliği formasyonumu dijital sanatla birleştirerek <strong>fotorealistik görselleştirme</strong> alanında profesyonel çözümler üretiyorum. 2016'dan bu yana şantiye deneyimim ile teknik bilgimi sanatsal bir bakış açısıyla harmanlıyorum.<br><br>Şu an <strong>Artemis</strong> bünyesinde CG Artist olarak çalışıyorum.</p>
+        <p class="ab-bio"><strong>Kaan Murat Özden</strong> — CG Artist, İstanbul.<br><br>İnşaat Mühendisliği formasyonumu dijital sanatla birleştirerek <strong>fotorealistik görselleştirme</strong> alanında profesyonel çözümler üretiyorum. 2016'dan bu yana şantiye deneyimim ile teknik bilgimi sanatsal bir bakış açısıyla harmanlıyorum.<br><br>Şu an <strong>Artemis</strong> bünyesinde CG Artist olarak çalışıyorum.</p>
         <div class="ab-softs">
           <span class="ab-soft">3ds Max</span><span class="ab-soft">Corona</span><span class="ab-soft">V-Ray</span>
           <span class="ab-soft">Unreal Engine</span><span class="ab-soft">After Effects</span><span class="ab-soft">Photoshop</span>
@@ -882,7 +912,7 @@ nav{
       <!-- Sol: form -->
       <div class="ct-left">
         <h2 class="ct-big">Projen mi var?<br><em>Konuşalım.</em></h2>
-        <p class="ct-sub">Mimari görselleştirme, ürün render veya 3D animasyon için formu doldur — doğrudan mail kutuma düşer.</p>
+        <p class="ct-sub">Mimari görselleştirme, ürün render veya 3D animasyon için formu doldur — en kısa sürede geri dönüş yapacağım.</p>
 
         <!-- Formspree formu — action'daki YOUR_FORM_ID'yi değiştir -->
         <form id="ct-form" action="https://formspree.io/f/xeepgayk" method="POST" onsubmit="handleSubmit(event)">
@@ -929,7 +959,7 @@ nav{
             ✓ Mesajınız iletildi — en kısa sürede geri dönüş yapacağım.
           </div>
           <div id="cf-error" class="cf-error" style="display:none">
-            Bir hata oluştu. Lütfen <a href="mailto:kaanmuratozden@gmail.com">kaanmuratozden@gmail.com</a> adresine doğrudan yazın.
+            Bir hata oluştu. Lütfen <a href="/cdn-cgi/l/email-protection#4e252f2f20233b3c2f3a21342a2b200e29232f2722602d2123"><span class="__cf_email__" data-cfemail="640f05050a09111605100b1e00010a240309050d084a070b09">[email&#160;protected]</span></a> adresine doğrudan yazın.
           </div>
         </form>
       </div>
@@ -950,9 +980,9 @@ nav{
             <div class="ct-link-info"><div class="ct-link-lbl">LinkedIn</div><div class="ct-link-val">Kaan Murat Özden</div></div>
             <span class="ct-arrow">→</span>
           </a>
-          <a class="ct-link" href="mailto:kaanmuratozden@gmail.com">
+          <a class="ct-link" href="/cdn-cgi/l/email-protection#98f3f9f9f6f5edeaf9ecf7e2fcfdf6d8fff5f9f1f4b6fbf7f5">
             <span class="ct-link-ico">✉️</span>
-            <div class="ct-link-info"><div class="ct-link-lbl">E-posta</div><div class="ct-link-val">kaanmuratozden@gmail.com</div></div>
+            <div class="ct-link-info"><div class="ct-link-lbl">E-posta</div><div class="ct-link-val"><span class="__cf_email__" data-cfemail="6c070d0d0201191e0d1803160809022c0b010d0500420f0301">[email&#160;protected]</span></div></div>
             <span class="ct-arrow">→</span>
           </a>
         </div>
@@ -991,7 +1021,7 @@ nav{
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ══ ŞİFRE ══ */
 var ADMIN_PASS='kaan2024';
 var logoClicks=0,logoTimer=null;
@@ -1108,6 +1138,8 @@ function openDetail(i){
     +'<div class="pd-badges">'+tags+'</div>'
     +'</div>'
     +'<div class="pd-blocks">'+blocksHtml+'</div>';
+  var tb=document.getElementById('pd-topbar-title');
+  if(tb) tb.textContent=p.title+(p.subtitle?' — '+p.subtitle:'');
   var d=document.getElementById('proj-detail');d.classList.add('on');d.scrollTop=0;
 }
 
@@ -1118,31 +1150,43 @@ function renderBlocks(blocks){
   }
   return blocks.map(function(b){
     if(b.type==='text'){
-      return '<div class="pb-text">'+b.content.replace(/\n/g,'<br>')+'</div>';
+      var style='';
+      var ff=b.fontFamily||'outfit';
+      var fs=b.fontSize||'0.88';
+      var fw=b.fontWeight||'300';
+      var fi=b.fontItalic?'italic':'normal';
+      var fc=b.fontColor||'rgba(255,255,255,0.5)';
+      var ta=b.textAlign||'left';
+      style='font-family:'+(ff==='playfair'?'\'Playfair Display\',serif':'\'Outfit\',sans-serif')+';'
+        +'font-size:'+fs+'rem;font-weight:'+fw+';font-style:'+fi+';color:'+fc+';text-align:'+ta+';';
+      return '<div class="pb-text" style="'+style+'">'+b.content.replace(/\n/g,'<br>')+'</div>';
     }
     if(b.type==='images'){
       var imgs=b.urls||[];
-      var cl='pb-imgrid'+(imgs.length===1?' s1':imgs.length===3?' s3':'');
+      var cols=b.cols||'auto';
+      var ar=b.aspectRatio||'natural';
+      var gap=b.gap||'4';
+      var gridCols=cols==='auto'
+        ?(imgs.length===1?'1fr':imgs.length===3?'repeat(3,1fr)':'repeat(2,1fr)')
+        :'repeat('+cols+',1fr)';
+      var imgStyle=ar!=='natural'?'aspect-ratio:'+ar+';object-fit:cover;':'';
+      var wrapStyle=ar!=='natural'?'overflow:hidden;':'';
       var ih=imgs.map(function(u){
-        return '<div class="pb-img" onclick="openZoom(\''+u.replace(/'/g,"\\'")+'\')">'
-          +'<img src="'+u+'" loading="lazy"></div>';
+        return '<div class="pb-img" style="'+wrapStyle+'" onclick="openZoom(\''+u.replace(/'/g,"\\'")+'\')">'
+          +'<img src="'+u+'" loading="lazy" style="'+imgStyle+'display:block;width:100%;height:'+(ar!=='natural'?'100%':'auto')+';"></div>';
       }).join('');
-      return '<div class="'+cl+'">'+ih+'</div>';
+      return '<div class="pb-imgrid" style="grid-template-columns:'+gridCols+';gap:'+gap+'px;">'+ih+'</div>';
     }
     if(b.type==='video'){
       var src=b.url||'';
-      // YouTube / Vimeo embed ya da direkt video
+      var ar2=b.aspectRatio||'16/9';
       var embed='';
       var yt=src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([A-Za-z0-9_-]{11})/);
       var vm=src.match(/vimeo\.com\/(\d+)/);
-      if(yt){
-        embed='<iframe src="https://www.youtube.com/embed/'+yt[1]+'" allowfullscreen></iframe>';
-      } else if(vm){
-        embed='<iframe src="https://player.vimeo.com/video/'+vm[1]+'" allowfullscreen></iframe>';
-      } else if(src){
-        embed='<video controls><source src="'+src+'"><p style="color:rgba(255,255,255,.3)">Video oynatılamadı.</p></video>';
-      }
-      return embed?'<div class="pb-video">'+embed+'</div>':'';
+      if(yt){embed='<iframe src="https://www.youtube.com/embed/'+yt[1]+'" allowfullscreen></iframe>';}
+      else if(vm){embed='<iframe src="https://player.vimeo.com/video/'+vm[1]+'" allowfullscreen></iframe>';}
+      else if(src){embed='<video controls><source src="'+src+'"></video>';}
+      return embed?'<div class="pb-video" style="aspect-ratio:'+ar2+'">'+embed+'</div>':'';
     }
     return '';
   }).join('');
@@ -1253,7 +1297,7 @@ function renderBlocksList(){
   fBlocks.forEach(function(b,i){
     var div=document.createElement('div');div.className='block-item';
     var inner='<div class="block-header">'
-      +'<span class="block-type-label">'+(b.type==='text'?'📝 Yazı':b.type==='images'?'🖼 Görseller':'🎬 Video')+'</span>'
+      +'<span class="block-type-label">'+(b.type==='text'?'📝 Yazı Bloğu':b.type==='images'?'🖼 Görsel Bloğu':'🎬 Video Bloğu')+'</span>'
       +'<div class="block-ctrl">'
       +(i>0?'<button type="button" class="pbtn" onclick="moveBlock('+i+',-1)">↑</button>':'')
       +(i<fBlocks.length-1?'<button type="button" class="pbtn" onclick="moveBlock('+i+',1)">↓</button>':'')
@@ -1261,9 +1305,55 @@ function renderBlocksList(){
       +'</div></div>';
 
     if(b.type==='text'){
+      // Yazı içeriği
       inner+='<textarea class="ftextarea block-textarea" rows="4" placeholder="Yazınızı buraya girin..." '
         +'oninput="fBlocks['+i+'].content=this.value">'+esc(b.content||'')+'</textarea>';
+      // Yazı stil kontrolleri
+      inner+='<div class="block-style-row">'
+        // Font ailesi
+        +'<div class="bsfield"><label class="flabel">Yazı Tipi</label>'
+        +'<select class="finput bsselect" onchange="fBlocks['+i+'].fontFamily=this.value">'
+        +'<option value="outfit"'+((!b.fontFamily||b.fontFamily==='outfit')?' selected':'')+'>Outfit (modern)</option>'
+        +'<option value="playfair"'+(b.fontFamily==='playfair'?' selected':'')+'>Playfair (serif)</option>'
+        +'</select></div>'
+        // Boyut
+        +'<div class="bsfield"><label class="flabel">Boyut (rem)</label>'
+        +'<select class="finput bsselect" onchange="fBlocks['+i+'].fontSize=this.value">'
+        +['0.72','0.80','0.88','0.96','1.05','1.2','1.5','1.9','2.4'].map(function(v){
+          return '<option value="'+v+'"'+(b.fontSize===v?' selected':(!b.fontSize&&v==='0.88'?' selected':''))+'>'+v+'</option>';
+        }).join('')
+        +'</select></div>'
+        // Ağırlık
+        +'<div class="bsfield"><label class="flabel">Kalınlık</label>'
+        +'<select class="finput bsselect" onchange="fBlocks['+i+'].fontWeight=this.value">'
+        +[['200','İnce'],['300','Light'],['400','Normal'],['500','Orta']].map(function(fw){
+          return '<option value="'+fw[0]+'"'+(b.fontWeight===fw[0]?' selected':(!b.fontWeight&&fw[0]==='300'?' selected':''))+'>'+fw[1]+'</option>';
+        }).join('')
+        +'</select></div>'
+        // İtalic
+        +'<div class="bsfield"><label class="flabel">Stil</label>'
+        +'<select class="finput bsselect" onchange="fBlocks['+i+'].fontItalic=(this.value===\'1\')">'
+        +'<option value="0"'+(b.fontItalic?'':' selected')+'>Normal</option>'
+        +'<option value="1"'+(b.fontItalic?' selected':'')+'>İtalik</option>'
+        +'</select></div>'
+        // Hizalama
+        +'<div class="bsfield"><label class="flabel">Hizalama</label>'
+        +'<select class="finput bsselect" onchange="fBlocks['+i+'].textAlign=this.value">'
+        +[['left','Sola'],['center','Ortala'],['right','Sağa']].map(function(ta){
+          return '<option value="'+ta[0]+'"'+(b.textAlign===ta[0]?' selected':(!b.textAlign&&ta[0]==='left'?' selected':''))+'>'+ta[1]+'</option>';
+        }).join('')
+        +'</select></div>'
+        // Renk
+        +'<div class="bsfield"><label class="flabel">Renk</label>'
+        +'<select class="finput bsselect" onchange="fBlocks['+i+'].fontColor=this.value">'
+        +[['rgba(255,255,255,0.5)','Açık gri'],['rgba(255,255,255,0.75)','Beyaz'],['rgba(255,255,255,0.25)','Soluk'],['#d4aa68','Altın'],['#f7f2ea','Krem']].map(function(fc){
+          return '<option value="'+fc[0]+'"'+(b.fontColor===fc[0]?' selected':(!b.fontColor&&fc[0]==='rgba(255,255,255,0.5)'?' selected':''))+'>'+fc[1]+'</option>';
+        }).join('')
+        +'</select></div>'
+        +'</div>';
+
     } else if(b.type==='images'){
+      // URL listesi
       inner+='<div class="block-imgs" id="bimgs-'+i+'">';
       (b.urls||['']).forEach(function(u,j){
         inner+='<div class="img-row">'
@@ -1272,12 +1362,44 @@ function renderBlocksList(){
           +((b.urls||[]).length>1?'<button type="button" class="img-del" onclick="delBlockImg('+i+','+j+')">✕</button>':'<div></div>')
           +'</div>';
       });
-      inner+='</div>';
-      inner+='<button type="button" class="add-img" onclick="addBlockImg('+i+')">+ Görsel URL Ekle</button>';
-      inner+='<div class="fnote">💡 Behance görselinde sağ tık → Görsel adresini kopyala</div>';
+      inner+='</div><button type="button" class="add-img" onclick="addBlockImg('+i+')">+ Görsel URL Ekle</button>';
+      // Görsel ayarları
+      inner+='<div class="block-style-row" style="margin-top:12px;">'
+        // Sütun sayısı
+        +'<div class="bsfield"><label class="flabel">Sütun Sayısı</label>'
+        +'<select class="finput bsselect" onchange="fBlocks['+i+'].cols=this.value">'
+        +[['auto','Otomatik'],['1','1 Sütun'],['2','2 Sütun'],['3','3 Sütun'],['4','4 Sütun']].map(function(c){
+          return '<option value="'+c[0]+'"'+((b.cols||'auto')===c[0]?' selected':'')+'>'+c[1]+'</option>';
+        }).join('')
+        +'</select></div>'
+        // Aspect ratio
+        +'<div class="bsfield"><label class="flabel">Görsel Oranı</label>'
+        +'<select class="finput bsselect" onchange="fBlocks['+i+'].aspectRatio=this.value">'
+        +[['natural','Orijinal'],['16/9','16:9 Sinema'],['4/3','4:3 Klasik'],['1/1','1:1 Kare'],['3/2','3:2'],['3/4','3:4 Dikey'],['9/16','9:16 Tam Dikey']].map(function(ar){
+          return '<option value="'+ar[0]+'"'+((b.aspectRatio||'natural')===ar[0]?' selected':'')+'>'+ar[1]+'</option>';
+        }).join('')
+        +'</select></div>'
+        // Gap
+        +'<div class="bsfield"><label class="flabel">Boşluk (px)</label>'
+        +'<select class="finput bsselect" onchange="fBlocks['+i+'].gap=this.value">'
+        +['0','2','4','8','12','16','24'].map(function(g){
+          return '<option value="'+g+'"'+((b.gap||'4')===g?' selected':'')+'>'+g+'px</option>';
+        }).join('')
+        +'</select></div>'
+        +'</div>';
+      inner+='<div class="fnote" style="margin-top:4px">💡 Behance görselinde sağ tık → Görsel adresini kopyala</div>';
+
     } else if(b.type==='video'){
-      inner+='<input class="finput" placeholder="YouTube / Vimeo linki veya direkt .mp4 URL" '
+      inner+='<input class="finput" placeholder="YouTube / Vimeo linki veya .mp4 URL" '
         +'value="'+esc(b.url||'')+'" oninput="fBlocks['+i+'].url=this.value">';
+      inner+='<div class="block-style-row" style="margin-top:10px;">'
+        +'<div class="bsfield"><label class="flabel">Video Oranı</label>'
+        +'<select class="finput bsselect" onchange="fBlocks['+i+'].aspectRatio=this.value">'
+        +[['16/9','16:9 (varsayılan)'],['4/3','4:3'],['21/9','21:9 Sinema'],['9/16','9:16 Dikey']].map(function(ar){
+          return '<option value="'+ar[0]+'"'+((b.aspectRatio||'16/9')===ar[0]?' selected':'')+'>'+ar[1]+'</option>';
+        }).join('')
+        +'</select></div>'
+        +'</div>';
       inner+='<div class="fnote" style="margin-top:4px">youtube.com/watch?v=... &nbsp;·&nbsp; vimeo.com/... &nbsp;·&nbsp; .mp4 linki</div>';
     }
 
@@ -1385,16 +1507,4 @@ async function handleSubmit(e){
   success.style.display='none'; error.style.display='none';
   try{
     var form=document.getElementById('ct-form');
-    var res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
-    if(res.ok){success.style.display='block';form.reset();btnText.textContent='Gönderildi ✓';}
-    else throw new Error();
-  }catch(err){
-    error.style.display='block'; btnText.textContent='Mesaj Gönder'; btn.disabled=false;
-  }
-}
-
-/* ══ INIT ══ */
-renderGallery();
-</script>
-</body>
-</html>
+    var res=await fetch(
