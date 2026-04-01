@@ -246,6 +246,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .finput:focus,.ftextarea:focus{border-bottom-color:var(--gold2);}
 .ftextarea{resize:vertical;min-height:80px;padding:9px 4px;}
 .img-row{display:grid;grid-template-columns:1fr 32px;gap:6px;align-items:center;margin-bottom:4px;}
+.img-entry{background:rgba(255,255,255,.02);border:1px solid rgba(207,196,176,.08);border-radius:3px;padding:8px 10px;margin-bottom:6px;}
+.img-wh-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px;}
+.img-wh-field{display:flex;flex-direction:column;gap:3px;}
+.img-wh-input{padding:5px 0;font-size:.72rem;}
+.img-wh-note{display:flex;flex-direction:column;gap:3px;}
 .img-del{width:32px;height:32px;background:transparent;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.2);cursor:pointer;transition:all .2s;font-size:.75rem;display:flex;align-items:center;justify-content:center;}
 .img-del:hover{border-color:#c04040;color:#c04040;}
 .add-img{background:transparent;border:1px dashed rgba(184,146,74,.18);color:rgba(255,255,255,.2);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:8px;cursor:pointer;transition:all .2s;width:100%;text-align:center;margin-top:4px;}
@@ -412,12 +417,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
           <div class="cf-field"><label class="cf-label">Mesajınız *</label><textarea class="cf-input cf-textarea" name="message" placeholder="Projenizi kısaca anlatın..." required></textarea></div>
           <button class="cf-btn" type="submit" id="cf-submit"><span id="cf-btn-text">Mesaj Gönder</span><span>→</span></button>
           <div id="cf-success" class="cf-success" style="display:none">✓ Mesajınız iletildi — en kısa sürede geri dönüş yapacağım.</div>
-          <div id="cf-error" class="cf-error" style="display:none">Bir hata oluştu. <a href="mailto:kaanmuratozden@gmail.com">kaanmuratozden@gmail.com</a> adresine doğrudan yazabilirsiniz.</div>
+          <div id="cf-error" class="cf-error" style="display:none">Bir hata oluştu. <a href="/cdn-cgi/l/email-protection#fb909a9a95968e899a8f94819f9e95bb9c969a9297d5989496"><span class="__cf_email__" data-cfemail="c9a2a8a8a7a4bcbba8bda6b3adaca789aea4a8a0a5e7aaa6a4">[email&#160;protected]</span></a> adresine doğrudan yazabilirsiniz.</div>
         </form>
         <div class="ct-links">
           <a class="ct-link" href="https://www.behance.net/kaanozden" target="_blank"><span class="ct-link-ico">🎨</span><div><div class="ct-link-lbl">Behance</div><div class="ct-link-val">behance.net/kaanozden</div></div><span class="ct-arrow">→</span></a>
           <a class="ct-link" href="http://linkedin.com/in/kaan-murat-özden-a264221b2" target="_blank"><span class="ct-link-ico">💼</span><div><div class="ct-link-lbl">LinkedIn</div><div class="ct-link-val">Kaan Murat Özden</div></div><span class="ct-arrow">→</span></a>
-          <a class="ct-link" href="mailto:kaanmuratozden@gmail.com"><span class="ct-link-ico">✉️</span><div><div class="ct-link-lbl">E-posta</div><div class="ct-link-val">kaanmuratozden@gmail.com</div></div><span class="ct-arrow">→</span></a>
+          <a class="ct-link" href="/cdn-cgi/l/email-protection#442f25252a29313625302b3e20212a042329252d286a272b29"><span class="ct-link-ico">✉️</span><div><div class="ct-link-lbl">E-posta</div><div class="ct-link-val"><span class="__cf_email__" data-cfemail="e18a80808f8c949380958e9b85848fa1868c80888dcf828e8c">[email&#160;protected]</span></div></div><span class="ct-arrow">→</span></a>
         </div>
       </div>
       <div class="ct-right">
@@ -456,7 +461,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ══ ŞİFRE — logo'ya 5 kez tıkla ══ */
 var ADMIN_PASS='kaan2024';
 var logoClicks=0,logoTimer=null;
@@ -587,15 +592,35 @@ function renderBlocks(blocks){
       return '<div class="pb-text" style="'+st+'">'+b.content.replace(/\n/g,'<br>')+'</div>';
     }
     if(b.type==='images'){
-      var imgs=b.urls||[];if(!imgs.length)return '';
+      var items=b.imgs||((b.urls||[]).map(function(u){return {url:u};}));
+      if(!items.length)return '';
       var cols=b.cols||'auto';
       var ar=b.aspectRatio||'natural';
       var gap=b.gap||'4';
-      var gc=cols==='auto'?(imgs.length===1?'1fr':imgs.length===3?'repeat(3,1fr)':'repeat(2,1fr)'):'repeat('+cols+',1fr)';
-      var imgSt=ar!=='natural'?'aspect-ratio:'+ar+';object-fit:cover;width:100%;height:100%;display:block;':'width:100%;height:auto;display:block;';
-      var wrapSt=ar!=='natural'?'overflow:hidden;':'';
+      var gc=cols==='auto'?(items.length===1?'1fr':items.length===3?'repeat(3,1fr)':'repeat(2,1fr)'):'repeat('+cols+',1fr)';
       return '<div class="pb-imgrid" style="grid-template-columns:'+gc+';gap:'+gap+'px;">'
-        +imgs.map(function(u){return '<div class="pb-img" style="'+wrapSt+'" onclick="openZoom(\''+u.replace(/'/g,"\\'")+'\')">'+'<img src="'+u+'" loading="lazy" style="'+imgSt+'"></div>';}).join('')
+        +items.map(function(it){
+          var u=it.url||'';if(!u)return '';
+          var wSt='';
+          var iW=it.w?parseInt(it.w):0;
+          var iH=it.h?parseInt(it.h):0;
+          if(ar!=='natural'){
+            // aspect ratio mode — fill container
+            wSt='aspect-ratio:'+ar+';overflow:hidden;';
+            var imgSt='width:100%;height:100%;object-fit:cover;display:block;';
+            return '<div class="pb-img" style="'+wSt+'" onclick="openZoom(\''+u.replace(/'/g,"\\'")+'\')">'
+              +'<img src="'+u+'" loading="lazy" style="'+imgSt+'"></div>';
+          } else if(iW||iH){
+            // custom px boyut
+            var ws=iW?'width:'+iW+'px;max-width:100%;':'width:100%;';
+            var hs=iH?'height:'+iH+'px;object-fit:cover;':'height:auto;';
+            return '<div class="pb-img" onclick="openZoom(\''+u.replace(/'/g,"\\'")+'\')">'
+              +'<img src="'+u+'" loading="lazy" style="'+ws+hs+'display:block;"></div>';
+          } else {
+            return '<div class="pb-img" onclick="openZoom(\''+u.replace(/'/g,"\\'")+'\')">'
+              +'<img src="'+u+'" loading="lazy" style="width:100%;height:auto;display:block;"></div>';
+          }
+        }).join('')
         +'</div>';
     }
     if(b.type==='video'){
@@ -648,12 +673,17 @@ function esc(s){return s?(s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').repla
 
 function admForm(d){
   fTags=d?(d.tags||[]).slice():[];
-  fBlocks=d?(d.blocks||[]).map(function(b){return JSON.parse(JSON.stringify(b));}):[];
+  fBlocks=d?(d.blocks||[]).map(function(b){
+    var nb=JSON.parse(JSON.stringify(b));
+    if(nb.type==='images'&&nb.urls&&!nb.imgs){nb.imgs=nb.urls.map(function(u){return {url:u,w:'',h:''};});}
+    if(nb.type==='images'&&!nb.imgs){nb.imgs=[{url:'',w:'',h:''}];}
+    return nb;
+  }):[];
   if(d&&d.images&&d.images.length&&!d.blocks){
-    fBlocks=[{type:'images',urls:d.images.slice()}];
+    fBlocks=[{type:'images',imgs:d.images.map(function(u){return {url:u,w:'',h:''};}) }];
     if(d.desc)fBlocks.unshift({type:'text',content:d.desc});
   }
-  if(!fBlocks.length)fBlocks=[{type:'images',urls:[d?d.cover||'':'']}];
+  if(!fBlocks.length)fBlocks=[{type:'images',imgs:[{url:d?d.cover||'':'',w:'',h:''}]}];
   var b=document.getElementById('adm-body');
   b.innerHTML='<div class="aform">'
     +'<div class="aform-title">'+(d?'Projeyi Düzenle':'Yeni Proje Ekle')+'</div>'
@@ -699,21 +729,41 @@ function renderBlocksList(){
         +[['rgba(255,255,255,0.5)','Açık gri'],['rgba(255,255,255,0.75)','Beyaz'],['rgba(255,255,255,0.25)','Soluk'],['#d4aa68','Altın'],['#f7f2ea','Krem']].map(function(fc){return '<option value="'+fc[0]+'"'+(b.fontColor===fc[0]?' selected':(!b.fontColor&&fc[0]==='rgba(255,255,255,0.5)'?' selected':''))+'>'+fc[1]+'</option>';}).join('')+'</select></div>'
         +'</div>';
     } else if(b.type==='images'){
+      // imgs formatına migrate et (eski urls formatından)
+      if(!b.imgs) b.imgs=(b.urls||['']).map(function(u){return {url:u,w:'',h:''};});
       inner+='<div id="bimgs-'+i+'">';
-      (b.urls||['']).forEach(function(u,j){
-        inner+='<div class="img-row"><input class="finput" placeholder="https://... görsel URL" value="'+esc(u)+'" oninput="fBlocks['+i+'].urls['+j+']=this.value">'
-          +((b.urls||[]).length>1?'<button type="button" class="img-del" onclick="delBlockImg('+i+','+j+')">✕</button>':'<div></div>')+'</div>';
+      b.imgs.forEach(function(it,j){
+        inner+='<div class="img-entry">'
+          // URL satırı
+          +'<div class="img-row">'
+          +'<input class="finput" placeholder="https://... görsel URL" value="'+esc(it.url||'')+'" '
+          +'oninput="fBlocks['+i+'].imgs['+j+'].url=this.value">'
+          +(b.imgs.length>1?'<button type="button" class="img-del" onclick="delBlockImg('+i+','+j+')">✕</button>':'<div></div>')
+          +'</div>'
+          // W / H satırı
+          +'<div class="img-wh-row">'
+          +'<div class="img-wh-field"><label class="flabel">Genişlik (px)</label>'
+          +'<input class="finput img-wh-input" type="number" min="1" placeholder="ör: 1920" value="'+esc(it.w||'')+'" '
+          +'oninput="fBlocks['+i+'].imgs['+j+'].w=this.value"></div>'
+          +'<div class="img-wh-field"><label class="flabel">Yükseklik (px)</label>'
+          +'<input class="finput img-wh-input" type="number" min="1" placeholder="ör: 1080" value="'+esc(it.h||'')+'" '
+          +'oninput="fBlocks['+i+'].imgs['+j+'].h=this.value"></div>'
+          +'<div class="img-wh-note"><label class="flabel">&nbsp;</label>'
+          +'<span class="fnote" style="display:block;margin-top:6px;">boş = tam genişlik</span></div>'
+          +'</div>'
+          +'</div>';
       });
-      inner+='</div><button type="button" class="add-img" onclick="addBlockImg('+i+')">+ Görsel URL Ekle</button>';
+      inner+='</div><button type="button" class="add-img" onclick="addBlockImg('+i+')">+ Görsel Ekle</button>';
       inner+='<div class="block-style-row" style="margin-top:12px;">'
         +'<div class="bsfield"><label class="flabel">Sütun</label><select class="bsselect" onchange="fBlocks['+i+'].cols=this.value">'
         +[['auto','Oto'],['1','1'],['2','2'],['3','3'],['4','4']].map(function(c){return '<option value="'+c[0]+'"'+((b.cols||'auto')===c[0]?' selected':'')+'>'+c[1]+'</option>';}).join('')+'</select></div>'
         +'<div class="bsfield"><label class="flabel">Görsel Oranı</label><select class="bsselect" onchange="fBlocks['+i+'].aspectRatio=this.value">'
-        +[['natural','Orijinal'],['16/9','16:9'],['4/3','4:3'],['1/1','1:1 Kare'],['3/2','3:2'],['3/4','3:4 Dikey'],['9/16','9:16']].map(function(ar){return '<option value="'+ar[0]+'"'+((b.aspectRatio||'natural')===ar[0]?' selected':'')+'>'+ar[1]+'</option>';}).join('')+'</select></div>'
+        +[['natural','Orijinal (W/H kullan)'],['16/9','16:9'],['4/3','4:3'],['1/1','1:1 Kare'],['3/2','3:2'],['3/4','3:4 Dikey'],['9/16','9:16']].map(function(ar){return '<option value="'+ar[0]+'"'+((b.aspectRatio||'natural')===ar[0]?' selected':'')+'>'+ar[1]+'</option>';}).join('')+'</select></div>'
         +'<div class="bsfield"><label class="flabel">Boşluk</label><select class="bsselect" onchange="fBlocks['+i+'].gap=this.value">'
         +['0','2','4','8','12','16','24'].map(function(g){return '<option value="'+g+'"'+((b.gap||'4')===g?' selected':'')+'>'+g+'px</option>';}).join('')+'</select></div>'
         +'</div>';
-      inner+='<div class="fnote" style="margin-top:4px">💡 Behance görselinde sağ tık → Görsel adresini kopyala</div>';
+      inner+='<div class="fnote" style="margin-top:6px;">💡 W/H girersen görsel o boyuta çekilir. Görsel Oranı seçiliyse W/H yok sayılır.</div>'
+        +'<div class="fnote">Behance görselinde sağ tık → Görsel adresini kopyala</div>';
     } else {
       inner+='<input class="finput" placeholder="YouTube / Vimeo / .mp4 linki" value="'+esc(b.url||'')+'" oninput="fBlocks['+i+'].url=this.value">';
       inner+='<div class="block-style-row" style="margin-top:10px;"><div class="bsfield"><label class="flabel">Video Oranı</label><select class="bsselect" onchange="fBlocks['+i+'].aspectRatio=this.value">'
@@ -732,8 +782,17 @@ function addBlock(type){
 }
 function delBlock(i){fBlocks.splice(i,1);renderBlocksList();}
 function moveBlock(i,dir){var ni=i+dir;if(ni<0||ni>=fBlocks.length)return;var tmp=fBlocks[i];fBlocks[i]=fBlocks[ni];fBlocks[ni]=tmp;renderBlocksList();}
-function addBlockImg(bi){if(!fBlocks[bi].urls)fBlocks[bi].urls=[''];fBlocks[bi].urls.push('');renderBlocksList();}
-function delBlockImg(bi,ji){fBlocks[bi].urls.splice(ji,1);if(!fBlocks[bi].urls.length)fBlocks[bi].urls=[''];renderBlocksList();}
+function addBlockImg(bi){
+  if(!fBlocks[bi].imgs) fBlocks[bi].imgs=[];
+  fBlocks[bi].imgs.push({url:'',w:'',h:''});
+  renderBlocksList();
+  var b=document.getElementById('adm-body');if(b)b.scrollTop=b.scrollHeight;
+}
+function delBlockImg(bi,ji){
+  fBlocks[bi].imgs.splice(ji,1);
+  if(!fBlocks[bi].imgs.length)fBlocks[bi].imgs=[{url:'',w:'',h:''}];
+  renderBlocksList();
+}
 
 function renderTags(){
   var c=document.getElementById('tc');if(!c)return;c.innerHTML='';
@@ -752,7 +811,15 @@ function admSave(){
   document.querySelectorAll('#blocks-list .block-item').forEach(function(el,i){
     var b=fBlocks[i];if(!b)return;
     if(b.type==='text'){var ta=el.querySelector('.block-textarea');if(ta)b.content=ta.value;}
-    else if(b.type==='images'){var inps=el.querySelectorAll('.img-row .finput');b.urls=Array.from(inps).map(function(x){return x.value.trim();}).filter(Boolean);if(!b.urls.length)b.urls=[''];}
+    else if(b.type==='images'){
+      var entries=el.querySelectorAll('.img-entry');
+      b.imgs=Array.from(entries).map(function(entry){
+        var inps=entry.querySelectorAll('.finput');
+        var urlInp=inps[0]; var wInp=inps[1]; var hInp=inps[2];
+        return {url:(urlInp?urlInp.value.trim():''),w:(wInp?wInp.value.trim():''),h:(hInp?hInp.value.trim():'')};
+      }).filter(function(it){return it.url;});
+      if(!b.imgs.length)b.imgs=[{url:'',w:'',h:''}];
+    }
     else if(b.type==='video'){var inp=el.querySelector('.finput');if(inp)b.url=inp.value.trim();}
   });
   if(!cover){var ib=fBlocks.find(function(b){return b.type==='images'&&b.urls&&b.urls[0];});if(ib)cover=ib.urls[0];}
@@ -760,7 +827,7 @@ function admSave(){
   if(!cover){alert('Kapak görseli URL gerekli');return;}
   var clean=fBlocks.filter(function(b){
     if(b.type==='text')return(b.content||'').trim();
-    if(b.type==='images')return b.urls&&b.urls.some(function(u){return u.trim();});
+    if(b.type==='images')return b.imgs&&b.imgs.some(function(it){return it.url&&it.url.trim();});
     if(b.type==='video')return(b.url||'').trim();
     return false;
   });
