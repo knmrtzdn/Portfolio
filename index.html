@@ -14,12 +14,12 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font
 ::-webkit-scrollbar-thumb{background:var(--line);border-radius:1px;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(247,242,234,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);}
-.logo{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;letter-spacing:.06em;color:var(--ink);cursor:pointer;display:flex;align-items:baseline;gap:3px;}
-.logo-dot{color:var(--gold);font-size:1.4rem;line-height:0;margin-bottom:-2px;}
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(247,242,234,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);}
+.logo{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;letter-spacing:.04em;color:var(--ink);cursor:pointer;display:flex;align-items:baseline;gap:3px;white-space:nowrap;}
+.logo-dot{color:var(--gold);font-size:1.2rem;line-height:0;margin-bottom:-2px;}
 .navlinks{display:flex;gap:0;list-style:none;}
-.navlinks a{display:block;font-size:.65rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);text-decoration:none;padding:8px 18px;cursor:pointer;transition:color .25s;position:relative;}
-.navlinks a::after{content:'';position:absolute;bottom:0;left:18px;right:18px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.navlinks a{display:block;font-size:.6rem;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);text-decoration:none;padding:8px 12px;cursor:pointer;transition:color .25s;position:relative;}
+.navlinks a::after{content:'';position:absolute;bottom:0;left:12px;right:12px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
 .navlinks a:hover{color:var(--ink);}
 .navlinks a.on{color:var(--ink);}
 .navlinks a.on::after{transform:scaleX(1);}
@@ -30,7 +30,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 
 /* WELCOME */
 #p-welcome{overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.welcome-wrap{display:grid;grid-template-columns:1fr 1fr;height:calc(100vh - 56px);width:100%;}
+.welcome-wrap{display:grid;grid-template-columns:1fr 1fr;height:calc(100vh - 56px);width:100%;position:relative;}
+/* Sol arka plan render */
+.w-bg-render{position:absolute;inset:0;width:50%;pointer-events:none;z-index:0;overflow:hidden;}
+.w-bg-render img{width:100%;height:100%;object-fit:cover;opacity:.07;filter:saturate(60%) sepia(20%);mix-blend-mode:luminosity;}
 .wleft{display:flex;flex-direction:column;justify-content:center;padding:72px 56px 72px 72px;position:relative;z-index:2;}
 .w-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:32px;}
 .w-eyebrow-line{width:40px;height:1px;background:var(--gold);}
@@ -54,32 +57,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .w-card-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);margin-top:4px;}
 .w-corner-text{position:absolute;top:32px;right:32px;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(154,138,120,.6);writing-mode:vertical-rl;text-orientation:mixed;}
 
-/* PROJECTS */
-#p-projects{background:var(--deep);overflow:hidden;}
-.gallery{position:absolute;inset:0;top:56px;}
-.gtrack-wrap{width:100%;height:100%;overflow:hidden;}
-.gtrack{display:flex;height:100%;will-change:transform;}
-.gtrack.snap{transition:transform .6s cubic-bezier(.25,.1,.25,1);}
-.gslide{flex-shrink:0;width:100%;height:100%;position:relative;cursor:pointer;}
-.gslide img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(62%) saturate(88%);}
-.ginfo{position:absolute;bottom:0;left:0;right:0;padding:80px 80px 56px;background:linear-gradient(to top,rgba(18,9,4,.95) 0%,rgba(18,9,4,.4) 55%,transparent 100%);display:flex;align-items:flex-end;justify-content:space-between;pointer-events:none;}
-.g-eyebrow{font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold2);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
-.g-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold2);}
-.g-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,5rem);font-weight:400;line-height:1.0;color:#fff;margin-bottom:14px;}
-.g-title em{font-style:italic;color:var(--gold2);}
-.g-badges{display:flex;gap:8px;flex-wrap:wrap;}
-.g-badge{background:rgba(184,146,74,.12);border:1px solid rgba(184,146,74,.28);color:var(--gold2);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:1px;}
-.ginfo-right{text-align:right;flex-shrink:0;padding-left:40px;}
-.g-num{font-family:'Playfair Display',serif;font-size:5rem;font-weight:700;font-style:italic;color:rgba(255,255,255,.08);line-height:1;}
-.g-total{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-top:4px;}
-.g-click-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(184,146,74,.5);display:flex;align-items:center;gap:8px;pointer-events:none;}
-.g-click-hint::before,.g-click-hint::after{content:'';width:20px;height:1px;background:rgba(184,146,74,.3);}
-.garr{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.2);backdrop-filter:blur(12px);color:rgba(255,255,255,.6);font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;}
-.garr:hover{border-color:var(--gold2);color:var(--gold2);background:rgba(0,0,0,.4);}
-.garr.l{left:32px;}.garr.r{right:32px;}
-.gdots{position:absolute;right:32px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:10;}
-.gdot{width:2px;height:20px;background:rgba(255,255,255,.2);transition:all .3s;cursor:pointer;}
-.gdot.on{background:var(--gold2);height:32px;}
+/* PROJECTS — scrollable grid */
+#p-projects{background:var(--deep);overflow-y:auto !important;}
+.proj-scroll-wrap{padding:40px 48px 80px;max-width:1400px;margin:0 auto;}
+.proj-scroll-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;}
+.proj-card{position:relative;cursor:pointer;overflow:hidden;background:#111;aspect-ratio:16/9;}
+.proj-card img{width:100%;height:100%;display:block;filter:brightness(65%) saturate(88%);transition:all .5s;object-fit:cover;}
+.proj-card:hover img{filter:brightness(80%) saturate(100%);transform:scale(1.03);}
+.proj-card-info{position:absolute;bottom:0;left:0;right:0;padding:28px 28px 22px;background:linear-gradient(to top,rgba(18,9,4,.92) 0%,transparent 100%);pointer-events:none;}
+.proj-card-num{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);margin-bottom:6px;opacity:.7;}
+.proj-card-title{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2vw,1.6rem);font-weight:400;line-height:1.1;color:#fff;margin-bottom:4px;}
+.proj-card-title em{font-style:italic;color:var(--gold2);}
+.proj-card-badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
+.proj-card-badge{background:rgba(184,146,74,.12);border:1px solid rgba(184,146,74,.25);color:var(--gold2);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;}
+/* Tek satır tam genişlik için büyük kart */
+.proj-card.wide{grid-column:span 2;aspect-ratio:21/9;}
 
 /* PROJECT DETAIL */
 #proj-detail{position:fixed;inset:0;z-index:500;display:none;background:var(--deep);overflow-y:auto;}
@@ -279,17 +271,48 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .bsfield{display:flex;flex-direction:column;gap:4px;min-width:110px;flex:1;}
 .bsselect{padding:6px 4px;font-size:.72rem;cursor:pointer;background:rgba(255,255,255,.04);border:none;border-bottom:1px solid rgba(207,196,176,.15);color:rgba(255,255,255,.7);font-family:'Outfit',sans-serif;outline:none;}
 .bsselect option{background:#1c1108;}
+/* CV Bölümleri */
+.cv-section{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);}
+.cv-section-title{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.cv-section-title::before{content:'';width:16px;height:1px;background:var(--gold);}
+.cv-item{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(207,196,176,.3);}
+.cv-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.cv-item-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:3px;}
+.cv-item-role{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:500;color:var(--ink);}
+.cv-item-date{font-size:.6rem;letter-spacing:.1em;color:var(--stone);white-space:nowrap;flex-shrink:0;}
+.cv-item-company{font-size:.72rem;color:var(--gold);letter-spacing:.04em;margin-bottom:5px;}
+.cv-item-desc{font-size:.75rem;line-height:1.7;color:var(--stone);font-weight:300;}
+.seclabel{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:10px;}
+.seclabel::before{content:'';width:16px;height:1px;background:var(--gold);}
+.settings-photo-block{background:rgba(255,255,255,.02);border:1px solid rgba(207,196,176,.1);border-radius:4px;padding:16px;}
+.settings-photo-label{font-family:'Playfair Display',serif;font-size:.78rem;font-style:italic;color:rgba(255,255,255,.5);margin-bottom:12px;}
+.settings-photo-preview-wrap{position:relative;width:100%;height:180px;overflow:hidden;border-radius:3px;background:rgba(0,0,0,.3);}
+.settings-photo-preview{width:100%;height:100%;object-fit:cover;display:block;}
+.settings-photo-overlay{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.5);color:rgba(255,255,255,.4);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;border-radius:2px;}
 
 @media(max-width:960px){
-  .welcome-wrap{grid-template-columns:1fr;}.wright{height:260px;}.wleft{padding:40px 28px;}.w-deco-num{display:none;}
-  .ginfo{padding:32px 28px 52px;}.g-title{font-size:2rem;}.garr{width:40px;height:40px;}.gdots{right:16px;}
+  nav{padding:0 12px;gap:4px;}
+  .logo{font-size:.82rem;letter-spacing:.02em;}
+  .logo-dot{font-size:1rem;}
+  .navlinks a{padding:8px 8px;font-size:.55rem;letter-spacing:.08em;}
+  .welcome-wrap{grid-template-columns:1fr;}.wright{height:260px;}.wleft{padding:36px 24px;}.w-bg-render{width:100%;}
+  .proj-scroll-wrap{padding:20px 0 60px;}
+  .proj-scroll-grid{grid-template-columns:1fr;gap:2px;}
+  .proj-card{aspect-ratio:4/3;}.proj-card.wide{grid-column:span 1;aspect-ratio:4/3;}
+  .proj-card-title{font-size:1.1rem;}
   .sec-header{grid-template-columns:1fr;gap:20px;}.svcs-grid{grid-template-columns:1fr;}
-  .ab-layout{grid-template-columns:1fr;}.ab-visual{min-height:280px;}.ab-text{padding:40px 28px;}
+  .sec-wrap{padding:48px 24px;}
+  .ab-layout{grid-template-columns:1fr;}.ab-visual{min-height:280px;}.ab-text{padding:40px 24px;}
+  .ab-wrap{padding:48px 24px;}
   .ct-layout{grid-template-columns:1fr;}.ct-left{padding-right:0;border-right:none;border-bottom:1px solid rgba(207,196,176,.1);padding-bottom:48px;margin-bottom:48px;}.ct-right{padding-left:0;}
-  nav{padding:0 20px;}.navlinks a{padding:8px 12px;font-size:.6rem;}
-  .pd-topbar{padding:0 20px;}.pd-inner{padding:40px 20px 48px;}
+  .ct-wrap{padding:48px 24px;}
+  .pd-topbar{padding:0 16px;}.pd-inner{padding:32px 20px 48px;}
   #admin-panel{width:96vw;}.frow2{grid-template-columns:1fr;}
   .cf-row{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .logo{font-size:.7rem;}
+  .navlinks a{padding:8px 4px;font-size:.48rem;letter-spacing:.04em;}
 }
 </style>
 </head>
@@ -312,6 +335,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 <!-- WELCOME -->
 <div class="page on" id="p-welcome">
   <div class="welcome-wrap">
+    <!-- Sol arka plan render — düşük opacity -->
+    <div class="w-bg-render">
+      <img id="photo-welcome-bg" src="https://mir-s3-cdn-cf.behance.net/projects/max_808/886e81215084051.Y3JvcCw0MjAwLDMyODUsMCwxMTEy.jpg" alt="">
+    </div>
     <div class="wleft">
       <div class="w-eyebrow"><div class="w-eyebrow-line"></div><div class="w-eyebrow-text">CG Artist · İstanbul · 2016</div></div>
       <h1 class="w-title"><span>Mekânı</span><span><em>Hissettiren</em></span><span>Görüntüler</span></h1>
@@ -320,10 +347,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
         <button class="cta-primary" onclick="go('projects')">Projeleri İncele</button>
         <button class="cta-arrow" onclick="go('projects')">→</button>
       </div>
-      <div class="w-deco-num" id="w-deco-num">8</div>
     </div>
     <div class="wright">
-      <div class="w-img-main"><img id="hi0" src="" alt=""></div>
+      <div class="w-img-main"><img id="photo-welcome" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="Kaan Murat Özden"></div>
       <div class="w-img-overlay"></div>
       <div class="w-card"><div class="w-card-num" id="hcount">0</div><div class="w-card-label">Tamamlanan Proje</div></div>
       <div class="w-corner-text">Behance / kaanmuratozden</div>
@@ -332,12 +358,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 </div>
 
 <!-- PROJECTS -->
-<div class="page" id="p-projects" style="background:var(--deep);overflow:hidden;">
-  <div class="gallery">
-    <div class="gtrack-wrap"><div class="gtrack" id="gtrack"></div></div>
-    <button class="garr l" onclick="gSnap(gIdx-1)">←</button>
-    <button class="garr r" onclick="gSnap(gIdx+1)">→</button>
-    <div class="gdots" id="gdots"></div>
+<div class="page" id="p-projects" style="background:var(--deep);">
+  <div class="proj-scroll-wrap">
+    <div class="proj-scroll-grid" id="proj-grid"></div>
   </div>
 </div>
 
@@ -374,18 +397,50 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
     <div class="sec-label">Hakkımda</div>
     <div class="ab-layout">
       <div class="ab-visual">
-        <img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/886e81215084051.Y3JvcCw0MjAwLDMyODUsMCwxMTEy.jpg" alt="">
+        <img id="photo-about" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="Kaan Murat Özden">
         <div class="ab-visual-badge"><div class="ab-badge-num">8+</div><div class="ab-badge-label">Yıl Deneyim</div></div>
       </div>
       <div class="ab-text">
         <div class="ab-quote">"Her mekânın kendine özgü bir atmosferi vardır — benim işim onu ışıkla görünür kılmak."</div>
         <p class="ab-bio"><strong>Kaan Murat Özden</strong> — CG Artist, İstanbul.<br><br>İnşaat Mühendisliği formasyonumu dijital sanatla birleştirerek <strong>fotorealistik görselleştirme</strong> alanında profesyonel çözümler üretiyorum. Şu an <strong>Artemis</strong> bünyesinde CG Artist olarak çalışıyorum.</p>
+
+        <!-- YAZILIMLAR -->
+        <div class="seclabel" style="margin-bottom:10px;">Yazılımlar</div>
         <div class="ab-softs"><span class="ab-soft">3ds Max</span><span class="ab-soft">Corona</span><span class="ab-soft">V-Ray</span><span class="ab-soft">Unreal Engine</span><span class="ab-soft">After Effects</span><span class="ab-soft">Photoshop</span></div>
-        <div class="ab-stats">
-          <div class="ab-stat"><div class="ab-stat-n">8</div><div class="ab-stat-l">Proje</div></div>
-          <div class="ab-stat"><div class="ab-stat-n">8+</div><div class="ab-stat-l">Yıl</div></div>
-          <div class="ab-stat"><div class="ab-stat-n">2016</div><div class="ab-stat-l">Başlangıç</div></div>
+
+        <!-- DENEYİM -->
+        <div class="cv-section">
+          <div class="cv-section-title">Deneyim</div>
+          <div class="cv-item">
+            <div class="cv-item-head">
+              <div class="cv-item-role">CG Artist</div>
+              <div class="cv-item-date">Placeholder yıl – Günümüz</div>
+            </div>
+            <div class="cv-item-company">Artemis A.Ş. · İstanbul</div>
+            <div class="cv-item-desc">Ürün görselleştirme, animasyon ve CGI render üretimi. [CV'den güncelle]</div>
+          </div>
+          <div class="cv-item">
+            <div class="cv-item-head">
+              <div class="cv-item-role">İnşaat Mühendisi / Proje Yönetimi</div>
+              <div class="cv-item-date">2016 – Placeholder yıl</div>
+            </div>
+            <div class="cv-item-company">Placeholder Firma · İstanbul</div>
+            <div class="cv-item-desc">Şantiye ve proje yönetimi deneyimi. [CV'den güncelle]</div>
+          </div>
         </div>
+
+        <!-- EĞİTİM -->
+        <div class="cv-section">
+          <div class="cv-section-title">Eğitim</div>
+          <div class="cv-item">
+            <div class="cv-item-head">
+              <div class="cv-item-role">İnşaat Mühendisliği</div>
+              <div class="cv-item-date">Placeholder yıl</div>
+            </div>
+            <div class="cv-item-company">Placeholder Üniversite</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -456,6 +511,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
     <div class="adm-tabs">
       <div class="adm-tab on" id="tab-list" onclick="switchTab('list')">Projeler</div>
       <div class="adm-tab" id="tab-form" onclick="switchTab('form')">+ Yeni / Düzenle</div>
+      <div class="adm-tab" id="tab-settings" onclick="switchTab('settings')">⚙ Site Ayarları</div>
     </div>
     <div class="adm-body" id="adm-body"></div>
   </div>
@@ -498,6 +554,26 @@ function saveP(a){try{localStorage.setItem('kaan_v5',JSON.stringify(a));}catch(e
 var PROJECTS=loadP();
 var nid=Math.max.apply(null,PROJECTS.map(function(p){return p.id||0;}))+1;
 
+/* ══ SITE AYARLARI ══ */
+var DEF_SETTINGS={
+  photoAbout:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
+  photoWelcome:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80'
+};
+function loadS(){try{var s=localStorage.getItem('kaan_settings');if(s)return JSON.parse(s);}catch(e){}return Object.assign({},DEF_SETTINGS);}
+function saveS(s){try{localStorage.setItem('kaan_settings',JSON.stringify(s));}catch(e){}}
+var SETTINGS=loadS();
+
+function applySettings(){
+  var pa=document.getElementById('photo-about');
+  var pw=document.getElementById('photo-welcome');
+  var pbg=document.getElementById('photo-welcome-bg');
+  if(pa&&SETTINGS.photoAbout) pa.src=SETTINGS.photoAbout;
+  if(pw&&SETTINGS.photoWelcome) pw.src=SETTINGS.photoWelcome;
+  // Arka plan render — galeri cover'larından ilkini al ya da ayardan
+  var bgSrc=SETTINGS.photoBgRender||(PROJECTS[0]?PROJECTS[0].cover:'');
+  if(pbg&&bgSrc) pbg.src=bgSrc;
+}
+
 /* ══ NAV ══ */
 var curP='welcome';
 function go(name){
@@ -509,55 +585,38 @@ function go(name){
 }
 
 /* ══ GALLERY ══ */
-var gIdx=0,gDrag=false,gMoved=false,gDX0=0,gBase=0,gOff=0;
-function sOff(i){return -i*window.innerWidth;}
-function gRaw(o){var t=document.getElementById('gtrack');t.classList.remove('snap');t.style.transform='translateX('+o+'px)';}
-function gSnap(i){
-  i=Math.max(0,Math.min(PROJECTS.length-1,i));gIdx=i;gOff=sOff(i);
-  var t=document.getElementById('gtrack');t.classList.add('snap');t.style.transform='translateX('+gOff+'px)';
-  document.querySelectorAll('.gdot').forEach(function(d,j){d.classList.toggle('on',j===i);});
-}
-function gRelease(){var m=gOff-sOff(gIdx);if(m<-window.innerWidth*.2)gSnap(gIdx+1);else if(m>window.innerWidth*.2)gSnap(gIdx-1);else gSnap(gIdx);}
-var pp=document.getElementById('p-projects');
-pp.addEventListener('mousedown',function(e){if(e.target.closest('.garr')||e.target.closest('.gdots'))return;gDrag=true;gMoved=false;gDX0=e.clientX;gBase=sOff(gIdx);});
-window.addEventListener('mousemove',function(e){if(!gDrag)return;var d=e.clientX-gDX0;if(Math.abs(d)>5)gMoved=true;gOff=gBase+d;gRaw(gOff);});
-window.addEventListener('mouseup',function(e){if(!gDrag)return;var was=gMoved;gDrag=false;if(was){gRelease();}else{var sl=e.target.closest('.gslide');if(sl)openDetail(parseInt(sl.getAttribute('data-i')));} });
-pp.addEventListener('touchstart',function(e){if(e.target.closest('.garr')||e.target.closest('.gdots'))return;gMoved=false;gDX0=e.touches[0].clientX;gBase=sOff(gIdx);},{passive:true});
-pp.addEventListener('touchmove',function(e){var d=e.touches[0].clientX-gDX0;if(Math.abs(d)>5)gMoved=true;gOff=gBase+d;gRaw(gOff);},{passive:true});
-pp.addEventListener('touchend',function(e){if(gMoved)gRelease();else{var sl=e.target.closest('.gslide');if(sl)openDetail(parseInt(sl.getAttribute('data-i')));} });
 document.addEventListener('keydown',function(e){
   if(document.getElementById('proj-detail').classList.contains('on')){if(e.key==='Escape')closeDetail();return;}
   if(document.getElementById('img-zoom').classList.contains('on')){closeZoom();return;}
-  if(curP!=='projects')return;
-  if(e.key==='ArrowRight')gSnap(gIdx+1);
-  if(e.key==='ArrowLeft')gSnap(gIdx-1);
 });
 
 function renderGallery(){
-  var tr=document.getElementById('gtrack'),dots=document.getElementById('gdots');
-  tr.innerHTML='';dots.innerHTML='';
+  var grid=document.getElementById('proj-grid');
+  if(!grid)return;
+  grid.innerHTML='';
   var n=PROJECTS.length;
   PROJECTS.forEach(function(p,i){
-    var sl=document.createElement('div');sl.className='gslide';sl.setAttribute('data-i',i);
-    var tags=(p.tags||[]).map(function(t){return '<span class="g-badge">'+t+'</span>';}).join('');
+    var card=document.createElement('div');
+    // Tek sayılı son proje varsa tam genişlik
+    card.className='proj-card'+(n%2!==0&&i===n-1?' wide':'');
+    card.setAttribute('data-i',i);
+    var tags=(p.tags||[]).map(function(t){return '<span class="proj-card-badge">'+t+'</span>';}).join('');
     var num=pad(i+1);
-    sl.innerHTML='<img src="'+p.cover+'" alt="'+p.title+'">'
-      +'<div class="ginfo"><div class="ginfo-left">'
-      +'<div class="g-eyebrow">Proje '+num+' &nbsp;·&nbsp; '+p.tag+'</div>'
-      +'<div class="g-title">'+p.title+'<br><em>'+p.subtitle+'</em></div>'
-      +'<div class="g-badges">'+tags+'</div>'
-      +'</div><div class="ginfo-right"><div class="g-num">'+num+'</div><div class="g-total">/ '+pad(n)+'</div></div></div>'
-      +'<div class="g-click-hint">Tıkla — tüm renderlar</div>';
-    tr.appendChild(sl);
-    var dot=document.createElement('div');dot.className='gdot'+(i===gIdx?' on':'');
-    dot.setAttribute('onclick','gSnap('+i+')');dots.appendChild(dot);
+    // object-position: admin'den ayarlanabilir
+    var objPos=p.coverPosition||'center center';
+    card.innerHTML='<img src="'+p.cover+'" alt="'+p.title+'" style="object-position:'+objPos+';">'
+      +'<div class="proj-card-info">'
+      +'<div class="proj-card-num">'+num+' / '+pad(n)+'&nbsp;&nbsp;·&nbsp;&nbsp;'+p.tag+'</div>'
+      +'<div class="proj-card-title">'+p.title+' <em>'+p.subtitle+'</em></div>'
+      +'<div class="proj-card-badges">'+tags+'</div>'
+      +'</div>';
+    card.addEventListener('click',function(){openDetail(i);});
+    grid.appendChild(card);
   });
-  gIdx=Math.min(gIdx,Math.max(0,n-1));gOff=sOff(gIdx);
-  document.getElementById('gtrack').classList.remove('snap');
-  document.getElementById('gtrack').style.transform='translateX('+gOff+'px)';
-  if(PROJECTS[0])document.getElementById('hi0').src=PROJECTS[0].cover;
+  // Welcome hero foto
+  if(PROJECTS[0])document.getElementById('hi0') && (document.getElementById('hi0').src=PROJECTS[0].cover);
   document.getElementById('hcount').textContent=n;
-  document.getElementById('w-deco-num').textContent=n;
+  applySettings();
 }
 function pad(n){return String(n).padStart(2,'0');}
 
@@ -645,7 +704,79 @@ function switchTab(t){
   admTab=t;
   document.getElementById('tab-list').classList.toggle('on',t==='list');
   document.getElementById('tab-form').classList.toggle('on',t==='form');
-  if(t==='list')admList();else if(t==='form'&&!editId)admForm(null);
+  document.getElementById('tab-settings').classList.toggle('on',t==='settings');
+  if(t==='list')admList();
+  else if(t==='form'&&!editId)admForm(null);
+  else if(t==='settings')admSettings();
+}
+
+function admSettings(){
+  var b=document.getElementById('adm-body');
+  b.innerHTML='<div class="aform">'
+    +'<div class="aform-title">Fotoğraflar</div>'
+
+    // Hakkımda
+    +'<div class="settings-photo-block">'
+    +'<div class="settings-photo-label">Hakkımda Sayfası — Sol Kolon Fotoğrafı</div>'
+    +'<div class="settings-photo-preview-wrap">'
+    +'<img class="settings-photo-preview" id="prev-about" src="'+esc(SETTINGS.photoAbout)+'" alt="">'
+    +'<div class="settings-photo-overlay">Önizleme</div>'
+    +'</div>'
+    +'<div class="frow" style="margin-top:10px;">'
+    +'<label class="flabel">Fotoğraf URL</label>'
+    +'<input class="finput" id="s-photo-about" value="'+esc(SETTINGS.photoAbout)+'" placeholder="https://..." '
+    +'oninput="document.getElementById(\'prev-about\').src=this.value">'
+    +'</div>'
+    +'<div class="fnote" style="margin-top:5px">💡 Dikey (portre) bir fotoğraf ideal — önerilen oran 3:4</div>'
+    +'</div>'
+
+    // Welcome Arka Plan Render
+    +'<div class="settings-photo-block" style="margin-top:16px;">'
+    +'<div class="settings-photo-label">Studio Sayfası — Sol Arka Plan Render (düşük opacity)</div>'
+    +'<div class="settings-photo-preview-wrap" style="height:120px;">'
+    +'<img class="settings-photo-preview" id="prev-bgrend" src="'+esc(SETTINGS.photoBgRender||(PROJECTS[0]?PROJECTS[0].cover:''))+'" alt="" style="opacity:.15;mix-blend-mode:luminosity;">'
+    +'<div class="settings-photo-overlay">%7 opacity ile görünür</div>'
+    +'</div>'
+    +'<div class="frow" style="margin-top:10px;">'
+    +'<label class="flabel">Render URL (boş bırakırsan ilk proje kapağı kullanılır)</label>'
+    +'<input class="finput" id="s-photo-bgrend" value="'+esc(SETTINGS.photoBgRender||'')+'" placeholder="https://... (boş = otomatik)" '
+    +'oninput="document.getElementById(\'prev-bgrend\').src=this.value||\''+esc(PROJECTS[0]?PROJECTS[0].cover:'')+'\'">'
+    +'</div>'
+    +'</div>'
+
+    // Welcome
+    +'<div class="settings-photo-block" style="margin-top:24px;">'
+    +'<div class="settings-photo-label">Studio / Welcome Sayfası — Sağ Taraf Fotoğrafı</div>'
+    +'<div class="settings-photo-preview-wrap">'
+    +'<img class="settings-photo-preview" id="prev-welcome" src="'+esc(SETTINGS.photoWelcome)+'" alt="">'
+    +'<div class="settings-photo-overlay">Önizleme</div>'
+    +'</div>'
+    +'<div class="frow" style="margin-top:10px;">'
+    +'<label class="flabel">Fotoğraf URL</label>'
+    +'<input class="finput" id="s-photo-welcome" value="'+esc(SETTINGS.photoWelcome)+'" placeholder="https://..." '
+    +'oninput="document.getElementById(\'prev-welcome\').src=this.value">'
+    +'</div>'
+    +'<div class="fnote" style="margin-top:5px">💡 Geniş (yatay/kare) fotoğraf iyi durur — tam ekran kaplıyor</div>'
+    +'</div>'
+
+    +'<div class="brow" style="margin-top:28px;">'
+    +'<button class="save-btn" onclick="saveSettings()">Ayarları Kaydet</button>'
+    +'</div>'
+    +'<div id="settings-saved" style="display:none;margin-top:12px;font-size:.72rem;color:var(--gold2);letter-spacing:.08em;">✓ Kaydedildi — sayfa üzerindeki fotoğraflar güncellendi.</div>'
+    +'</div>';
+}
+
+function saveSettings(){
+  var pa=document.getElementById('s-photo-about');
+  var pw=document.getElementById('s-photo-welcome');
+  var pbg=document.getElementById('s-photo-bgrend');
+  if(pa)SETTINGS.photoAbout=pa.value.trim();
+  if(pw)SETTINGS.photoWelcome=pw.value.trim();
+  if(pbg)SETTINGS.photoBgRender=pbg.value.trim();
+  saveS(SETTINGS);
+  applySettings();
+  var msg=document.getElementById('settings-saved');
+  if(msg){msg.style.display='block';setTimeout(function(){msg.style.display='none';},3000);}
 }
 function admList(){
   editId=null;
@@ -693,6 +824,14 @@ function admForm(d){
     +'</div>'
     +'<div class="frow"><label class="flabel">Etiket Satırı</label><input class="finput" id="f-tag" value="'+(d?esc(d.tag):'')+'" placeholder="Ürün Render · 2024"></div>'
     +'<div class="frow"><label class="flabel">Kapak Görseli URL *</label><input class="finput" id="f-cover" value="'+(d?esc(d.cover||''):'')+'" placeholder="https://..."></div>'
+    +'<div class="frow"><label class="flabel">Görsel Kırpma Noktası <span class="fnote">(hangi bölümü göstersin?)</span></label>'
+    +'<select class="finput bsselect" id="f-pos" style="padding:9px 0;">'
+    +[['center center','Merkez (varsayılan)'],['top center','Üst'],['bottom center','Alt'],['center left','Sol'],['center right','Sağ'],['top left','Sol Üst'],['top right','Sağ Üst'],['bottom left','Sol Alt'],['bottom right','Sağ Alt']].map(function(op){
+      return '<option value="'+op[0]+'"'+((d&&d.coverPosition===op[0])||(!d&&op[0]==='center center')?' selected':'')+'>'+op[1]+'</option>';
+    }).join('')
+    +'</select>'
+    +'<div class="fnote" style="margin-top:3px">Görsel kırpılırken hangi bölüm odak noktası olsun. Web ve mobil için aynı ayar geçerlidir.</div>'
+    +'</div>'
     +'<div class="frow"><label class="flabel">Etiketler <span class="fnote">(Enter)</span></label>'
     +'<div class="tw" id="tw" onclick="document.getElementById(\'tag-field\').focus()"><span id="tc"></span><input id="tag-field" placeholder="3ds Max..." onkeydown="tagKey(event)"></div></div>'
     +'<div class="frow"><label class="flabel" style="margin-bottom:10px;">İçerik Blokları</label>'
@@ -806,6 +945,7 @@ function admSave(){
   var sub=document.getElementById('f-sub').value.trim();
   var tag=document.getElementById('f-tag').value.trim();
   var cover=document.getElementById('f-cover').value.trim();
+  var pos=document.getElementById('f-pos');var coverPos=pos?pos.value:'center center';
   var tf=document.getElementById('tag-field');if(tf&&tf.value.trim())fTags.push(tf.value.trim());
   // collect current values from DOM before save
   document.querySelectorAll('#blocks-list .block-item').forEach(function(el,i){
@@ -833,9 +973,9 @@ function admSave(){
   });
   if(editId){
     var p=PROJECTS.find(function(x){return x.id===editId;});
-    if(p){p.title=title;p.subtitle=sub;p.tag=tag||p.tag;p.cover=cover;p.blocks=clean;p.tags=fTags.slice();}
+    if(p){p.title=title;p.subtitle=sub;p.tag=tag||p.tag;p.cover=cover;p.coverPosition=coverPos;p.blocks=clean;p.tags=fTags.slice();}
   }else{
-    PROJECTS.push({id:nid++,title:title,subtitle:sub,tag:tag||'Proje',cover:cover,blocks:clean,tags:fTags.slice()});
+    PROJECTS.push({id:nid++,title:title,subtitle:sub,tag:tag||'Proje',cover:cover,coverPosition:coverPos,blocks:clean,tags:fTags.slice()});
   }
   saveP(PROJECTS);renderGallery();switchTab('list');
 }
@@ -861,6 +1001,7 @@ async function handleSubmit(e){
 
 /* ══ INIT ══ */
 renderGallery();
+applySettings();
 </script>
 </body>
 </html>
