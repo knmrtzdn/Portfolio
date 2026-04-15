@@ -47,15 +47,41 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .cta-primary:hover{color:var(--gold);}
 .cta-arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;display:flex;align-items:center;justify-content:center;color:var(--stone);font-size:.9rem;cursor:pointer;transition:all .3s;}
 .cta-arrow:hover{background:var(--gold);border-color:var(--gold);color:#fff;}
-.w-deco-num{position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:clamp(10rem,18vw,22rem);font-weight:700;font-style:italic;color:rgba(184,146,74,.07);line-height:1;pointer-events:none;z-index:1;user-select:none;}
-.wright{position:relative;overflow:hidden;background:var(--bg2);}
-.w-img-main{position:absolute;inset:0;}
-.w-img-main img{width:100%;height:100%;object-fit:cover;filter:sepia(8%) saturate(80%) brightness(94%);}
-.w-img-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(247,242,234,.15) 0%,transparent 60%);}
-.w-card{position:absolute;bottom:32px;left:32px;background:rgba(247,242,234,.88);backdrop-filter:blur(16px);border:1px solid rgba(207,196,176,.6);border-radius:2px;padding:20px 24px;min-width:180px;}
-.w-card-num{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:400;line-height:1;color:var(--deep);}
-.w-card-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);margin-top:4px;}
-.w-corner-text{position:absolute;top:32px;right:32px;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(154,138,120,.6);writing-mode:vertical-rl;text-orientation:mixed;}
+.w-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:40px;}
+.w-chip{background:rgba(184,146,74,.08);border:1px solid rgba(184,146,74,.22);color:var(--gold);font-size:.62rem;font-weight:400;letter-spacing:.1em;padding:5px 13px;border-radius:1px;}
+.wright{position:relative;overflow:hidden;background:var(--bg3);}
+/* Kolaj kayan şerit */
+.w-collage{position:absolute;inset:0;overflow:hidden;}
+.w-col-track{
+  display:flex;flex-direction:column;
+  gap:4px;
+  animation:colScroll 30s linear infinite;
+  will-change:transform;
+}
+.w-col-track:hover{animation-play-state:paused;}
+@keyframes colScroll{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-50%);}
+}
+.w-col-img{
+  width:100%;
+  flex-shrink:0;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  opacity:.18;
+  filter:sepia(15%) saturate(70%) brightness(85%);
+  display:block;
+  transition:opacity .3s;
+}
+.w-col-img:hover{opacity:.28;}
+.w-img-overlay{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to right, var(--bg2) 0%, rgba(237,230,216,.3) 30%, transparent 60%),
+    linear-gradient(to top, var(--bg2) 0%, transparent 25%),
+    linear-gradient(to bottom, var(--bg2) 0%, transparent 20%);
+  pointer-events:none;
+}
 
 /* PROJECTS — scrollable grid */
 #p-projects{background:var(--deep);overflow-y:auto !important;}
@@ -113,6 +139,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .sec-title em{font-style:italic;color:var(--gold);}
 .sec-sub{font-size:.83rem;font-weight:300;line-height:1.9;color:var(--stone);max-width:400px;align-self:end;}
 .svcs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+/* 7 kart: son satırda 1 kart tam genişlik */
+.svcs-grid .svc:last-child:nth-child(3n+1){grid-column:span 3;}
 .svc{background:var(--bg);padding:36px 32px;position:relative;overflow:hidden;transition:background .3s;}
 .svc:hover{background:var(--bg2);}
 .svc-num{font-family:'Playfair Display',serif;font-size:.7rem;font-style:italic;color:var(--gold2);margin-bottom:20px;letter-spacing:.06em;}
@@ -342,16 +370,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
     <div class="wleft">
       <div class="w-eyebrow"><div class="w-eyebrow-line"></div><div class="w-eyebrow-text">CG Artist · İstanbul · 2016</div></div>
       <h1 class="w-title"><span>Mekânı</span><span><em>Hissettiren</em></span><span>Görüntüler</span></h1>
-      <p class="w-desc">Fotorealistik görselleştirme ve 3D animasyon. Mimari projeler, ürün renderları ve sinematik sahneler için fotogerçekçi dijital çözümler üretiyorum.</p>
+      <p class="w-desc">Fotorealistik görselleştirme ve 3D animasyon. Mimari projeler, ürün renderları ve interaktif sahneler için fotogerçekçi dijital çözümler üretiyorum.</p>
+      <div class="w-chips">
+        <span class="w-chip">🎨 CGI &amp; Render</span>
+        <span class="w-chip">⚡ Unreal Engine</span>
+        <span class="w-chip">🔷 İnteraktif 3D</span>
+        <span class="w-chip">🎬 Animasyon</span>
+      </div>
       <div class="w-cta">
         <button class="cta-primary" onclick="go('projects')">Projeleri İncele</button>
         <button class="cta-arrow" onclick="go('projects')">→</button>
       </div>
     </div>
     <div class="wright">
-      <div class="w-img-main"><img id="photo-welcome" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="Kaan Murat Özden"></div>
+      <!-- Otomatik kayan render kolajı -->
+      <div class="w-collage" id="w-collage">
+        <div class="w-col-track" id="w-col-track">
+          <!-- JS tarafından doldurulur -->
+        </div>
+      </div>
+      <!-- İnce soldan sağa gradient geçiş -->
       <div class="w-img-overlay"></div>
-      <div class="w-card"><div class="w-card-num" id="hcount">0</div><div class="w-card-label">Tamamlanan Proje</div></div>
       <div class="w-corner-text">Behance / kaanmuratozden</div>
     </div>
   </div>
@@ -384,9 +423,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
       <div class="svc"><div class="svc-num">— 01</div><div class="svc-icon">🏛️</div><div class="svc-name">Mimari Görselleştirme</div><div class="svc-desc">Bina içi ve dışı fotogerçekçi render. Gündüz, gün batımı ve gece versiyonları.</div></div>
       <div class="svc"><div class="svc-num">— 02</div><div class="svc-icon">🛋️</div><div class="svc-name">Ürün Render &amp; CGI</div><div class="svc-desc">Banyo ürünleri ve mobilya için stüdyo kalitesinde CGI render ve animasyon.</div></div>
       <div class="svc"><div class="svc-num">— 03</div><div class="svc-icon">🎬</div><div class="svc-name">3D Animasyon</div><div class="svc-desc">Ürün tanıtım animasyonları ve motion design. After Effects ile post prodüksiyon.</div></div>
-      <div class="svc"><div class="svc-num">— 04</div><div class="svc-icon">⚡</div><div class="svc-name">Unreal Engine</div><div class="svc-desc">Real-time render ve interaktif görselleştirme, sanal tur prodüksiyon.</div></div>
-      <div class="svc"><div class="svc-num">— 05</div><div class="svc-icon">💡</div><div class="svc-name">Aydınlatma Analizi</div><div class="svc-desc">Güneş yörüngesi simülasyonu ve mekân aydınlatma optimizasyonu.</div></div>
-      <div class="svc"><div class="svc-num">— 06</div><div class="svc-icon">📐</div><div class="svc-name">Sunum &amp; Pafta</div><div class="svc-desc">Yarışma veya müşteri sunumu düzeyinde görsel pafta hazırlama.</div></div>
+      <div class="svc"><div class="svc-num">— 04</div><div class="svc-icon">⚡</div><div class="svc-name">Unreal Engine — İnteraktif Sahneler</div><div class="svc-desc">Real-time render, interaktif görselleştirme ve sanal tur prodüksiyon. Kullanıcının mekânı keşfedebileceği gerçek zamanlı deneyimler.</div></div>
+      <div class="svc"><div class="svc-num">— 05</div><div class="svc-icon">🔷</div><div class="svc-name">İnteraktif 3D Konfigüratör</div><div class="svc-desc">Kullanıcının tarayıcı üzerinden, herhangi bir kurulum gerektirmeden, ürünün şeklini ve parametrelerini gerçek zamanlı olarak değiştirebildiği web tabanlı 3D deneyimler. Standart bir çözümü olmayan bu yöntemi bizzat geliştirdim.</div></div>
+      <div class="svc"><div class="svc-num">— 06</div><div class="svc-icon">💡</div><div class="svc-name">Aydınlatma Analizi</div><div class="svc-desc">Güneş yörüngesi simülasyonu ve mekân aydınlatma optimizasyonu.</div></div>
+      <div class="svc"><div class="svc-num">— 07</div><div class="svc-icon">📐</div><div class="svc-name">Sunum &amp; Pafta</div><div class="svc-desc">Yarışma veya müşteri sunumu düzeyinde görsel pafta hazırlama.</div></div>
     </div>
   </div>
 </div>
@@ -402,11 +442,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
       </div>
       <div class="ab-text">
         <div class="ab-quote">"Her mekânın kendine özgü bir atmosferi vardır — benim işim onu ışıkla görünür kılmak."</div>
-        <p class="ab-bio"><strong>Kaan Murat Özden</strong> — CG Artist, İstanbul.<br><br>İnşaat Mühendisliği formasyonumu dijital sanatla birleştirerek <strong>fotorealistik görselleştirme</strong> alanında profesyonel çözümler üretiyorum. Şu an <strong>Artemis</strong> bünyesinde CG Artist olarak çalışıyorum.</p>
+        <p class="ab-bio"><strong>Kaan Murat Özden</strong> — CG Artist, İstanbul.<br><br>İnşaat Mühendisliği formasyonumu dijital sanatla birleştirerek <strong>fotorealistik görselleştirme</strong>, <strong>Unreal Engine ile interaktif sahneler</strong> ve <strong>web tabanlı interaktif 3D konfigüratörler</strong> alanında profesyonel çözümler üretiyorum. Şu an <strong>Artemis</strong> bünyesinde CG Artist olarak çalışıyorum.</p>
 
         <!-- YAZILIMLAR -->
-        <div class="seclabel" style="margin-bottom:10px;">Yazılımlar</div>
-        <div class="ab-softs"><span class="ab-soft">3ds Max</span><span class="ab-soft">Corona</span><span class="ab-soft">V-Ray</span><span class="ab-soft">Unreal Engine</span><span class="ab-soft">After Effects</span><span class="ab-soft">Photoshop</span></div>
+        <div class="seclabel" style="margin-bottom:10px;">Yazılımlar &amp; Teknolojiler</div>
+        <div class="ab-softs">
+          <span class="ab-soft">3ds Max</span>
+          <span class="ab-soft">Corona</span>
+          <span class="ab-soft">V-Ray</span>
+          <span class="ab-soft">Unreal Engine</span>
+          <span class="ab-soft">Blender</span>
+          <span class="ab-soft">Shape Keys</span>
+          <span class="ab-soft">After Effects</span>
+          <span class="ab-soft">Photoshop</span>
+        </div>
 
         <!-- DENEYİM -->
         <div class="cv-section">
@@ -565,11 +614,8 @@ var SETTINGS=loadS();
 
 function applySettings(){
   var pa=document.getElementById('photo-about');
-  var pw=document.getElementById('photo-welcome');
   var pbg=document.getElementById('photo-welcome-bg');
   if(pa&&SETTINGS.photoAbout) pa.src=SETTINGS.photoAbout;
-  if(pw&&SETTINGS.photoWelcome) pw.src=SETTINGS.photoWelcome;
-  // Arka plan render — galeri cover'larından ilkini al ya da ayardan
   var bgSrc=SETTINGS.photoBgRender||(PROJECTS[0]?PROJECTS[0].cover:'');
   if(pbg&&bgSrc) pbg.src=bgSrc;
 }
@@ -597,12 +643,10 @@ function renderGallery(){
   var n=PROJECTS.length;
   PROJECTS.forEach(function(p,i){
     var card=document.createElement('div');
-    // Tek sayılı son proje varsa tam genişlik
     card.className='proj-card'+(n%2!==0&&i===n-1?' wide':'');
     card.setAttribute('data-i',i);
     var tags=(p.tags||[]).map(function(t){return '<span class="proj-card-badge">'+t+'</span>';}).join('');
     var num=pad(i+1);
-    // object-position: admin'den ayarlanabilir
     var objPos=p.coverPosition||'center center';
     card.innerHTML='<img src="'+p.cover+'" alt="'+p.title+'" style="object-position:'+objPos+';">'
       +'<div class="proj-card-info">'
@@ -613,11 +657,31 @@ function renderGallery(){
     card.addEventListener('click',function(){openDetail(i);});
     grid.appendChild(card);
   });
-  // Welcome hero foto
-  if(PROJECTS[0])document.getElementById('hi0') && (document.getElementById('hi0').src=PROJECTS[0].cover);
+
+  /* Kolaj — tüm kapak görsellerini topla, çift sayıya tamamla, sonsuz döngü için ikile */
+  buildCollage();
+
   document.getElementById('hcount').textContent=n;
   applySettings();
 }
+
+function buildCollage(){
+  var track=document.getElementById('w-col-track');
+  if(!track)return;
+  var covers=PROJECTS.map(function(p){return {src:p.cover,pos:p.coverPosition||'center center'};});
+  if(!covers.length)return;
+  /* Karıştır */
+  covers=covers.slice().sort(function(){return Math.random()-.5;});
+  /* Döngü için iki kopya */
+  var all=covers.concat(covers);
+  track.innerHTML=all.map(function(c){
+    return '<img class="w-col-img" src="'+c.src+'" alt="" style="object-position:'+c.pos+';" loading="lazy">';
+  }).join('');
+  /* Animasyon hızını görsel sayısına göre ayarla */
+  var dur=Math.max(20, covers.length * 8);
+  track.style.animationDuration=dur+'s';
+}
+
 function pad(n){return String(n).padStart(2,'0');}
 
 /* ══ DETAIL ══ */
@@ -738,40 +802,28 @@ function admSettings(){
     +'<div class="settings-photo-overlay">%7 opacity ile görünür</div>'
     +'</div>'
     +'<div class="frow" style="margin-top:10px;">'
-    +'<label class="flabel">Render URL (boş bırakırsan ilk proje kapağı kullanılır)</label>'
+    +'<label class="flabel">Render URL (boş = ilk proje kapağı)</label>'
     +'<input class="finput" id="s-photo-bgrend" value="'+esc(SETTINGS.photoBgRender||'')+'" placeholder="https://... (boş = otomatik)" '
     +'oninput="document.getElementById(\'prev-bgrend\').src=this.value||\''+esc(PROJECTS[0]?PROJECTS[0].cover:'')+'\'">'
     +'</div>'
+    +'<div class="fnote" style="margin-top:4px">💡 Studio sayfası sol taraftaki büyük arka plan renderi</div>'
     +'</div>'
 
-    // Welcome
-    +'<div class="settings-photo-block" style="margin-top:24px;">'
-    +'<div class="settings-photo-label">Studio / Welcome Sayfası — Sağ Taraf Fotoğrafı</div>'
-    +'<div class="settings-photo-preview-wrap">'
-    +'<img class="settings-photo-preview" id="prev-welcome" src="'+esc(SETTINGS.photoWelcome)+'" alt="">'
-    +'<div class="settings-photo-overlay">Önizleme</div>'
+    +'<div class="settings-photo-block" style="margin-top:16px;border:1px solid rgba(184,146,74,.15);padding:14px;">'
+    +'<div class="settings-photo-label" style="color:var(--gold2);">ℹ Studio Sağ Taraf — Otomatik Kolaj</div>'
+    +'<div class="fnote" style="color:rgba(255,255,255,.3);margin-top:4px;">Sağ taraftaki animasyonlu render kolajı, projelerin kapak görsellerinden otomatik oluşturuluyor. Proje ekledikçe veya düzenledikçe güncellenyor — ayrıca bir ayar gerekmez.</div>'
     +'</div>'
-    +'<div class="frow" style="margin-top:10px;">'
-    +'<label class="flabel">Fotoğraf URL</label>'
-    +'<input class="finput" id="s-photo-welcome" value="'+esc(SETTINGS.photoWelcome)+'" placeholder="https://..." '
-    +'oninput="document.getElementById(\'prev-welcome\').src=this.value">'
-    +'</div>'
-    +'<div class="fnote" style="margin-top:5px">💡 Geniş (yatay/kare) fotoğraf iyi durur — tam ekran kaplıyor</div>'
-    +'</div>'
-
     +'<div class="brow" style="margin-top:28px;">'
     +'<button class="save-btn" onclick="saveSettings()">Ayarları Kaydet</button>'
     +'</div>'
-    +'<div id="settings-saved" style="display:none;margin-top:12px;font-size:.72rem;color:var(--gold2);letter-spacing:.08em;">✓ Kaydedildi — sayfa üzerindeki fotoğraflar güncellendi.</div>'
+    +'<div id="settings-saved" style="display:none;margin-top:12px;font-size:.72rem;color:var(--gold2);letter-spacing:.08em;">✓ Kaydedildi.</div>'
     +'</div>';
 }
 
 function saveSettings(){
   var pa=document.getElementById('s-photo-about');
-  var pw=document.getElementById('s-photo-welcome');
   var pbg=document.getElementById('s-photo-bgrend');
   if(pa)SETTINGS.photoAbout=pa.value.trim();
-  if(pw)SETTINGS.photoWelcome=pw.value.trim();
   if(pbg)SETTINGS.photoBgRender=pbg.value.trim();
   saveS(SETTINGS);
   applySettings();
