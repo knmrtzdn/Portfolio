@@ -32,18 +32,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 #p-welcome{overflow:hidden;}
 .welcome-wrap{position:relative;height:calc(100vh - 56px);width:100%;display:flex;align-items:center;}
 /* Tüm arka plan — 3 sütunlu kayan kolaj */
-.w-collage-bg{position:absolute;inset:0;overflow:hidden;z-index:0;}
-.w-col-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:4px;
-  animation:colScroll 40s linear infinite;
+.w-collage-bg{position:absolute;inset:0;overflow:hidden;z-index:0;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
+.w-col-strip{
+  display:flex;flex-direction:column;gap:4px;
+  animation:colScroll linear infinite;
   will-change:transform;
 }
 @keyframes colScroll{
   0%{transform:translateY(0);}
   100%{transform:translateY(-50%);}
 }
+/* w-col-grid artık kullanılmıyor, w-col-strip içindeki imglar */
+.w-col-grid{display:contents;}
 .w-col-img{
   width:100%;
   aspect-ratio:4/3;
@@ -51,6 +51,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
   opacity:.13;
   filter:sepia(15%) saturate(60%) brightness(80%);
   display:block;
+  flex-shrink:0;
 }
 /* Arka plan üzerinde renk örtüsü — metin okunabilsin */
 .w-bg-overlay{
@@ -670,24 +671,54 @@ function renderGallery(){
 function buildCollage(){
   var track=document.getElementById('w-col-track');
   if(!track) return;
-  var covers=PROJECTS.map(function(p){return {src:p.cover,pos:p.coverPosition||'center center'};});
-  if(!covers.length) return;
-  /* Karıştır */
-  covers=covers.slice().sort(function(){return Math.random()-.5;});
-  /* 3 sütunlu grid için: her "satır" 3 görsel.
-     Yeterli görsel olması için en az 3 tur çoğalt, sonra ikile (sonsuz döngü) */
-  var base=[];
-  while(base.length < Math.max(18, covers.length*3)){
-    base=base.concat(covers.slice().sort(function(){return Math.random()-.5;}));
+
+  /* Tüm görselleri topla — kapak + blok içindeki her resim */
+  var all=[];
+  PROJECTS.forEach(function(p){
+    var pos=p.coverPosition||'center center';
+    if(p.cover) all.push({src:p.cover,pos:pos});
+    (p.blocks||[]).forEach(function(b){
+      if(b.type==='images'){
+        (b.imgs||b.urls||[]).forEach(function(it){
+          var u=typeof it==='string'?it:(it.url||'');
+          if(u) all.push({src:u,pos:pos});
+        });
+      }
+    });
+  });
+
+  /* Tekrar edenleri kaldır */
+  var seen={};
+  all=all.filter(function(x){if(seen[x.src])return false;seen[x.src]=1;return true;});
+
+  if(!all.length) return;
+
+  function shuffle(arr){return arr.slice().sort(function(){return Math.random()-.5;});}
+  function makeCol(minCount){
+    var list=[];
+    while(list.length<minCount) list=list.concat(shuffle(all));
+    return list.concat(list); /* sonsuz döngü için ikile */
   }
-  var all=base.concat(base); /* iki kopya = sonsuz döngü */
-  track.innerHTML=all.map(function(c){
-    return '<img class="w-col-img" src="'+c.src+'" alt="" style="object-position:'+c.pos+';" loading="lazy">';
-  }).join('');
-  /* Animasyon hızı — her görsel ~2.5s */
-  var rows=Math.ceil(all.length/3);
-  var dur=Math.max(25, rows*2.5);
-  track.style.animationDuration=dur+'s';
+
+  var col1=makeCol(12);
+  var col2=makeCol(12);
+  var col3=makeCol(12);
+
+  var dur1=Math.max(28,col1.length/2*2.8);
+  var dur2=Math.max(34,col2.length/2*3.4);
+  var dur3=Math.max(24,col3.length/2*2.4);
+  var del2=-(dur2*0.4)+'s';
+  var del3=-(dur3*0.65)+'s';
+
+  function colHtml(imgs,dur,delay){
+    return '<div class="w-col-strip" style="animation-duration:'+dur+'s;animation-delay:'+delay+'s;">'
+      +imgs.map(function(c){
+        return '<img class="w-col-img" src="'+c.src+'" alt="" style="object-position:'+c.pos+';" loading="lazy">';
+      }).join('')
+      +'</div>';
+  }
+
+  track.innerHTML=colHtml(col1,dur1,0)+colHtml(col2,dur2,del2)+colHtml(col3,dur3,del3);
 }
 
 function pad(n){return String(n).padStart(2,'0');}
