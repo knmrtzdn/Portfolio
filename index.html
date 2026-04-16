@@ -29,59 +29,61 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .page.on{opacity:1;pointer-events:all;}
 
 /* WELCOME */
-#p-welcome{overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.welcome-wrap{display:grid;grid-template-columns:1fr 1fr;height:calc(100vh - 56px);width:100%;position:relative;}
-/* Sol arka plan render */
-.w-bg-render{position:absolute;inset:0;width:50%;pointer-events:none;z-index:0;overflow:hidden;}
-.w-bg-render img{width:100%;height:100%;object-fit:cover;opacity:.07;filter:saturate(60%) sepia(20%);mix-blend-mode:luminosity;}
-.wleft{display:flex;flex-direction:column;justify-content:center;padding:72px 56px 72px 72px;position:relative;z-index:2;}
-.w-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:32px;}
-.w-eyebrow-line{width:40px;height:1px;background:var(--gold);}
-.w-eyebrow-text{font-size:.6rem;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);}
-.w-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,5vw,5.8rem);font-weight:400;line-height:1.02;color:var(--deep);margin-bottom:28px;}
-.w-title em{font-style:italic;color:var(--gold);}
-.w-title span{display:block;}
-.w-desc{font-size:.85rem;font-weight:300;line-height:1.95;color:var(--stone);max-width:360px;margin-bottom:52px;}
-.w-cta{display:flex;align-items:center;gap:20px;}
-.cta-primary{font-family:'Playfair Display',serif;font-size:.78rem;font-style:italic;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--gold);padding-bottom:2px;transition:all .25s;letter-spacing:.04em;background:none;border-left:none;border-top:none;border-right:none;}
-.cta-primary:hover{color:var(--gold);}
-.cta-arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;display:flex;align-items:center;justify-content:center;color:var(--stone);font-size:.9rem;cursor:pointer;transition:all .3s;}
-.cta-arrow:hover{background:var(--gold);border-color:var(--gold);color:#fff;}
-.w-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:40px;}
-.w-chip{background:rgba(184,146,74,.08);border:1px solid rgba(184,146,74,.22);color:var(--gold);font-size:.62rem;font-weight:400;letter-spacing:.1em;padding:5px 13px;border-radius:1px;}
-.wright{position:relative;overflow:hidden;background:var(--bg3);}
-/* Kolaj kayan şerit */
-.w-collage{position:absolute;inset:0;overflow:hidden;}
-.w-col-track{
-  display:flex;flex-direction:column;
+#p-welcome{overflow:hidden;}
+.welcome-wrap{position:relative;height:calc(100vh - 56px);width:100%;display:flex;align-items:center;}
+/* Tüm arka plan — 3 sütunlu kayan kolaj */
+.w-collage-bg{position:absolute;inset:0;overflow:hidden;z-index:0;}
+.w-col-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
   gap:4px;
-  animation:colScroll 30s linear infinite;
+  animation:colScroll 40s linear infinite;
   will-change:transform;
 }
-.w-col-track:hover{animation-play-state:paused;}
 @keyframes colScroll{
   0%{transform:translateY(0);}
   100%{transform:translateY(-50%);}
 }
 .w-col-img{
   width:100%;
-  flex-shrink:0;
-  aspect-ratio:16/9;
+  aspect-ratio:4/3;
   object-fit:cover;
-  opacity:.18;
-  filter:sepia(15%) saturate(70%) brightness(85%);
+  opacity:.13;
+  filter:sepia(15%) saturate(60%) brightness(80%);
   display:block;
-  transition:opacity .3s;
 }
-.w-col-img:hover{opacity:.28;}
-.w-img-overlay{
-  position:absolute;inset:0;
+/* Arka plan üzerinde renk örtüsü — metin okunabilsin */
+.w-bg-overlay{
+  position:absolute;inset:0;z-index:1;
   background:
-    linear-gradient(to right, var(--bg2) 0%, rgba(237,230,216,.3) 30%, transparent 60%),
-    linear-gradient(to top, var(--bg2) 0%, transparent 25%),
-    linear-gradient(to bottom, var(--bg2) 0%, transparent 20%);
-  pointer-events:none;
+    linear-gradient(to right, rgba(247,242,234,.92) 0%, rgba(247,242,234,.75) 45%, rgba(247,242,234,.4) 100%);
 }
+/* Sol metin */
+.wleft{
+  position:relative;z-index:2;
+  max-width:580px;
+  padding:72px 56px 72px 72px;
+  flex-shrink:0;
+}
+.w-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:32px;}
+.w-eyebrow-line{width:40px;height:1px;background:var(--gold);}
+.w-eyebrow-text{font-size:.6rem;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);}
+.w-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,5vw,5.8rem);font-weight:400;line-height:1.02;color:var(--deep);margin-bottom:28px;}
+.w-title em{font-style:italic;color:var(--gold);}
+.w-title span{display:block;}
+.w-desc{font-size:.85rem;font-weight:300;line-height:1.95;color:var(--stone);max-width:360px;margin-bottom:24px;}
+.w-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:40px;}
+.w-chip{background:rgba(184,146,74,.08);border:1px solid rgba(184,146,74,.22);color:var(--gold);font-size:.62rem;font-weight:400;letter-spacing:.1em;padding:5px 13px;border-radius:1px;}
+.w-cta{display:flex;align-items:center;gap:20px;}
+.cta-primary{font-family:'Playfair Display',serif;font-size:.78rem;font-style:italic;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--gold);padding-bottom:2px;transition:all .25s;letter-spacing:.04em;background:none;border-left:none;border-top:none;border-right:none;}
+.cta-primary:hover{color:var(--gold);}
+.cta-arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;display:flex;align-items:center;justify-content:center;color:var(--stone);font-size:.9rem;cursor:pointer;transition:all .3s;}
+.cta-arrow:hover{background:var(--gold);border-color:var(--gold);color:#fff;}
+/* Eski yan panel — artık yok */
+.wright{display:none;}
+.w-bg-render{display:none;}
+.w-img-overlay{display:none;}
+.w-corner-text{display:none;}
 
 /* PROJECTS — scrollable grid */
 #p-projects{background:var(--deep);overflow-y:auto !important;}
@@ -323,7 +325,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
   .logo{font-size:.82rem;letter-spacing:.02em;}
   .logo-dot{font-size:1rem;}
   .navlinks a{padding:8px 8px;font-size:.55rem;letter-spacing:.08em;}
-  .welcome-wrap{grid-template-columns:1fr;}.wright{height:260px;}.wleft{padding:36px 24px;}.w-bg-render{width:100%;}
+  .wleft{padding:40px 28px;}
+  .w-bg-overlay{background:linear-gradient(to bottom, rgba(247,242,234,.95) 0%, rgba(247,242,234,.88) 100%);}
+  .w-col-grid{grid-template-columns:repeat(2,1fr);}
   .proj-scroll-wrap{padding:20px 0 60px;}
   .proj-scroll-grid{grid-template-columns:1fr;gap:2px;}
   .proj-card{aspect-ratio:4/3;}.proj-card.wide{grid-column:span 1;aspect-ratio:4/3;}
@@ -363,10 +367,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 <!-- WELCOME -->
 <div class="page on" id="p-welcome">
   <div class="welcome-wrap">
-    <!-- Sol arka plan render — düşük opacity -->
-    <div class="w-bg-render">
-      <img id="photo-welcome-bg" src="https://mir-s3-cdn-cf.behance.net/projects/max_808/886e81215084051.Y3JvcCw0MjAwLDMyODUsMCwxMTEy.jpg" alt="">
+    <!-- Tüm arka plan 3 sütunlu kayan kolaj -->
+    <div class="w-collage-bg">
+      <div class="w-col-grid" id="w-col-track">
+        <!-- JS tarafından doldurulur -->
+      </div>
     </div>
+    <!-- Gradient örtü — metin okunabilsin -->
+    <div class="w-bg-overlay"></div>
+    <!-- Sol arka plan render (eski, gizli) -->
+    <div class="w-bg-render"><img id="photo-welcome-bg" src="" alt=""></div>
+    <!-- Metin -->
     <div class="wleft">
       <div class="w-eyebrow"><div class="w-eyebrow-line"></div><div class="w-eyebrow-text">CG Artist · İstanbul · 2016</div></div>
       <h1 class="w-title"><span>Mekânı</span><span><em>Hissettiren</em></span><span>Görüntüler</span></h1>
@@ -382,17 +393,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
         <button class="cta-arrow" onclick="go('projects')">→</button>
       </div>
     </div>
-    <div class="wright">
-      <!-- Otomatik kayan render kolajı -->
-      <div class="w-collage" id="w-collage">
-        <div class="w-col-track" id="w-col-track">
-          <!-- JS tarafından doldurulur -->
-        </div>
-      </div>
-      <!-- İnce soldan sağa gradient geçiş -->
-      <div class="w-img-overlay"></div>
-      <div class="w-corner-text">Behance / kaanmuratozden</div>
-    </div>
+    <!-- Sağ panel artık yok -->
+    <div class="wright"></div>
   </div>
 </div>
 
@@ -667,18 +669,24 @@ function renderGallery(){
 
 function buildCollage(){
   var track=document.getElementById('w-col-track');
-  if(!track)return;
+  if(!track) return;
   var covers=PROJECTS.map(function(p){return {src:p.cover,pos:p.coverPosition||'center center'};});
-  if(!covers.length)return;
+  if(!covers.length) return;
   /* Karıştır */
   covers=covers.slice().sort(function(){return Math.random()-.5;});
-  /* Döngü için iki kopya */
-  var all=covers.concat(covers);
+  /* 3 sütunlu grid için: her "satır" 3 görsel.
+     Yeterli görsel olması için en az 3 tur çoğalt, sonra ikile (sonsuz döngü) */
+  var base=[];
+  while(base.length < Math.max(18, covers.length*3)){
+    base=base.concat(covers.slice().sort(function(){return Math.random()-.5;}));
+  }
+  var all=base.concat(base); /* iki kopya = sonsuz döngü */
   track.innerHTML=all.map(function(c){
     return '<img class="w-col-img" src="'+c.src+'" alt="" style="object-position:'+c.pos+';" loading="lazy">';
   }).join('');
-  /* Animasyon hızını görsel sayısına göre ayarla */
-  var dur=Math.max(20, covers.length * 8);
+  /* Animasyon hızı — her görsel ~2.5s */
+  var rows=Math.ceil(all.length/3);
+  var dur=Math.max(25, rows*2.5);
   track.style.animationDuration=dur+'s';
 }
 
