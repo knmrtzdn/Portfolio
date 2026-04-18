@@ -646,19 +646,47 @@ var DEF_SETTINGS={
   contactBehance:'https://www.behance.net/kaanozden',
   contactLinkedin:'http://linkedin.com/in/kaan-murat-özden-a264221b2'
 };
-function loadS(){
+/* ══ SUPABASE ══ */
+var SB_URL='https://ugqagivocmdvdvplxkrc.supabase.co';
+var SB_KEY='sb_publishable_FNa0pP_AIHEIx-eMsiiwYg_o-JCcnmi';
+
+function sbFetch(path,opts){
+  return fetch(SB_URL+path,Object.assign({
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'}
+  },opts||{}));
+}
+
+async function loadS(){
   try{
-    var s=localStorage.getItem('kaan_settings_v2');
-    if(s){
-      var parsed=JSON.parse(s);
-      /* services ve arrays için deep merge */
-      return Object.assign({},DEF_SETTINGS,parsed);
+    var r=await sbFetch('/rest/v1/settings?id=eq.main&select=data');
+    if(r.ok){
+      var rows=await r.json();
+      if(rows&&rows[0]&&rows[0].data&&Object.keys(rows[0].data).length){
+        return Object.assign({},DEF_SETTINGS,rows[0].data);
+      }
     }
-  }catch(e){}
+  }catch(e){console.warn('Supabase yüklenemedi, default kullanılıyor',e);}
   return JSON.parse(JSON.stringify(DEF_SETTINGS));
 }
-function saveS(s){try{localStorage.setItem('kaan_settings_v2',JSON.stringify(s));}catch(e){}}
-var SETTINGS=loadS();
+
+async function saveS(data){
+  try{
+    /* Önce update dene, yoksa insert */
+    var r=await sbFetch('/rest/v1/settings?id=eq.main',{
+      method:'PATCH',
+      body:JSON.stringify({data:data,updated_at:new Date().toISOString()})
+    });
+    if(!r.ok){
+      await sbFetch('/rest/v1/settings',{
+        method:'POST',
+        body:JSON.stringify({id:'main',data:data})
+      });
+    }
+  }catch(e){console.error('Supabase kayıt hatası',e);}
+}
+
+/* SETTINGS başlangıçta boş, async olarak yüklenir */
+var SETTINGS=JSON.parse(JSON.stringify(DEF_SETTINGS));
 
 function applySettings(){
   /* Fotoğraflar */
@@ -996,8 +1024,12 @@ function saveHome(){
   SETTINGS.homeChips=document.getElementById('h-chips').value.trim();
   SETTINGS.homeCta=document.getElementById('h-cta').value.trim();
   SETTINGS.photoBgRender=document.getElementById('h-bgrend').value.trim();
-  saveS(SETTINGS);applySettings();
-  var m=document.getElementById('h-saved');if(m){m.style.display='block';setTimeout(function(){m.style.display='none';},2500);}
+  applySettings();
+  var m=document.getElementById('h-saved');
+  if(m){m.textContent='Kaydediliyor...';m.style.display='block';}
+  saveS(SETTINGS).then(function(){
+    if(m){m.textContent='✓ Kaydedildi';setTimeout(function(){m.style.display='none';},2500);}
+  });
 }
 
 /* ══ HİZMETLER PANELİ ══ */
@@ -1047,8 +1079,13 @@ function saveSvcs(){
     if(inps[0])fSvcs[i].name=inps[0].value.trim();
     if(ta)fSvcs[i].desc=ta.value.trim();
   });
-  SETTINGS.services=fSvcs;saveS(SETTINGS);renderServices();
-  var m=document.getElementById('svc-saved');if(m){m.style.display='block';setTimeout(function(){m.style.display='none';},2500);}
+  SETTINGS.services=fSvcs;
+  applySettings();
+  var m=document.getElementById('svc-saved');
+  if(m){m.textContent='Kaydediliyor...';m.style.display='block';}
+  saveS(SETTINGS).then(function(){
+    if(m){m.textContent='✓ Kaydedildi';setTimeout(function(){m.style.display='none';},2500);}
+  });
 }
 
 /* ══ HAKKIMDA PANELİ ══ */
@@ -1146,8 +1183,12 @@ function saveAbout(){
   SETTINGS.cvUrl=document.getElementById('ab-cvurl').value.trim();
   SETTINGS.cvLabel=document.getElementById('ab-cvlbl').value.trim();
   SETTINGS.aboutExp=fExp;SETTINGS.aboutEdu=fEdu;
-  saveS(SETTINGS);applySettings();
-  var m=document.getElementById('ab-saved');if(m){m.style.display='block';setTimeout(function(){m.style.display='none';},2500);}
+  applySettings();
+  var m=document.getElementById('ab-saved');
+  if(m){m.textContent='Kaydediliyor...';m.style.display='block';}
+  saveS(SETTINGS).then(function(){
+    if(m){m.textContent='✓ Kaydedildi';setTimeout(function(){m.style.display='none';},2500);}
+  });
 }
 
 /* ══ İLETİŞİM PANELİ ══ */
@@ -1180,8 +1221,12 @@ function saveContact(){
   SETTINGS.contactEmail=document.getElementById('ct-email').value.trim();
   SETTINGS.contactBehance=document.getElementById('ct-beh').value.trim();
   SETTINGS.contactLinkedin=document.getElementById('ct-lin').value.trim();
-  saveS(SETTINGS);applySettings();
-  var m=document.getElementById('ct-saved');if(m){m.style.display='block';setTimeout(function(){m.style.display='none';},2500);}
+  applySettings();
+  var m=document.getElementById('ct-saved');
+  if(m){m.textContent='Kaydediliyor...';m.style.display='block';}
+  saveS(SETTINGS).then(function(){
+    if(m){m.textContent='✓ Kaydedildi';setTimeout(function(){m.style.display='none';},2500);}
+  });
 }
 
 function admSettings(){
@@ -1235,10 +1280,12 @@ function saveSettings(){
   var pbg=document.getElementById('s-photo-bgrend');
   if(pa)SETTINGS.photoAbout=pa.value.trim();
   if(pbg)SETTINGS.photoBgRender=pbg.value.trim();
-  saveS(SETTINGS);
   applySettings();
   var msg=document.getElementById('settings-saved');
-  if(msg){msg.style.display='block';setTimeout(function(){msg.style.display='none';},3000);}
+  if(msg){msg.textContent='Kaydediliyor...';msg.style.display='block';}
+  saveS(SETTINGS).then(function(){
+    if(msg){msg.textContent='✓ Kaydedildi';setTimeout(function(){msg.style.display='none';},2500);}
+  });
 }
 function admList(){
   editId=null;
@@ -1462,8 +1509,17 @@ async function handleSubmit(e){
 }
 
 /* ══ INIT ══ */
-renderGallery();
-applySettings();
+(async function(){
+  /* Önce galeriyi default ile çiz, hızlı görünsün */
+  renderGallery();
+  /* Supabase'den ayarları yükle */
+  try{
+    SETTINGS=await loadS();
+  }catch(e){
+    console.warn('Ayarlar yüklenemedi');
+  }
+  applySettings();
+})();
 </script>
 </body>
 </html>
