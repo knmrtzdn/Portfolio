@@ -72,14 +72,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .w-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,5vw,5.8rem);font-weight:400;line-height:1.02;color:var(--deep);margin-bottom:28px;}
 .w-title em{font-style:italic;color:var(--gold);}
 .w-title span{display:block;}
-.w-desc{font-size:.85rem;font-weight:300;line-height:1.95;color:var(--stone);max-width:360px;margin-bottom:24px;}
-.w-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:40px;}
-.w-chip{background:rgba(184,146,74,.08);border:1px solid rgba(184,146,74,.22);color:var(--gold);font-size:.62rem;font-weight:400;letter-spacing:.1em;padding:5px 13px;border-radius:1px;}
-.w-cta{display:flex;align-items:center;gap:20px;}
-.cta-primary{font-family:'Playfair Display',serif;font-size:.78rem;font-style:italic;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--gold);padding-bottom:2px;transition:all .25s;letter-spacing:.04em;background:none;border-left:none;border-top:none;border-right:none;}
-.cta-primary:hover{color:var(--gold);}
-.cta-arrow{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;display:flex;align-items:center;justify-content:center;color:var(--stone);font-size:.9rem;cursor:pointer;transition:all .3s;}
-.cta-arrow:hover{background:var(--gold);border-color:var(--gold);color:#fff;}
+.w-desc{font-size:.85rem;font-weight:300;line-height:1.95;color:var(--ink);max-width:360px;margin-bottom:24px;opacity:.75;}
+.w-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:32px;}
+.w-chip{background:rgba(184,146,74,.08);border:1px solid rgba(184,146,74,.22);color:var(--goldd);font-size:.62rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:5px 14px;border-radius:1px;}
+.w-cta{display:flex;align-items:center;margin-top:8px;}
+.cta-primary{
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:'Playfair Display',serif;
+  font-size:1.05rem;font-style:italic;font-weight:400;
+  color:var(--deep);
+  cursor:pointer;
+  background:none;border:none;
+  border-bottom:1.5px solid var(--gold);
+  padding-bottom:4px;
+  transition:all .3s;
+  letter-spacing:.02em;
+  margin-left:auto;
+}
+.cta-primary:hover{color:var(--gold);gap:22px;}
 /* Eski yan panel — artık yok */
 .wright{display:none;}
 .w-bg-render{display:none;}
@@ -380,18 +390,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
     <div class="w-bg-render"><img id="photo-welcome-bg" src="" alt=""></div>
     <!-- Metin -->
     <div class="wleft">
-      <div class="w-eyebrow"><div class="w-eyebrow-line"></div><div class="w-eyebrow-text">CG Artist · İstanbul · 2016</div></div>
+      <div class="w-eyebrow"><div class="w-eyebrow-line"></div><div class="w-eyebrow-text">CG Artist · Civil Engineer · İstanbul · 2016</div></div>
       <h1 class="w-title"><span>Mekânı</span><span><em>Hissettiren</em></span><span>Görüntüler</span></h1>
       <p class="w-desc">Fotorealistik görselleştirme ve 3D animasyon. Mimari projeler, ürün renderları ve interaktif sahneler için fotogerçekçi dijital çözümler üretiyorum.</p>
       <div class="w-chips">
-        <span class="w-chip">🎨 CGI &amp; Render</span>
-        <span class="w-chip">⚡ Unreal Engine</span>
-        <span class="w-chip">🔷 İnteraktif 3D</span>
-        <span class="w-chip">🎬 Animasyon</span>
+        <span class="w-chip">CGI &amp; Render</span>
+        <span class="w-chip">Unreal Engine</span>
+        <span class="w-chip">İnteraktif 3D</span>
+        <span class="w-chip">Animasyon</span>
       </div>
       <div class="w-cta">
-        <button class="cta-primary" onclick="go('projects')">Projeleri İncele</button>
-        <button class="cta-arrow" onclick="go('projects')">→</button>
+        <button class="cta-primary" onclick="go('projects')">Projeleri İncele →</button>
       </div>
     </div>
     <!-- Sağ panel artık yok -->
