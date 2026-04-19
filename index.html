@@ -609,9 +609,36 @@ var DEF=[
   {id:7,title:'Shower Enclosures',subtitle:'Artemis',tag:'Ürün Render · 2023',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/b13b1b193731161.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg',tags:['3ds Max','Corona','CGI'],blocks:[{type:'text',content:'Artemis duş kabini serisi CGI render.'},{type:'images',urls:['https://mir-s3-cdn-cf.behance.net/projects/max_808/b13b1b193731161.Y3JvcCw0MjAwLDMyODUsMCwxMzMw.jpg']}]},
   {id:8,title:'Unreal Engine Renders',subtitle:'& Animations',tag:'Animasyon · 2023',cover:'https://mir-s3-cdn-cf.behance.net/projects/max_808/9a4f95193084915.Y3JvcCwzNTY2LDI3OTAsNjk3LDA.jpg',tags:['Unreal Engine','Real-time','Animasyon'],blocks:[{type:'text',content:'Unreal Engine ile gerçek zamanlı render ve animasyon çalışmaları.'},{type:'images',urls:['https://mir-s3-cdn-cf.behance.net/projects/max_808/9a4f95193084915.Y3JvcCwzNTY2LDI3OTAsNjk3LDA.jpg']}]}
 ];
-function loadP(){try{var s=localStorage.getItem('kaan_v5');if(s)return JSON.parse(s);}catch(e){}return JSON.parse(JSON.stringify(DEF));}
-function saveP(a){try{localStorage.setItem('kaan_v5',JSON.stringify(a));}catch(e){}}
-var PROJECTS=loadP();
+async function loadP(){
+  try{
+    var r=await sbFetch('/rest/v1/settings?id=eq.projects&select=data');
+    if(r.ok){
+      var rows=await r.json();
+      if(rows&&rows[0]&&rows[0].data&&Array.isArray(rows[0].data)&&rows[0].data.length){
+        return rows[0].data;
+      }
+    }
+  }catch(e){console.warn('Projeler yüklenemedi:',e);}
+  return JSON.parse(JSON.stringify(DEF));
+}
+async function saveP(arr){
+  try{
+    var r=await sbFetch('/rest/v1/settings?id=eq.projects',{
+      method:'PATCH',
+      body:JSON.stringify({data:arr,updated_at:new Date().toISOString()})
+    });
+    if(r.ok){
+      console.log('✓ Projeler kaydedildi');
+    } else {
+      /* Satır yoksa insert */
+      await sbFetch('/rest/v1/settings',{
+        method:'POST',
+        body:JSON.stringify({id:'projects',data:arr})
+      });
+    }
+  }catch(e){console.error('Proje kayıt hatası:',e);}
+}
+var PROJECTS=JSON.parse(JSON.stringify(DEF));
 var nid=Math.max.apply(null,PROJECTS.map(function(p){return p.id||0;}))+1;
 
 /* ══ SITE AYARLARI ══ */
@@ -1302,11 +1329,38 @@ function admSettings(){
     +'<div class="settings-photo-label" style="color:var(--gold2);">ℹ Studio Sağ Taraf — Otomatik Kolaj</div>'
     +'<div class="fnote" style="color:rgba(255,255,255,.3);margin-top:4px;">Sağ taraftaki animasyonlu render kolajı, projelerin kapak görsellerinden otomatik oluşturuluyor. Proje ekledikçe veya düzenledikçe güncellenyor — ayrıca bir ayar gerekmez.</div>'
     +'</div>'
+    +'<div class="settings-photo-block" style="margin-top:16px;border:1px solid rgba(255,160,0,.2);padding:14px;">'
+    +'<div class="settings-photo-label" style="color:#f0a030;">⚠ Veri Taşıma</div>'
+    +'<div class="fnote" style="color:rgba(255,255,255,.4);margin-top:4px;margin-bottom:12px;">Projeler hâlâ tarayıcıda mı? Buradan tek tıkla Supabase\'e aktar.</div>'
+    +'<button class="save-btn" style="background:#8a5a10;" onclick="migrateLocalToSupabase()">Tarayıcıdaki Projeleri Supabase\'e Aktar</button>'
+    +'<div id="migrate-msg" style="display:none;margin-top:8px;font-size:.7rem;color:var(--gold2);"></div>'
+    +'</div>'
     +'<div class="brow" style="margin-top:28px;">'
     +'<button class="save-btn" onclick="saveSettings()">Ayarları Kaydet</button>'
     +'</div>'
     +'<div id="settings-saved" style="display:none;margin-top:12px;font-size:.72rem;color:var(--gold2);letter-spacing:.08em;">✓ Kaydedildi.</div>'
     +'</div>';
+}
+
+async function migrateLocalToSupabase(){
+  var msg=document.getElementById('migrate-msg');
+  if(msg){msg.textContent='Aktarılıyor...';msg.style.display='block';}
+  try{
+    /* localStorage'dan oku */
+    var local=localStorage.getItem('kaan_v5');
+    var data=local?JSON.parse(local):PROJECTS;
+    if(!data||!data.length){
+      if(msg)msg.textContent='⚠ Tarayıcıda proje bulunamadı.';
+      return;
+    }
+    await saveP(data);
+    PROJECTS=data;
+    nid=Math.max.apply(null,PROJECTS.map(function(p){return p.id||0;}))+1;
+    renderGallery();
+    if(msg)msg.textContent='✓ '+data.length+' proje Supabase\'e aktarıldı!';
+  }catch(e){
+    if(msg)msg.textContent='Hata: '+e.message;
+  }
 }
 
 function saveSettings(){
@@ -1337,11 +1391,16 @@ function admEdit(id){
   document.getElementById('tab-list').classList.remove('on');
   document.getElementById('tab-form').classList.add('on');admTab='form';admForm(d);
 }
-function admDel(id){if(!confirm('Sil?'))return;PROJECTS=PROJECTS.filter(function(p){return p.id!==id;});saveP(PROJECTS);renderGallery();admList();}
+function admDel(id){
+  if(!confirm('Sil?'))return;
+  PROJECTS=PROJECTS.filter(function(p){return p.id!==id;});
+  saveP(PROJECTS).then(function(){renderGallery();admList();});
+}
 function admMove(id,dir){
   var i=PROJECTS.findIndex(function(p){return p.id===id;});if(i<0)return;
   var ni=i+dir;if(ni<0||ni>=PROJECTS.length)return;
-  var tmp=PROJECTS[i];PROJECTS[i]=PROJECTS[ni];PROJECTS[ni]=tmp;saveP(PROJECTS);renderGallery();admList();
+  var tmp=PROJECTS[i];PROJECTS[i]=PROJECTS[ni];PROJECTS[ni]=tmp;
+  saveP(PROJECTS).then(function(){renderGallery();admList();});
 }
 function esc(s){return s?(s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'):''; }
 
@@ -1558,7 +1617,7 @@ function admSave(){
   }else{
     PROJECTS.push({id:nid++,title:title,subtitle:sub,tag:tag||'Proje',cover:cover,coverPosition:coverPos,blocks:clean,tags:fTags.slice()});
   }
-  saveP(PROJECTS);renderGallery();switchTab('list');
+  saveP(PROJECTS).then(function(){renderGallery();switchTab('list');});
 }
 
 /* ══ CONTACT FORM ══ */
@@ -1582,14 +1641,18 @@ async function handleSubmit(e){
 
 /* ══ INIT ══ */
 (async function(){
-  /* Önce galeriyi default ile çiz, hızlı görünsün */
+  /* Önce default ile çiz */
   renderGallery();
-  /* Supabase'den ayarları yükle */
+  /* Supabase'den paralel yükle */
   try{
-    SETTINGS=await loadS();
+    var results=await Promise.all([loadP(), loadS()]);
+    PROJECTS=results[0];
+    nid=Math.max.apply(null,PROJECTS.map(function(p){return p.id||0;}))+1;
+    SETTINGS=results[1];
   }catch(e){
-    console.warn('Ayarlar yüklenemedi');
+    console.warn('Yükleme hatası, defaults kullanılıyor');
   }
+  renderGallery();
   applySettings();
 })();
 </script>
