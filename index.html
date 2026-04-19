@@ -149,9 +149,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .pb-img{overflow:hidden;cursor:zoom-in;}
 .pb-img img{width:100%;display:block;transition:transform .4s;}
 .pb-img:hover img{transform:scale(1.02);}
-.pb-video{width:100%;background:#000;overflow:hidden;position:relative;}
+.pb-video{width:100%;overflow:hidden;position:relative;background:transparent;}
 .pb-video iframe,.pb-video video{position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:block;}
-.pb-video-short{max-width:380px;margin:0 auto;background:transparent;}
+.pb-video-short{max-width:480px;margin:0 auto;}
 /* Zoom */
 #img-zoom{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;cursor:zoom-out;}
 #img-zoom.on{display:flex;}
@@ -992,12 +992,21 @@ function renderBlocks(blocks){
       var ar2=b.aspectRatio||'16/9';var embed='';
       var yt=src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
       var isShorts=src.includes('/shorts/');
-      if(!b.aspectRatio||b.aspectRatio==='16/9') ar2=isShorts?'9/16':ar2;
+      if(isShorts&&(!b.aspectRatio||b.aspectRatio==='16/9')) ar2='9/16';
       var vm=src.match(/vimeo\.com\/(\d+)/);
-      if(yt)embed='<iframe src="https://www.youtube.com/embed/'+yt[1]+'?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+      if(yt){
+        var embedUrl='https://www.youtube.com/embed/'+yt[1]+'?rel=0&modestbranding=1';
+        embed='<iframe src="'+embedUrl+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+      }
       else if(vm)embed='<iframe src="https://player.vimeo.com/video/'+vm[1]+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
       else embed='<video controls style="width:100%;height:100%;"><source src="'+src+'"></video>';
-      return '<div class="pb-video'+(isShorts?' pb-video-short':'')+'" style="aspect-ratio:'+ar2+'">'+embed+'</div>';
+      /* Shorts: dar panel içinde ortala */
+      if(isShorts){
+        return '<div style="display:flex;justify-content:center;">'
+          +'<div class="pb-video" style="width:min(320px,100%);aspect-ratio:'+ar2+'">'+embed+'</div>'
+          +'</div>';
+      }
+      return '<div class="pb-video" style="aspect-ratio:'+ar2+'">'+embed+'</div>';
     }
     return '';
   }).join('');
