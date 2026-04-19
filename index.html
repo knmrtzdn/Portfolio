@@ -661,28 +661,40 @@ async function loadS(){
     var r=await sbFetch('/rest/v1/settings?id=eq.main&select=data');
     if(r.ok){
       var rows=await r.json();
-      if(rows&&rows[0]&&rows[0].data&&Object.keys(rows[0].data).length){
-        return Object.assign({},DEF_SETTINGS,rows[0].data);
+      if(rows&&rows[0]&&rows[0].data){
+        var remote=rows[0].data;
+        if(Object.keys(remote).length>0){
+          /* services, aboutExp, aboutEdu gibi array'leri remote'dan al, gerisini DEF ile doldur */
+          var merged=Object.assign({},DEF_SETTINGS,remote);
+          return merged;
+        }
       }
     }
-  }catch(e){console.warn('Supabase yüklenemedi, default kullanılıyor',e);}
+  }catch(e){
+    console.warn('Supabase yüklenemedi:',e);
+  }
   return JSON.parse(JSON.stringify(DEF_SETTINGS));
 }
 
 async function saveS(data){
   try{
-    /* Önce update dene, yoksa insert */
     var r=await sbFetch('/rest/v1/settings?id=eq.main',{
       method:'PATCH',
       body:JSON.stringify({data:data,updated_at:new Date().toISOString()})
     });
-    if(!r.ok){
-      await sbFetch('/rest/v1/settings',{
+    if(r.ok){
+      console.log('✓ Supabase kayıt başarılı, status:',r.status);
+    } else {
+      var errText=await r.text();
+      console.error('Supabase PATCH hatası:',r.status,errText);
+      /* Satır yoksa insert */
+      var r2=await sbFetch('/rest/v1/settings',{
         method:'POST',
         body:JSON.stringify({id:'main',data:data})
       });
+      console.log('INSERT sonucu:',r2.status,await r2.text());
     }
-  }catch(e){console.error('Supabase kayıt hatası',e);}
+  }catch(e){console.error('Supabase kayıt hatası:',e);}
 }
 
 /* SETTINGS başlangıçta boş, async olarak yüklenir */
@@ -847,8 +859,8 @@ function renderGallery(){
   /* Kolaj — tüm kapak görsellerini topla, çift sayıya tamamla, sonsuz döngü için ikile */
   buildCollage();
 
-  document.getElementById('hcount').textContent=n;
-  applySettings();
+  var hc=document.getElementById('hcount');
+  if(hc) hc.textContent=n;
 }
 
 function buildCollage(){
