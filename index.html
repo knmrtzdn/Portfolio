@@ -119,6 +119,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .proj-card-title em{font-style:italic;color:var(--gold2);}
 .proj-card-badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
 .proj-card-badge{background:rgba(184,146,74,.12);border:1px solid rgba(184,146,74,.25);color:var(--gold2);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;}
+/* Video rozeti */
+.proj-card-play{position:absolute;top:16px;right:16px;width:36px;height:36px;color:var(--gold2);opacity:.85;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));transition:opacity .2s;}
+.proj-card-play svg{width:100%;height:100%;}
+.proj-card:hover .proj-card-play{opacity:1;}
 /* Tek satır tam genişlik için büyük kart */
 .proj-card.wide{grid-column:span 2;aspect-ratio:21/9;}
 
@@ -847,7 +851,9 @@ function renderGallery(){
     var tags=(p.tags||[]).map(function(t){return '<span class="proj-card-badge">'+t+'</span>';}).join('');
     var num=pad(i+1);
     var objPos=p.coverPosition||'center center';
+    var hasVideo=(p.blocks||[]).some(function(b){return b.type==='video'&&(b.url||'').trim();});
     card.innerHTML='<img src="'+p.cover+'" alt="'+p.title+'" style="object-position:'+objPos+';">'
+      +(hasVideo?'<div class="proj-card-play"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg></div>':'')
       +'<div class="proj-card-info">'
       +'<div class="proj-card-num">'+num+' / '+pad(n)+'&nbsp;&nbsp;·&nbsp;&nbsp;'+p.tag+'</div>'
       +'<div class="proj-card-title">'+p.title+' <em>'+p.subtitle+'</em></div>'
