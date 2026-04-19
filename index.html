@@ -1110,21 +1110,21 @@ function admAbout(){
   b.innerHTML='<div class="aform">'
     +'<div class="aform-title">Hakkımda İçeriği</div>'
     +'<div class="frow"><label class="flabel">Fotoğraf URL</label>'
-    +'<input class="finput" id="ab-photo" value="'+esc(S.photoAbout||DEF_SETTINGS.photoAbout)+'">'
+    +'<input class="finput" id="adm-ab-photo" value="'+esc(S.photoAbout||DEF_SETTINGS.photoAbout)+'">'
     +'</div>'
     +'<div class="frow2">'
-    +'<div class="frow"><label class="flabel">Rozet Sayı (örn: 8+)</label><input class="finput" id="ab-badgenum" value="'+esc(S.aboutBadgeNum||DEF_SETTINGS.aboutBadgeNum)+'"></div>'
-    +'<div class="frow"><label class="flabel">Rozet Etiket</label><input class="finput" id="ab-badgelbl" value="'+esc(S.aboutBadgeLabel||DEF_SETTINGS.aboutBadgeLabel)+'"></div>'
+    +'<div class="frow"><label class="flabel">Rozet Sayı (örn: 8+)</label><input class="finput" id="adm-ab-badgenum" value="'+esc(S.aboutBadgeNum||DEF_SETTINGS.aboutBadgeNum)+'"></div>'
+    +'<div class="frow"><label class="flabel">Rozet Etiket</label><input class="finput" id="adm-ab-badgelbl" value="'+esc(S.aboutBadgeLabel||DEF_SETTINGS.aboutBadgeLabel)+'"></div>'
     +'</div>'
-    +'<div class="frow"><label class="flabel">Motto / Alıntı</label><textarea class="ftextarea" id="ab-quote" rows="2">'+esc(S.aboutQuote||DEF_SETTINGS.aboutQuote)+'</textarea></div>'
-    +'<div class="frow"><label class="flabel">İsim & Ünvan Satırı</label><input class="finput" id="ab-name" value="'+esc(S.aboutName||DEF_SETTINGS.aboutName)+'"></div>'
-    +'<div class="frow"><label class="flabel">Biyografi Metni</label><textarea class="ftextarea" id="ab-bio" rows="4">'+esc(S.aboutBio||DEF_SETTINGS.aboutBio)+'</textarea></div>'
-    +'<div class="frow"><label class="flabel">Yazılımlar <span class="fnote">(virgülle ayır)</span></label><input class="finput" id="ab-softs" value="'+esc(S.aboutSofts||DEF_SETTINGS.aboutSofts)+'"></div>'
+    +'<div class="frow"><label class="flabel">Motto / Alıntı</label><textarea class="ftextarea" id="adm-ab-quote" rows="2">'+esc(S.aboutQuote||DEF_SETTINGS.aboutQuote)+'</textarea></div>'
+    +'<div class="frow"><label class="flabel">İsim & Ünvan Satırı</label><input class="finput" id="adm-ab-name" value="'+esc(S.aboutName||DEF_SETTINGS.aboutName)+'"></div>'
+    +'<div class="frow"><label class="flabel">Biyografi Metni</label><textarea class="ftextarea" id="adm-ab-bio" rows="4">'+esc(S.aboutBio||DEF_SETTINGS.aboutBio)+'</textarea></div>'
+    +'<div class="frow"><label class="flabel">Yazılımlar <span class="fnote">(virgülle ayır)</span></label><input class="finput" id="adm-ab-softs" value="'+esc(S.aboutSofts||DEF_SETTINGS.aboutSofts)+'"></div>'
     /* CV */
     +'<div class="frow"><label class="flabel" style="color:var(--gold2);">CV İndirme Butonu</label></div>'
     +'<div class="frow2">'
-    +'<div class="frow"><label class="flabel">CV Dosya URL / Google Drive Linki</label><input class="finput" id="ab-cvurl" value="'+esc(S.cvUrl||'')+'" placeholder="https://drive.google.com/..."></div>'
-    +'<div class="frow"><label class="flabel">Buton Yazısı</label><input class="finput" id="ab-cvlbl" value="'+esc(S.cvLabel||DEF_SETTINGS.cvLabel)+'"></div>'
+    +'<div class="frow"><label class="flabel">CV Dosya URL / Google Drive Linki</label><input class="finput" id="adm-ab-cvurl" value="'+esc(S.cvUrl||'')+'" placeholder="https://drive.google.com/..."></div>'
+    +'<div class="frow"><label class="flabel">Buton Yazısı</label><input class="finput" id="adm-ab-cvlbl" value="'+esc(S.cvLabel||DEF_SETTINGS.cvLabel)+'"></div>'
     +'</div>'
     +'<div class="fnote" style="margin-bottom:16px;">💡 Google Drive: Dosyayı herkese açık paylaş → Paylaşım linkini yapıştır</div>'
     /* Deneyim */
@@ -1185,15 +1185,15 @@ function saveAbout(){
       desc:el.querySelector('.edu-desc')?el.querySelector('.edu-desc').value.trim():''
     });
   });
-  SETTINGS.photoAbout=document.getElementById('ab-photo').value.trim();
-  SETTINGS.aboutBadgeNum=document.getElementById('ab-badgenum').value.trim();
-  SETTINGS.aboutBadgeLabel=document.getElementById('ab-badgelbl').value.trim();
-  SETTINGS.aboutQuote=document.getElementById('ab-quote').value.trim();
-  SETTINGS.aboutName=document.getElementById('ab-name').value.trim();
-  SETTINGS.aboutBio=document.getElementById('ab-bio').value.trim();
-  SETTINGS.aboutSofts=document.getElementById('ab-softs').value.trim();
-  SETTINGS.cvUrl=document.getElementById('ab-cvurl').value.trim();
-  SETTINGS.cvLabel=document.getElementById('ab-cvlbl').value.trim();
+  SETTINGS.photoAbout=document.getElementById('adm-ab-photo').value.trim();
+  SETTINGS.aboutBadgeNum=document.getElementById('adm-ab-badgenum').value.trim();
+  SETTINGS.aboutBadgeLabel=document.getElementById('adm-ab-badgelbl').value.trim();
+  SETTINGS.aboutQuote=document.getElementById('adm-ab-quote').value.trim();
+  SETTINGS.aboutName=document.getElementById('adm-ab-name').value.trim();
+  SETTINGS.aboutBio=document.getElementById('adm-ab-bio').value.trim();
+  SETTINGS.aboutSofts=document.getElementById('adm-ab-softs').value.trim();
+  SETTINGS.cvUrl=document.getElementById('adm-ab-cvurl').value.trim();
+  SETTINGS.cvLabel=document.getElementById('adm-ab-cvlbl').value.trim();
   SETTINGS.aboutExp=fExp;SETTINGS.aboutEdu=fEdu;
   applySettings();
   var m=document.getElementById('ab-saved');
