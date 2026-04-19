@@ -960,6 +960,8 @@ function renderBlocks(blocks){
       if(!items.length)return '';
       var cols=b.cols||'auto';
       var ar=b.aspectRatio||'natural';
+      /* custom ise arW/arH'tan hesapla */
+      if(ar==='custom') ar=(b.arW&&b.arH)?(b.arW+'/'+b.arH):'natural';
       var gap=b.gap||'4';
       var gc=cols==='auto'?(items.length===1?'1fr':items.length===3?'repeat(3,1fr)':'repeat(2,1fr)'):'repeat('+cols+',1fr)';
       return '<div class="pb-imgrid" style="grid-template-columns:'+gc+';gap:'+gap+'px;">'
@@ -989,7 +991,9 @@ function renderBlocks(blocks){
     }
     if(b.type==='video'){
       var src=b.url||'';if(!src)return '';
-      var ar2=b.aspectRatio||'16/9';var embed='';
+      var ar2=b.aspectRatio||'16/9';
+      if(ar2==='custom') ar2=(b.arW&&b.arH)?(b.arW+'/'+b.arH):'16/9';
+      var embed='';
       var yt=src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
       var isShorts=src.includes('/shorts/');
       if(isShorts&&(!b.aspectRatio||b.aspectRatio==='16/9')) ar2='9/16';
@@ -1435,8 +1439,18 @@ function renderBlocksList(){
       inner+='<div class="block-style-row" style="margin-top:12px;">'
         +'<div class="bsfield"><label class="flabel">Sütun</label><select class="bsselect" onchange="fBlocks['+i+'].cols=this.value">'
         +[['auto','Oto'],['1','1'],['2','2'],['3','3'],['4','4']].map(function(c){return '<option value="'+c[0]+'"'+((b.cols||'auto')===c[0]?' selected':'')+'>'+c[1]+'</option>';}).join('')+'</select></div>'
-        +'<div class="bsfield"><label class="flabel">Görsel Oranı</label><select class="bsselect" onchange="fBlocks['+i+'].aspectRatio=this.value">'
-        +[['natural','Orijinal (W/H kullan)'],['16/9','16:9'],['4/3','4:3'],['1/1','1:1 Kare'],['3/2','3:2'],['3/4','3:4 Dikey'],['9/16','9:16']].map(function(ar){return '<option value="'+ar[0]+'"'+((b.aspectRatio||'natural')===ar[0]?' selected':'')+'>'+ar[1]+'</option>';}).join('')+'</select></div>'
+        +'<div class="bsfield"><label class="flabel">Görsel Oranı</label>'
+        +'<select class="bsselect" id="ar-sel-'+i+'" onchange="onArChange('+i+',this.value,\'images\')">'
+        +[['natural','Orijinal'],['16/9','16:9'],['4/3','4:3'],['1/1','1:1 Kare'],['3/2','3:2'],['3/4','3:4 Dikey'],['9/16','9:16'],['custom','Özel W:H']].map(function(ar){return '<option value="'+ar[0]+'"'+((b.aspectRatio||'natural')===ar[0]?' selected':'')+'>'+ar[1]+'</option>';}).join('')
+        +'</select></div>'
+        +'<div class="bsfield ar-custom-'+i+'" style="'+(b.aspectRatio==='custom'?'':'display:none;')+'">'
+        +'<label class="flabel">Genişlik</label>'
+        +'<input class="finput" type="number" min="1" placeholder="örn: 16" value="'+(b.arW||'')+'" oninput="fBlocks['+i+'].arW=this.value;updateCustomAr('+i+')">'
+        +'</div>'
+        +'<div class="bsfield ar-custom2-'+i+'" style="'+(b.aspectRatio==='custom'?'':'display:none;')+'">'
+        +'<label class="flabel">Yükseklik</label>'
+        +'<input class="finput" type="number" min="1" placeholder="örn: 9" value="'+(b.arH||'')+'" oninput="fBlocks['+i+'].arH=this.value;updateCustomAr('+i+')">'
+        +'</div>'
         +'<div class="bsfield"><label class="flabel">Boşluk</label><select class="bsselect" onchange="fBlocks['+i+'].gap=this.value">'
         +['0','2','4','8','12','16','24'].map(function(g){return '<option value="'+g+'"'+((b.gap||'4')===g?' selected':'')+'>'+g+'px</option>';}).join('')+'</select></div>'
         +'</div>';
@@ -1444,13 +1458,41 @@ function renderBlocksList(){
         +'<div class="fnote">Behance görselinde sağ tık → Görsel adresini kopyala</div>';
     } else {
       inner+='<input class="finput" placeholder="YouTube / Vimeo / .mp4 linki" value="'+esc(b.url||'')+'" oninput="fBlocks['+i+'].url=this.value">';
-      inner+='<div class="block-style-row" style="margin-top:10px;"><div class="bsfield"><label class="flabel">Video Oranı</label><select class="bsselect" onchange="fBlocks['+i+'].aspectRatio=this.value">'
-        +[['16/9','16:9'],['4/3','4:3'],['21/9','21:9 Geniş'],['9/16','9:16 Dikey']].map(function(ar){return '<option value="'+ar[0]+'"'+((b.aspectRatio||'16/9')===ar[0]?' selected':'')+'>'+ar[1]+'</option>';}).join('')+'</select></div></div>';
+      inner+='<div class="block-style-row" style="margin-top:10px;">'
+        +'<div class="bsfield"><label class="flabel">Video Oranı</label>'
+        +'<select class="bsselect" id="ar-sel-v'+i+'" onchange="onArChange('+i+',this.value,\'video\')">'
+        +[['16/9','16:9'],['4/3','4:3'],['21/9','21:9 Geniş'],['9/16','9:16 Dikey'],['custom','Özel W:H']].map(function(ar){return '<option value="'+ar[0]+'"'+((b.aspectRatio||'16/9')===ar[0]?' selected':'')+'>'+ar[1]+'</option>';}).join('')
+        +'</select></div>'
+        +'<div class="bsfield ar-custom-v'+i+'" style="'+(b.aspectRatio==='custom'?'':'display:none;')+'">'
+        +'<label class="flabel">Genişlik</label>'
+        +'<input class="finput" type="number" min="1" placeholder="örn: 16" value="'+(b.arW||'')+'" oninput="fBlocks['+i+'].arW=this.value;updateCustomArV('+i+')">'
+        +'</div>'
+        +'<div class="bsfield ar-custom2-v'+i+'" style="'+(b.aspectRatio==='custom'?'':'display:none;')+'">'
+        +'<label class="flabel">Yükseklik</label>'
+        +'<input class="finput" type="number" min="1" placeholder="örn: 9" value="'+(b.arH||'')+'" oninput="fBlocks['+i+'].arH=this.value;updateCustomArV('+i+')">'
+        +'</div>'
+        +'</div>';
     }
     div.innerHTML=inner;c.appendChild(div);
   });
 }
 
+function onArChange(i,val,type){
+  fBlocks[i].aspectRatio=val;
+  var suffix=type==='video'?'-v':'';
+  var c1=document.querySelector('.ar-custom'+suffix+'-'+i);
+  var c2=document.querySelector('.ar-custom2'+suffix+'-'+i);
+  if(c1)c1.style.display=val==='custom'?'':'none';
+  if(c2)c2.style.display=val==='custom'?'':'none';
+}
+function updateCustomAr(i){
+  var w=fBlocks[i].arW,h=fBlocks[i].arH;
+  if(w&&h) fBlocks[i].aspectRatio=w+'/'+h;
+}
+function updateCustomArV(i){
+  var w=fBlocks[i].arW,h=fBlocks[i].arH;
+  if(w&&h) fBlocks[i].aspectRatio=w+'/'+h;
+}
 function addBlock(type){
   if(type==='text')fBlocks.push({type:'text',content:''});
   else if(type==='images')fBlocks.push({type:'images',urls:['']});
