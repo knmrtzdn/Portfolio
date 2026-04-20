@@ -1038,7 +1038,14 @@ function renderBlocks(blocks){
       }
       else if(vm)embed='<iframe src="https://player.vimeo.com/video/'+vm[1]+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
       else embed='<video controls style="width:100%;height:100%;"><source src="'+src+'"></video>';
-      var videoEl='<div class="pb-video" style="aspect-ratio:'+ar2+'">'+embed+'</div>';
+      /* Max genişlik/yükseklik */
+      var maxW=b.maxW?parseInt(b.maxW):0;
+      var maxH=b.maxH?parseInt(b.maxH):0;
+      var wrapSt='';
+      if(maxW) wrapSt+='max-width:'+maxW+'px;';
+      if(maxH) wrapSt+='max-height:'+maxH+'px;';
+      if(maxW||maxH) wrapSt+='margin:0 auto;';
+      var videoEl='<div style="'+wrapSt+'"><div class="pb-video" style="aspect-ratio:'+ar2+'">'+embed+'</div></div>';
       /* Yan yazı layout */
       if(b.sideText&&b.sideText.trim()){
         var ff=b.sideTextFont==='playfair'?'\'Playfair Display\',serif':'\'Outfit\',sans-serif';
@@ -1051,10 +1058,6 @@ function renderBlocks(blocks){
           +'<div class="pb-video-side-vid">'+videoEl+'</div>'
           +'<div class="pb-video-side-txt" style="'+txtSt+'">'+b.sideText.replace(/\n/g,'<br>')+'</div>'
           +'</div>';
-      }
-      /* Shorts tek başına: ortala */
-      if(isShorts&&(!b.sideText)){
-        return '<div style="display:flex;justify-content:center;">'+videoEl+'</div>';
       }
       return videoEl;
     }
@@ -1539,15 +1542,21 @@ function renderBlocksList(){
       inner+='<div class="block-style-row" style="margin-top:10px;">'
         +'<div class="bsfield"><label class="flabel">Video Oranı</label>'
         +'<select class="bsselect" onchange="onArChange('+i+',this.value,\'video\')">'
-        +[['16/9','16:9'],['4/3','4:3'],['21/9','21:9 Geniş'],['9/16','9:16 Dikey'],['custom','Özel W:H']].map(function(ar){return '<option value="'+ar[0]+'"'+((b.aspectRatio||'16/9')===ar[0]?' selected':'')+'>'+ar[1]+'</option>';}).join('')
+        +[['16/9','16:9'],['4/3','4:3'],['21/9','21:9 Geniş'],['9/16','9:16 Dikey'],['custom','Özel Oran']].map(function(ar){return '<option value="'+ar[0]+'"'+((b.aspectRatio||'16/9')===ar[0]?' selected':'')+'>'+ar[1]+'</option>';}).join('')
         +'</select></div>'
         +'<div class="bsfield" id="ar-cust-v-'+i+'-w" style="'+(b.aspectRatio==='custom'?'':'display:none;')+'">'
-        +'<label class="flabel">Genişlik</label>'
+        +'<label class="flabel">Oran Genişlik</label>'
         +'<input class="finput" type="number" min="1" placeholder="16" value="'+(b.arW||'')+'" oninput="fBlocks['+i+'].arW=this.value;updateCustomArV('+i+')">'
         +'</div>'
         +'<div class="bsfield" id="ar-cust-v-'+i+'-h" style="'+(b.aspectRatio==='custom'?'':'display:none;')+'">'
-        +'<label class="flabel">Yükseklik</label>'
+        +'<label class="flabel">Oran Yükseklik</label>'
         +'<input class="finput" type="number" min="1" placeholder="9" value="'+(b.arH||'')+'" oninput="fBlocks['+i+'].arH=this.value;updateCustomArV('+i+')">'
+        +'</div>'
+        +'<div class="bsfield"><label class="flabel">Max Genişlik (px)</label>'
+        +'<input class="finput" type="number" min="1" placeholder="boş=tam" value="'+(b.maxW||'')+'" oninput="fBlocks['+i+'].maxW=this.value">'
+        +'</div>'
+        +'<div class="bsfield"><label class="flabel">Max Yükseklik (px)</label>'
+        +'<input class="finput" type="number" min="1" placeholder="boş=oto" value="'+(b.maxH||'')+'" oninput="fBlocks['+i+'].maxH=this.value">'
         +'</div>'
         +'</div>'
       // Yan yazı
