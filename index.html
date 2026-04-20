@@ -432,7 +432,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
     <!-- Sağ CTA -->
     <div class="w-cta-right">
       <button class="cta-primary s-cta-btn" onclick="go('projects')">Projeleri İncele →</button>
-      <span class="cta-sub">8 Proje</span>
+      <span class="cta-sub" id="cta-proj-count">— Proje</span>
     </div>
     <!-- Sağ panel artık yok -->
     <div class="wright"></div>
@@ -900,6 +900,8 @@ function renderGallery(){
 
   var hc=document.getElementById('hcount');
   if(hc) hc.textContent=n;
+  var cc=document.getElementById('cta-proj-count');
+  if(cc) cc.textContent=n+' Proje';
 }
 
 function buildCollage(){
