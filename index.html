@@ -153,10 +153,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .pb-video iframe,.pb-video video{position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:block;}
 .pb-video-short{max-width:480px;margin:0 auto;}
 /* Yan yazı layout */
-.pb-video-side{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:start;}
-.pb-video-side-vid{width:min(340px,45%);flex-shrink:0;}
-.pb-video-side-txt{padding-top:8px;}
-@media(max-width:700px){.pb-video-side{grid-template-columns:1fr;}.pb-video-side-vid{width:100%;max-width:360px;margin:0 auto;}}
+.pb-video-side{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+.pb-video-side-vid{min-width:0;}
+.pb-video-side-txt{min-width:0;padding-top:8px;}
+@media(max-width:700px){.pb-video-side{grid-template-columns:1fr;gap:24px;}}
 /* Zoom */
 #img-zoom{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;cursor:zoom-out;}
 #img-zoom.on{display:flex;}
@@ -1054,7 +1054,9 @@ function renderBlocks(blocks){
         var fc=b.sideTextColor||'rgba(255,255,255,0.5)';
         var fi=b.sideTextItalic?'italic':'normal';
         var txtSt='font-family:'+ff+';font-size:'+fs+'rem;font-weight:'+fw+';font-style:'+fi+';color:'+fc+';line-height:1.9;';
-        return '<div class="pb-video-side">'
+        /* Dikey video ise dar sütun, yatay ise eşit */
+        var gridCols=(ar2==='9/16'||ar2==='3/4')?'1fr 2fr':'1fr 1fr';
+        return '<div class="pb-video-side" style="grid-template-columns:'+gridCols+';">'
           +'<div class="pb-video-side-vid">'+videoEl+'</div>'
           +'<div class="pb-video-side-txt" style="'+txtSt+'">'+b.sideText.replace(/\n/g,'<br>')+'</div>'
           +'</div>';
