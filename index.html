@@ -152,6 +152,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .pb-video{width:100%;overflow:hidden;position:relative;background:transparent;}
 .pb-video iframe,.pb-video video{position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:block;}
 .pb-video-short{max-width:480px;margin:0 auto;}
+/* Yan yazı layout */
+.pb-video-side{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:start;}
+.pb-video-side-vid{width:min(340px,45%);flex-shrink:0;}
+.pb-video-side-txt{padding-top:8px;}
+@media(max-width:700px){.pb-video-side{grid-template-columns:1fr;}.pb-video-side-vid{width:100%;max-width:360px;margin:0 auto;}}
 /* Zoom */
 #img-zoom{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;cursor:zoom-out;}
 #img-zoom.on{display:flex;}
@@ -1031,13 +1036,25 @@ function renderBlocks(blocks){
       }
       else if(vm)embed='<iframe src="https://player.vimeo.com/video/'+vm[1]+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
       else embed='<video controls style="width:100%;height:100%;"><source src="'+src+'"></video>';
-      /* Shorts: dar panel içinde ortala */
-      if(isShorts){
-        return '<div style="display:flex;justify-content:center;">'
-          +'<div class="pb-video" style="width:min(480px,100%);aspect-ratio:'+ar2+'">'+embed+'</div>'
+      var videoEl='<div class="pb-video" style="aspect-ratio:'+ar2+'">'+embed+'</div>';
+      /* Yan yazı layout */
+      if(b.sideText&&b.sideText.trim()){
+        var ff=b.sideTextFont==='playfair'?'\'Playfair Display\',serif':'\'Outfit\',sans-serif';
+        var fs=b.sideTextSize||'0.88';
+        var fw=b.sideTextWeight||'300';
+        var fc=b.sideTextColor||'rgba(255,255,255,0.5)';
+        var fi=b.sideTextItalic?'italic':'normal';
+        var txtSt='font-family:'+ff+';font-size:'+fs+'rem;font-weight:'+fw+';font-style:'+fi+';color:'+fc+';line-height:1.9;';
+        return '<div class="pb-video-side">'
+          +'<div class="pb-video-side-vid">'+videoEl+'</div>'
+          +'<div class="pb-video-side-txt" style="'+txtSt+'">'+b.sideText.replace(/\n/g,'<br>')+'</div>'
           +'</div>';
       }
-      return '<div class="pb-video" style="aspect-ratio:'+ar2+'">'+embed+'</div>';
+      /* Shorts tek başına: ortala */
+      if(isShorts&&(!b.sideText)){
+        return '<div style="display:flex;justify-content:center;">'+videoEl+'</div>';
+      }
+      return videoEl;
     }
     return '';
   }).join('');
@@ -1530,7 +1547,31 @@ function renderBlocksList(){
         +'<label class="flabel">Yükseklik</label>'
         +'<input class="finput" type="number" min="1" placeholder="9" value="'+(b.arH||'')+'" oninput="fBlocks['+i+'].arH=this.value;updateCustomArV('+i+')">'
         +'</div>'
-        +'</div>';
+        +'</div>'
+      // Yan yazı
+      +'<div class="frow" style="margin-top:10px;">'
+      +'<label class="flabel">Yan Yazı <span class="fnote">(boş bırakırsan video tam genişlik, doldurursan sol video / sağ yazı)</span></label>'
+      +'<textarea class="ftextarea block-textarea" rows="4" placeholder="Video yanında gösterilecek metin..." oninput="fBlocks['+i+'].sideText=this.value">'+esc(b.sideText||'')+'</textarea>'
+      +'</div>'
+      +'<div class="block-style-row">'
+      +'<div class="bsfield"><label class="flabel">Yan Yazı Tipi</label><select class="bsselect" onchange="fBlocks['+i+'].sideTextFont=this.value">'
+      +'<option value="outfit"'+(!b.sideTextFont||b.sideTextFont==='outfit'?' selected':'')+'>Outfit</option>'
+      +'<option value="playfair"'+(b.sideTextFont==='playfair'?' selected':'')+'>Playfair</option>'
+      +'</select></div>'
+      +'<div class="bsfield"><label class="flabel">Boyut</label><select class="bsselect" onchange="fBlocks['+i+'].sideTextSize=this.value">'
+      +['0.72','0.80','0.88','0.96','1.05','1.2','1.5'].map(function(v){return '<option value="'+v+'"'+(b.sideTextSize===v?' selected':(!b.sideTextSize&&v==='0.88'?' selected':''))+'>'+v+'rem</option>';}).join('')
+      +'</select></div>'
+      +'<div class="bsfield"><label class="flabel">Kalınlık</label><select class="bsselect" onchange="fBlocks['+i+'].sideTextWeight=this.value">'
+      +[['200','İnce'],['300','Light'],['400','Normal'],['500','Orta']].map(function(fw){return '<option value="'+fw[0]+'"'+(b.sideTextWeight===fw[0]?' selected':(!b.sideTextWeight&&fw[0]==='300'?' selected':''))+'>'+fw[1]+'</option>';}).join('')
+      +'</select></div>'
+      +'<div class="bsfield"><label class="flabel">Renk</label><select class="bsselect" onchange="fBlocks['+i+'].sideTextColor=this.value">'
+      +[['rgba(255,255,255,0.5)','Açık gri'],['rgba(255,255,255,0.75)','Beyaz'],['rgba(255,255,255,0.25)','Soluk'],['#d4aa68','Altın'],['#f7f2ea','Krem']].map(function(fc){return '<option value="'+fc[0]+'"'+(b.sideTextColor===fc[0]?' selected':(!b.sideTextColor&&fc[0]==='rgba(255,255,255,0.5)'?' selected':''))+'>'+fc[1]+'</option>';}).join('')
+      +'</select></div>'
+      +'<div class="bsfield"><label class="flabel">Stil</label><select class="bsselect" onchange="fBlocks['+i+'].sideTextItalic=(this.value===\'1\')">'
+      +'<option value="0"'+(b.sideTextItalic?'':' selected')+'>Normal</option>'
+      +'<option value="1"'+(b.sideTextItalic?' selected':'')+'>İtalik</option>'
+      +'</select></div>'
+      +'</div>';
     }
     div.innerHTML=inner;c.appendChild(div);
   });
