@@ -13,7 +13,19 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font
 ::-webkit-scrollbar{width:2px;height:2px;}
 ::-webkit-scrollbar-thumb{background:var(--line);border-radius:1px;}
 
-/* NAV */
+/* FOOTER */
+#site-footer{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  height:32px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:rgba(247,242,234,.92);backdrop-filter:blur(12px);
+  border-top:1px solid var(--line);
+  font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--stone);
+  pointer-events:none;
+}
+.footer-sep{color:var(--gold);opacity:.5;}
+.footer-name{color:var(--ink);font-weight:500;}
 nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(247,242,234,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);}
 .logo{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;letter-spacing:.04em;color:var(--ink);cursor:pointer;display:flex;align-items:baseline;gap:3px;white-space:nowrap;}
 .logo-dot{color:var(--gold);font-size:1.2rem;line-height:0;margin-bottom:-2px;}
@@ -25,7 +37,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .navlinks a.on::after{transform:scaleX(1);}
 
 /* PAGES */
-.page{position:fixed;inset:0;padding-top:56px;opacity:0;pointer-events:none;transition:opacity .4s ease;overflow-y:auto;background:var(--bg);}
+.page{position:fixed;inset:0;padding-top:56px;padding-bottom:32px;opacity:0;pointer-events:none;transition:opacity .4s ease;overflow-y:auto;background:var(--bg);}
 .page.on{opacity:1;pointer-events:all;}
 
 /* WELCOME */
@@ -542,6 +554,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
         </div>
       </div>
       <div class="ct-right">
+        <!-- Render görseli (panelden açılıp kapanabilir) -->
+        <div id="ct-render-wrap" style="display:none;margin-bottom:32px;">
+          <img id="ct-render-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;filter:sepia(6%) saturate(80%) brightness(90%);">
+        </div>
         <div class="ct-tagline" id="ct-tagline">Her ürünün<br>bir <em>hikâyesi</em> vardır.</div>
         <div class="ct-avail"><span class="ct-avail-dot"></span><span id="ct-avail-text">Yeni Projeye Açık</span></div>
       </div>
@@ -549,7 +565,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
   </div>
 </div>
 
-<!-- ADMİN GİRİŞ -->
+<footer id="site-footer">
+  <span id="footer-text">Design &amp; Development by KAAN MURAT ÖZDEN</span>
+  <span class="footer-sep">·</span>
+  <span class="footer-year" id="footer-year">2025</span>
+</footer>
 <div id="login-overlay">
   <div class="login-box">
     <div class="login-deco">⚙</div>
@@ -681,7 +701,11 @@ var DEF_SETTINGS={
   contactTagline:'Her ürünün bir hikâyesi vardır.',contactAvail:'Yeni Projeye Açık',
   contactEmail:'kaanmuratozden@gmail.com',
   contactBehance:'https://www.behance.net/kaanozden',
-  contactLinkedin:'http://linkedin.com/in/kaan-murat-özden-a264221b2'
+  contactLinkedin:'http://linkedin.com/in/kaan-murat-özden-a264221b2',
+  footerVisible:true,
+  footerText:'Design & Development by KAAN MURAT ÖZDEN',
+  contactRenderUrl:'',
+  contactRenderVisible:false
 };
 /* ══ SUPABASE ══ */
 var SB_URL='https://ugqagivocmdvdvplxkrc.supabase.co';
@@ -764,8 +788,23 @@ function applySettings(){
     b.textContent=SETTINGS.homeCta||DEF_SETTINGS.homeCta;
   });
 
-  /* Hizmetler */
-  renderServices();
+  /* Footer */
+  var ft=document.getElementById('site-footer');
+  var ftxt=document.getElementById('footer-text');
+  if(ft){ft.style.display=(SETTINGS.footerVisible===false)?'none':'flex';}
+  if(ftxt)ftxt.textContent=SETTINGS.footerText||DEF_SETTINGS.footerText;
+  /* İletişim render */
+  var crw=document.getElementById('ct-render-wrap');
+  var cri=document.getElementById('ct-render-img');
+  if(crw&&cri){
+    var show=SETTINGS.contactRenderVisible&&SETTINGS.contactRenderUrl;
+    crw.style.display=show?'block':'none';
+    if(show)cri.src=SETTINGS.contactRenderUrl;
+    var ctag2=document.getElementById('ct-tagline');
+    var cav2=document.querySelector('.ct-avail');
+    if(ctag2)ctag2.style.display=show?'none':'';
+    if(cav2)cav2.style.display=show?'none':'';
+  }
 
   /* Hakkımda */
   renderAbout();
@@ -1293,6 +1332,15 @@ function admContact(){
     +'<div class="frow"><label class="flabel">E-posta</label><input class="finput" id="ct-email" value="'+esc(S.contactEmail||DEF_SETTINGS.contactEmail)+'"></div>'
     +'<div class="frow"><label class="flabel">Behance URL</label><input class="finput" id="ct-beh" value="'+esc(S.contactBehance||DEF_SETTINGS.contactBehance)+'"></div>'
     +'<div class="frow"><label class="flabel">LinkedIn URL</label><input class="finput" id="ct-lin" value="'+esc(S.contactLinkedin||DEF_SETTINGS.contactLinkedin)+'"></div>'
+    +'<div class="aform-title" style="margin-top:12px;">Sağ Taraf — Render Görseli</div>'
+    +'<div class="frow"><label class="flabel">Render Görünürlük</label>'
+    +'<select class="bsselect finput" id="ct-render-vis" style="padding:9px 0;">'
+    +'<option value="0"'+((!SETTINGS.contactRenderVisible)?' selected':'')+'>Gizle (tagline + durum göster)</option>'
+    +'<option value="1"'+((SETTINGS.contactRenderVisible)?' selected':'')+'>Render göster</option>'
+    +'</select></div>'
+    +'<div class="frow"><label class="flabel">Render URL</label>'
+    +'<input class="finput" id="ct-render-url" value="'+esc(SETTINGS.contactRenderUrl||'')+'" placeholder="https://... render görseli"></div>'
+    +'<div class="fnote">💡 Render seçilince tagline ve durum etiketi gizlenir, render görseli kaplar.</div>'
     +'<div class="brow" style="margin-top:16px;"><button class="save-btn" onclick="saveContact()">Kaydet &amp; Uygula</button></div>'
     +'<div id="ct-saved" style="display:none;margin-top:10px;font-size:.7rem;color:var(--gold2);">✓ Kaydedildi</div>'
     +'</div>';
@@ -1306,6 +1354,10 @@ function saveContact(){
   SETTINGS.contactEmail=document.getElementById('ct-email').value.trim();
   SETTINGS.contactBehance=document.getElementById('ct-beh').value.trim();
   SETTINGS.contactLinkedin=document.getElementById('ct-lin').value.trim();
+  var crv=document.getElementById('ct-render-vis');
+  var cru=document.getElementById('ct-render-url');
+  if(crv)SETTINGS.contactRenderVisible=(crv.value==='1');
+  if(cru)SETTINGS.contactRenderUrl=cru.value.trim();
   applySettings();
   var m=document.getElementById('ct-saved');
   if(m){m.textContent='Kaydediliyor...';m.style.display='block';}
@@ -1353,7 +1405,18 @@ function admSettings(){
     +'<div class="settings-photo-label" style="color:var(--gold2);">ℹ Studio Sağ Taraf — Otomatik Kolaj</div>'
     +'<div class="fnote" style="color:rgba(255,255,255,.3);margin-top:4px;">Sağ taraftaki animasyonlu render kolajı, projelerin kapak görsellerinden otomatik oluşturuluyor. Proje ekledikçe veya düzenledikçe güncellenyor — ayrıca bir ayar gerekmez.</div>'
     +'</div>'
-    +'<div class="settings-photo-block" style="margin-top:16px;border:1px solid rgba(255,160,0,.2);padding:14px;">'
+    +'<div class="settings-photo-block" style="margin-top:16px;">'
+    +'<div class="settings-photo-label">Footer</div>'
+    +'<div class="frow" style="margin-top:8px;">'
+    +'<label class="flabel">Footer Görünürlük</label>'
+    +'<select class="bsselect finput" id="s-footer-vis" style="padding:9px 0;">'
+    +'<option value="1"'+(SETTINGS.footerVisible!==false?' selected':'')+'>Göster</option>'
+    +'<option value="0"'+(SETTINGS.footerVisible===false?' selected':'')+'>Gizle</option>'
+    +'</select></div>'
+    +'<div class="frow" style="margin-top:8px;">'
+    +'<label class="flabel">Footer Yazısı</label>'
+    +'<input class="finput" id="s-footer-text" value="'+esc(SETTINGS.footerText||DEF_SETTINGS.footerText)+'">'
+    +'</div></div>'
     +'<div class="settings-photo-label" style="color:#f0a030;">⚠ Veri Taşıma</div>'
     +'<div class="fnote" style="color:rgba(255,255,255,.4);margin-top:4px;margin-bottom:12px;">Projeler hâlâ tarayıcıda mı? Buradan tek tıkla Supabase\'e aktar.</div>'
     +'<button class="save-btn" style="background:#8a5a10;" onclick="migrateLocalToSupabase()">Tarayıcıdaki Projeleri Supabase\'e Aktar</button>'
@@ -1392,6 +1455,10 @@ function saveSettings(){
   var pbg=document.getElementById('s-photo-bgrend');
   if(pa)SETTINGS.photoAbout=pa.value.trim();
   if(pbg)SETTINGS.photoBgRender=pbg.value.trim();
+  var fv=document.getElementById('s-footer-vis');
+  var ftxt=document.getElementById('s-footer-text');
+  if(fv)SETTINGS.footerVisible=(fv.value==='1');
+  if(ftxt)SETTINGS.footerText=ftxt.value.trim();
   applySettings();
   var msg=document.getElementById('settings-saved');
   if(msg){msg.textContent='Kaydediliyor...';msg.style.display='block';}
@@ -1695,6 +1762,8 @@ async function handleSubmit(e){
 
 /* ══ INIT ══ */
 (async function(){
+  var fy=document.getElementById('footer-year');
+  if(fy) fy.textContent=new Date().getFullYear();
   /* Önce default ile çiz */
   renderGallery();
   /* Supabase'den paralel yükle */
