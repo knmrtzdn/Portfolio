@@ -1100,11 +1100,19 @@ function renderBlocks(blocks){
         var fc=b.sideTextColor||'rgba(255,255,255,0.5)';
         var fi=b.sideTextItalic?'italic':'normal';
         var txtSt='font-family:'+ff+';font-size:'+fs+'rem;font-weight:'+fw+';font-style:'+fi+';color:'+fc+';line-height:1.9;';
-        /* Dikey video ise dar sütun, yatay ise eşit */
+        var isMobile=window.innerWidth<=768;
+        if(isMobile){
+          /* Mobil: video üstte tam genişlik, yazı altta */
+          return '<div style="display:flex;flex-direction:column;gap:20px;">'
+            +'<div>'+videoEl+'</div>'
+            +'<div style="'+txtSt+'">'+b.sideText.replace(/\n/g,'<br>')+'</div>'
+            +'</div>';
+        }
+        /* Masaüstü: yan yana grid */
         var gridCols=(ar2==='9/16'||ar2==='3/4')?'1fr 2fr':'1fr 1fr';
-        return '<div class="pb-video-side" style="grid-template-columns:'+gridCols+';">'
-          +'<div class="pb-video-side-vid">'+videoEl+'</div>'
-          +'<div class="pb-video-side-txt" style="'+txtSt+'">'+b.sideText.replace(/\n/g,'<br>')+'</div>'
+        return '<div style="display:grid;grid-template-columns:'+gridCols+';gap:40px;align-items:start;">'
+          +'<div style="min-width:0;">'+videoEl+'</div>'
+          +'<div style="min-width:0;padding-top:8px;'+txtSt+'">'+b.sideText.replace(/\n/g,'<br>')+'</div>'
           +'</div>';
       }
       return videoEl;
