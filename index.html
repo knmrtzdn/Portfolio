@@ -902,6 +902,10 @@ function go(name){
   document.getElementById('p-'+name).classList.add('on');
   document.getElementById('n-'+name).classList.add('on');
   curP=name;
+  /* Sayfa açılınca içeriği yenile */
+  if(name==='services')renderServices();
+  if(name==='about')renderAbout();
+  if(name==='contact')renderContact();
 }
 
 /* ══ GALLERY ══ */
