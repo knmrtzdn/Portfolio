@@ -168,7 +168,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;ali
 .pb-video-side{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
 .pb-video-side-vid{min-width:0;}
 .pb-video-side-txt{min-width:0;padding-top:8px;}
-@media(max-width:700px){.pb-video-side{grid-template-columns:1fr;gap:24px;}}
+@media(max-width:768px){
+  .pb-video-side{grid-template-columns:1fr;gap:20px;}
+  .pb-video-side-txt{padding-top:0;}
+}
 /* Zoom */
 #img-zoom{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;cursor:zoom-out;}
 #img-zoom.on{display:flex;}
